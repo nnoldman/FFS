@@ -36,7 +36,7 @@ bool App::initialize() {
 void App::run() {
     while (true) {
         Net.prosess();
-        uPlatform::sleep(5);
+        Platform::sleep(5);
     }
 }
 

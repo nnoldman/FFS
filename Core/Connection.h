@@ -1,24 +1,22 @@
 #pragma once
 #include "Poco\Net\TCPServerConnection.h"
 #include "PKG.h"
-class Connection : public Poco::Net::TCPServerConnection
-{
-public:
-	Connection(const Poco::Net::StreamSocket& s);
+class Connection : public Poco::Net::TCPServerConnection {
+  public:
+    Connection(const Poco::Net::StreamSocket& s);
 
-	~Connection();
+    ~Connection();
 
-	void run();
+    void run();
 
-	inline Poco::Net::StreamSocket& getSocket();
+    inline Poco::Net::StreamSocket& getSocket();
 
-private:
+  private:
 
-	uArray<PKG*> mPKGList;
+    Array<PKG*> mPKGList;
 
-	uString mAddress;
+    uString mAddress;
 };
-inline Poco::Net::StreamSocket& Connection::getSocket()
-{
-	return socket();
+inline Poco::Net::StreamSocket& Connection::getSocket() {
+    return socket();
 }

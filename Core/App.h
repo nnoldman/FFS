@@ -41,6 +41,6 @@ class CX_LIB App {
   private:
     APP_TYPE mType;
     int mServerID;
-    uCommandLine mCommandLine;
+    CommandLine mCommandLine;
 };
 

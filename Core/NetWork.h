@@ -10,11 +10,11 @@
 #include "ConfigInfo.h"
 #include "Poco/Mutex.h"
 
-class CX_LIB NetWork : uCallBack {
+class CX_LIB NetWork : CallbackObject {
   public:
-    uDelegate onMessage;
-    uDelegate onDisconnect;
-    uDelegate onConnect;
+    Delegate onMessage;
+    Delegate onDisconnect;
+    Delegate onConnect;
   public:
     struct MsgArgs : public uEventArgs {
         PKG* pkg;
@@ -51,7 +51,7 @@ class CX_LIB NetWork : uCallBack {
 
     Poco::Mutex mLock;
 
-    uArray<Packet*> mDataArray;
+    Array<Packet*> mDataArray;
 
     Poco::Net::TCPServer* mServer;
 };

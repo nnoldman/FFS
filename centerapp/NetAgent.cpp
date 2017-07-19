@@ -9,7 +9,7 @@ NetAgent::NetAgent() {
 NetAgent::~NetAgent() {
 }
 
-void NetAgent::onCallBack(const uDelegate& d, uEventArgs* e) {
+void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
     if (d == App::Net.onMessage) {
         NetWork::MsgArgs* arg = (NetWork::MsgArgs*)e;
         PKG* pkg = arg->pkg;
@@ -73,7 +73,7 @@ bool NetAgent::on_rqCreateAccount(string user, string psw, Connection* con) {
 
         if (!gateAccount->getDBInterface()->fetchByField(YW_TABLE_ACCOUNT_USER)) {
             gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_PSD, psw);
-            gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_ID, uPlatform::generateGUIDSimpleString());
+            gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_ID, Platform::generateGUIDSimpleString());
 
             //does not exist,create successfully!
             if (gateAccount->getDBInterface()->createAndInsertToDB()) {
@@ -110,7 +110,7 @@ bool NetAgent::on_rqLogin(string user, string psw, Connection* con) {
     if (!gateAccount->getDBInterface()->fetchByField(YW_TABLE_ACCOUNT_USER)) {
         if (App::Config.center.db.autoCreateAccount) {
             gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_PSD, psw);
-            gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_ID, uPlatform::generateGUIDSimpleString());
+            gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_ID, Platform::generateGUIDSimpleString());
 
             //does not exist,create successfully!
             if (gateAccount->getDBInterface()->createAndInsertToDB()) {
@@ -154,5 +154,5 @@ const char* NetAgent::YW_TABLE_ACCOUNT_PSD = "psw";
 
 const char* NetAgent::YW_TABLE_ACCOUNT_ID = "guid";
 
-uMap<Connection*, int> NetAgent::mClients;
+Map<Connection*, int> NetAgent::mClients;
 
