@@ -63,3 +63,13 @@
 /*.userprefs
 /PKG/*.user
 /Debug
+/Core/Debug/*.log
+/Core/Debug/*.idb
+/PKG/Debug/*.idb
+/PKG/Debug/*.log
+/*.opendb
+/Test/Debug/*.log
+/Test/Debug/*.idb
+/centerapp/Debug/*.idb
+/loginapp/Debug/*.log
+/loginapp/Debug/*.idb

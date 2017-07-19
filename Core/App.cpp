@@ -16,7 +16,7 @@ bool App::initialize() {
         mCommandLine.get("serverID", mServerID);
     }
 
-    if (!Config.initialize("..\\config.xml"))
+    if (!Config.initialize("..\\..\\config.xml"))
         return false;
 
     if (!InitNet())
