@@ -98,7 +98,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>Common.lib;PKG.lib;libmysql.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\$(Configuration);..\libs</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\bin\$(Configuration);..\libs;..\LiteLibs</AdditionalLibraryDirectories>
       <IgnoreSpecificDefaultLibraries>
       </IgnoreSpecificDefaultLibraries>
     </Link>
@@ -116,7 +116,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\bin\$(Configuration);..\libs</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\bin\$(Configuration);..\libs;..\LiteLibs</AdditionalLibraryDirectories>
       <AdditionalDependencies>Common.lib;PKG.lib;libmysql.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
