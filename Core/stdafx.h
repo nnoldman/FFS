@@ -20,5 +20,6 @@
 #include "Poco\Net\NetException.h"
 using namespace Poco;
 using namespace Poco::Net;
+#include "Default.h"
 #include "uString.h"
 using namespace Basic;

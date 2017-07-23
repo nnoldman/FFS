@@ -18,9 +18,7 @@ class CX_LIB DBObject :
 
     void requireGUID();
 
-    void updateGUIDByScript();
-
-    virtual void setGuid(const char* guid) override;
+    virtual const char* dbKey();
 
 };
 

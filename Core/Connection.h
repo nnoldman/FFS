@@ -15,7 +15,7 @@ class Connection : public Poco::Net::TCPServerConnection {
 
     Array<PKG*> mPKGList;
 
-    uString mAddress;
+    Basic::uString mAddress;
 };
 inline Poco::Net::StreamSocket& Connection::getSocket() {
     return socket();

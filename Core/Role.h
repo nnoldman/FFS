@@ -13,6 +13,9 @@ class CX_LIB Role :
     ~Role();
 
     void enterScene();
+
+    virtual void createDefine() override;
+
 };
 
 #endif // Role_h__

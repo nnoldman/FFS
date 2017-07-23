@@ -29,7 +29,7 @@ void World::reclaimAccount(Account* account) {
 void World::onEnterWorld(Account* account) {
     assert(mAccounts.find(account->guid()) == mAccounts.end());
     mAccounts.insert(make_pair(account->guid(), account));
-    account->enterGate();
+    account->onEnterGate();
     onAccountEnterWorld.trigger();
 }
 

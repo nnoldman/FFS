@@ -1,19 +1,18 @@
 #ifndef BaseObject_h__
 #define BaseObject_h__
+class DBDefine;
 class CX_LIB BaseObject {
   public:
     BaseObject();
     virtual ~BaseObject();
-    virtual bool init();
+    virtual bool initialize();
     virtual void setGuid(const char* guid);
-    string guid();
-    void setField(const char* name, string& value);
-    void setField(const char* name, const char* value);
-    void setField(const char* name, int value);
-    void setField(const char* name, u32 value);
-    void getField(const char* name, u32& value);
-    void getField(const char* name, string& value);
-    void getField(const char* name, int& value);
+    const char* guid() const;
+    virtual void createDefine() = 0;
+    DBDefine* getDBInterface() const;
+    void setField(const char* key, Value value);
+  protected:
+    DBDefine* mDBInterface;
   private:
     string mGUID;
 };

@@ -1,6 +1,6 @@
 #pragma once
 #include "Connection.h"
-#include "DBInterface.h"
+#include "DBDefine.h"
 #include "BaseObject.h"
 class Role;
 class CX_LIB Account
@@ -8,12 +8,11 @@ class CX_LIB Account
   public:
 
     Account();
-
     ~Account();
 
-    virtual bool init() override;
+    virtual bool initialize() override;
 
-    void enterGate();
+    void onEnterGate();
 
     void onRoleRqEnterWorld(string guid);
 
@@ -21,21 +20,20 @@ class CX_LIB Account
 
     void setConnection(Connection* connect);
 
-    DBInterface* getDBInterface();
-
     void sync(string data);
 
     void enterWorld();
 
     inline Connection* getNetInterface();
 
+
+    virtual void createDefine() override;
+
   protected:
 
     void createRole();
 
   protected:
-
-    DBInterface* mDBInterface;
 
     Role* mActiveRole;
 
