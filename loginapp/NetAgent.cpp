@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "NetAgent.h"
 #include "Account.h"
-
+#include "Command.pb.h"
 
 
 NetAgent::NetAgent() {
@@ -56,15 +56,12 @@ void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
             switch (pkg->childid) {
             case OPCODE::ClientLoginType::RqGameServerInfo: {
                 ClientToLogin_RqGameServerInfo* rq = (ClientToLogin_RqGameServerInfo*)pkg;
-
                 NetConfig* netconfig;
-
                 if (App::Config.center.centers.Get(rq->serverID, netconfig)) {
-                    ClientToLogin_RtGameServerInfo rt;
-                    dMemoryCopy(rt.host, (void*)netconfig->ip.c_str(), netconfig->ip.length());
-                    dMemoryCopy(rt.name, (void*)netconfig->name.c_str(), netconfig->name.length());
-                    rt.port = netconfig->port;
-                    SendPKG(connect->getSocket(), rt);
+                    Cmd::RTGameServer rt;
+                    rt.set_ip(netconfig->ip.c_str());
+                    rt.set_port(netconfig->port);
+                    SendProtoBuffer(connect->getSocket(), 1, rt);
                 }
             }
             break;
@@ -87,7 +84,7 @@ void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
             switch (pkg->childid) {
             case OPCODE::ClientLoginType::RqGameServerInfo: {
                 ClientToLogin_RtGameServerInfo cmd;
-                SendPKG(connect->getSocket(), cmd);
+                //SendPKG(connect->getSocket(), cmd);
             }
             break;
             }

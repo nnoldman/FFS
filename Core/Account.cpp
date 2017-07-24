@@ -33,7 +33,7 @@ void Account::sendDBToClient(string data) {
     rtDBData rt;
     assert(data.length() < Default::DataSize);
     dMemoryCopy(rt.data, (void*)data.c_str(), data.length());
-    SendPKG(mNetInterface->getSocket(), rt);
+    //SendPKG(mNetInterface->getSocket(), rt);
 }
 
 void Account::setConnection(Connection* connect) {

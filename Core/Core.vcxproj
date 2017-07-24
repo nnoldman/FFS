@@ -91,8 +91,9 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WIN32;_LIB;CHECK_EMBEDDED_DIFFERENCES;EMBEDDED_LIBRARY;HOST_WIN32</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\Default;..\Common;..\;.\;..\PKG;.\MySql\include;.\MySql\include\mysql;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Default;..\Common;..\;.\;..\PKG;.\MySql\include;.\MySql\include\mysql;..\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -110,8 +111,9 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_WIN32;_LIB;CHECK_EMBEDDED_DIFFERENCES;EMBEDDED_LIBRARY;HOST_WIN32</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\Default;..\Common;..\;.\;..\PKG;.\MySql\include;.\MySql\include\mysql;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Default;..\Common;..\;.\;..\PKG;.\MySql\include;.\MySql\include\mysql;..\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
