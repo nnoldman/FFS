@@ -2,49 +2,10 @@
 #include "NetAgent.h"
 #include "Account.h"
 #include "Command.pb.h"
-
-
 NetAgent::NetAgent() {
 }
-
-
 NetAgent::~NetAgent() {
 }
-//case OPCODE::Create_Account:
-//{
-//	rqCreateAccount* rq = (rqCreateAccount*)pkg;
-//	if (!on_rqCreateAccount(rq->user, rq->psd))
-//	{
-//		rtCreateAccountFailed_Exist rt;
-//		SendPKG(connect->getSocket(), rt);
-//	}
-//	else
-//	{
-
-//	}
-//}
-//break;
-//case OPCODE::Login:
-//{
-//	if (!mClients.findkey(connect))
-//		mClients.Insert(connect, 1);
-
-//	rqLogin* rq = (rqLogin*)pkg;
-//	on_rqLogin(rq->user, rq->psd, connect);
-//}
-//break;
-//case OPCODE::ClientToLogin:
-//{
-//	rtCreateAccountFailed_Exist rt;
-//	SendPKG(connect->getSocket(), rt);
-//}
-//break;
-//default:
-//{
-
-//}
-//break;
-//}
 void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
     if (d == App::Net.onMessage) {
         NetWork::MsgArgs* arg = (NetWork::MsgArgs*)e;
