@@ -1,50 +1,33 @@
 #include "stdafx.h"
 #include "BaseObject.h"
+#include "DBDefine.h"
 
 
 BaseObject::BaseObject() {
+    createDefine();
 }
-
 
 BaseObject::~BaseObject() {
+    dSafeDelete(mDBInterface);
 }
 
-bool BaseObject::init() {
+DBDefine* BaseObject::getDBInterface() const {
+    return mDBInterface;
+}
+
+void BaseObject::setField(const char* key, Value value) {
+
+}
+
+bool BaseObject::initialize() {
     return true;
 }
 
 void BaseObject::setGuid(const char* guid) {
-
+    mGUID = guid;
 }
 
-std::string BaseObject::guid() {
-    return mGUID;
-}
 
-void BaseObject::setField(const char* name, const char* value) {
-
-}
-
-void BaseObject::setField(const char* name, int value) {
-
-}
-
-void BaseObject::setField(const char* name, u32 value) {
-
-}
-
-void BaseObject::setField(const char* name, string& value) {
-
-}
-
-void BaseObject::getField(const char* name, u32& value) {
-
-}
-
-void BaseObject::getField(const char* name, string& value) {
-
-}
-
-void BaseObject::getField(const char* name, int& value) {
-
+const char* BaseObject::guid() const {
+    return mGUID.c_str();
 }

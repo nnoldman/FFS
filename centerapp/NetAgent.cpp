@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "NetAgent.h"
 #include "Account.h"
+#include "AccountDefine.h"
 
 NetAgent::NetAgent() {
 }
@@ -30,12 +31,6 @@ void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
             break;
             case OPCODE::CenterClientType::ClientMessage: {
                 rqClientMessage* rq = (rqClientMessage*)pkg;
-
-                //MonoArray* arr = App::Script.createByteArray(rq->count, rq->data);
-
-                //ScriptArgs arg;
-                //arg << arr;
-                //mScriptObject.call("OnMessage", &arg);
             }
             break;
             default:
@@ -54,37 +49,39 @@ void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
 
 bool NetAgent::on_rqCreateAccount(string user, string psw, Connection* con) {
     rtAccount pkg;
-    if (App::DataBase.queryColValue(YW_TABLE_ACCOUNT, YW_TABLE_ACCOUNT_USER, user.c_str())) {
+    if (App::DataBase.queryKey(YW_TABLE_ACCOUNT, YW_TABLE_ACCOUNT_USER, user.c_str())) {
         pkg.errorCode = AccountErrorCode::AccountErrorCode_Existed;
         SendPKG(con->getSocket(), pkg);
         return false;
     } else {
         Account* gateAccount = new Account();
-
-        if (!gateAccount->init()) {
+        if (!gateAccount->initialize()) {
             delete gateAccount;
-            assert(0);
+            assert(false);
             pkg.errorCode = AccountErrorCode::AccountErrorCode_None;
             SendPKG(con->getSocket(), pkg);
             return false;
         }
 
-        gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_USER, user);
+        gateAccount->setGuid(user.c_str());
+        if (gateAccount->getDBInterface()->pull(user.c_str())) {
 
-        if (!gateAccount->getDBInterface()->fetchByField(YW_TABLE_ACCOUNT_USER)) {
-            gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_PSD, psw);
-            gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_ID, Platform::generateGUIDSimpleString());
-
-            //does not exist,create successfully!
-            if (gateAccount->getDBInterface()->createAndInsertToDB()) {
-                pkg.errorCode = AccountErrorCode::AccountErrorCode_Sucessed;
-                SendPKG(con->getSocket(), pkg);
-                return true;
-            }
-        } else {
-            pkg.errorCode = AccountErrorCode::AccountErrorCode_Existed;
-            SendPKG(con->getSocket(), pkg);
         }
+
+        //if (!gateAccount->getDBInterface()->fetchByField(YW_TABLE_ACCOUNT_USER)) {
+        //    gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_PSD, psw);
+        //    gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_ID, Platform::generateGUIDSimpleString());
+
+        //    //does not exist,create successfully!
+        //    if (gateAccount->getDBInterface()->createAndInsertToDB()) {
+        //        pkg.errorCode = AccountErrorCode::AccountErrorCode_Sucessed;
+        //        SendPKG(con->getSocket(), pkg);
+        //        return true;
+        //    }
+        //} else {
+        //    pkg.errorCode = AccountErrorCode::AccountErrorCode_Existed;
+        //    SendPKG(con->getSocket(), pkg);
+        //}
     }
     return false;
 }
@@ -94,7 +91,7 @@ bool NetAgent::on_rqLogin(string user, string psw, Connection* con) {
     //the account enter the net gate
     rtLoginGame pkg;
     Account* gateAccount = new Account();
-    if (!gateAccount->init()) {
+    if (!gateAccount->initialize()) {
         delete gateAccount;
         pkg.errorCode = LoginErrorCode::LoginErrorCode_None;
         SendPKG(con->getSocket(), pkg);
@@ -105,7 +102,11 @@ bool NetAgent::on_rqLogin(string user, string psw, Connection* con) {
 
     gateAccount->setConnection(con);
 
-    gateAccount->getDBInterface()->setField(YW_TABLE_ACCOUNT_USER, user);
+    auto accountDefine = (AccountDefine*)gateAccount->getDBInterface();
+	accountDefine->id = 0;
+	accountDefine->user = user.c_str();
+    //accountDefine.id = user.c_str();
+    //->setField(YW_TABLE_ACCOUNT_USER, user);
 
     if (!gateAccount->getDBInterface()->fetchByField(YW_TABLE_ACCOUNT_USER)) {
         if (App::Config.center.db.autoCreateAccount) {
@@ -141,7 +142,7 @@ bool NetAgent::on_rqLogin(string user, string psw, Connection* con) {
 }
 
 void NetAgent::onLoginSucess(Account* account) {
-    account->enterWorld();
+    App::Gate.onEnter(account);
 }
 
 const char* NetAgent::YW_DB = "yourworld";

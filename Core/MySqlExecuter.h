@@ -1,40 +1,39 @@
 #ifndef DBExecuter_h__
 #define DBExecuter_h__
 
-#include "SQLExecuter.h"
+#include "DBExecuter.h"
 #include "mysql.h"
 
-class MySqlExecuter:public SQLExecuter
-{
-public:
+class MySQLExecuter:public DBExecuter {
+  public:
 
-	MySqlExecuter();
+    MySQLExecuter();
 
-	~MySqlExecuter();
+    ~MySQLExecuter();
 
-	bool initialize(const DBConfig& config);
+    bool initialize(const DBConfig& config);
 
-	void queryBegin(const char* cmd);
+    void queryBegin(const char* cmd);
 
-	/*
-		Only return first record or nothing.
-	*/
-	bool queryEnd(stringVector& result);
+    /*
+    	Only return first record or nothing.
+    */
+    bool queryEnd(stringVector& result);
 
-	/*
-		return all eligible records.
-	*/
-	bool queryEnd(std::vector<shared_ptr<stringVector>>& result);
+    /*
+    	return all eligible records.
+    */
+    bool queryEnd(std::vector<shared_ptr<stringVector>>& result);
 
-	bool queryEnd();
+    bool queryEnd();
 
-	virtual unsigned long count() override;
+    virtual unsigned long count() override;
 
-private:
+  private:
 
-	DBConfig mConfig;
+    DBConfig mConfig;
 
-	MYSQL* mConnection;
+    MYSQL* mConnection;
 };
 
 
