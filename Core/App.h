@@ -3,6 +3,7 @@
 #include "NetWork.h"
 #include "DataBase.h"
 #include "World.h"
+#include "Gate.h"
 
 class CX_LIB App {
   public:
@@ -12,12 +13,11 @@ class CX_LIB App {
         APP_TYPE_BASE,
     };
   public:
-
     static Config Config;
     static DataBase DataBase;
     static NetWork	Net;
     static World World;
-
+    static Gate Gate;
   public:
     App(int narg, const char** args);
     virtual ~App();
@@ -41,6 +41,6 @@ class CX_LIB App {
   private:
     APP_TYPE mType;
     int mServerID;
-    uCommandLine mCommandLine;
+    CommandLine mCommandLine;
 };
 

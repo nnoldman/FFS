@@ -1,41 +1,53 @@
 #pragma once
 #include "Poco\Net\StreamSocket.h"
 #include "PKG.h"
+#include "google\protobuf\message_lite.h"
 static const u32 HEADER_LENGTH = sizeof(u32);
 
 class Connection;
 
-class BundleReceiver
-{
-public:
+class CX_LIB BundleReceiver {
+  public:
 
-	BundleReceiver(Connection* ss,char* data, u16 len);
+    BundleReceiver(Connection* ss, char* data, u16 len);
 
-	~BundleReceiver();
+    ~BundleReceiver();
 
-	bool valid() const;
+    bool valid() const;
 
-	PKG* get() const;
+    PKG* get() const;
 
-private:
+  private:
 
-	Poco::Net::StreamSocket* mSocket;
+    Poco::Net::StreamSocket* mSocket;
 
-	char* mBuffer;
+    char* mBuffer;
 
-	u32 mLength;
+    u32 mLength;
 };
 
-class BundleSender
-{
-public:
-	BundleSender(Poco::Net::StreamSocket& ss);
-	void send(PKG* pkg,int len);
-private:
-	Poco::Net::StreamSocket* mSocket;
-	uBuffer mBuffer;
-	u32 mLength;
+class CX_LIB BundleSender {
+  private:
+    BundleSender();
+  public:
+    static BundleSender& GetInstance() {
+        static BundleSender sender;
+        return sender;
+    }
+    void setConnection(Poco::Net::StreamSocket& ss);
+    void send(PKG* pkg, int len);
+    void sendFlatbuffer(u32 opcode, u32 length, char* data);
+    void sendProboBuffer(u32 opcode, google::protobuf::MessageLite* message);
+  private:
+    Poco::Net::StreamSocket* mSocket;
+    Basic::Buffer mBuffer;
+    u32 mLength;
 };
-#define SendPKG(streamSocket,pkg) {BundleSender sender(streamSocket);sender.send(&pkg,sizeof(pkg));} 
-
+#define SendPKG(streamSocket,pkg) {BundleSender sender(streamSocket);sender.send(&pkg,sizeof(pkg));}
+#define SendFlatbuffer(streamSocket,opcode,length,data) {BundleSender sender(streamSocket);sender.sendFlatbuffer(opcode,length,(char*)data);}
+#define SendProtoBuffer(connection,opcode,data) \
+{\
+	BundleSender::GetInstance().setConnection(connection);\
+	BundleSender::GetInstance().sendProboBuffer(1, &data);\
+}
 

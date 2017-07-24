@@ -2,15 +2,14 @@
 #include "MySqlExecuter.h"
 
 
-
-MySqlExecuter::MySqlExecuter() {
+MySQLExecuter::MySQLExecuter() {
 }
 
 
-MySqlExecuter::~MySqlExecuter() {
+MySQLExecuter::~MySQLExecuter() {
 }
 
-bool MySqlExecuter::initialize(const DBConfig& config) {
+bool MySQLExecuter::initialize(const DBConfig& config) {
     mConfig = config;
 
     mConnection = mysql_init(0);
@@ -27,7 +26,7 @@ bool MySqlExecuter::initialize(const DBConfig& config) {
 }
 
 
-void MySqlExecuter::queryBegin(const char* cmd) {
+void MySQLExecuter::queryBegin(const char* cmd) {
     assert(cmd);
     int res = mysql_real_query(mConnection, cmd, static_cast<unsigned long>(strlen(cmd)));
     printf("QUERY=>%s\n", cmd);
@@ -35,7 +34,7 @@ void MySqlExecuter::queryBegin(const char* cmd) {
 
 
 
-bool MySqlExecuter::queryEnd() {
+bool MySQLExecuter::queryEnd() {
     MYSQL_RES* ress = mysql_store_result(mConnection);
 
     if (ress) {
@@ -49,7 +48,7 @@ bool MySqlExecuter::queryEnd() {
 }
 
 
-bool MySqlExecuter::queryEnd(stringVector& result) {
+bool MySQLExecuter::queryEnd(stringVector& result) {
     MYSQL_RES* ress = mysql_store_result(mConnection);
     if (ress) {
         assert(ress->row_count <= 1);
@@ -70,7 +69,7 @@ bool MySqlExecuter::queryEnd(stringVector& result) {
 }
 
 
-bool MySqlExecuter::queryEnd(std::vector<shared_ptr<stringVector>>& result) {
+bool MySQLExecuter::queryEnd(std::vector<shared_ptr<stringVector>>& result) {
     MYSQL_RES* ress = mysql_store_result(mConnection);
 
     if (ress) {
@@ -93,7 +92,7 @@ bool MySqlExecuter::queryEnd(std::vector<shared_ptr<stringVector>>& result) {
     return result.size() > 0;
 }
 
-unsigned long MySqlExecuter::count() {
+unsigned long MySQLExecuter::count() {
     MYSQL_RES* ress = mysql_store_result(mConnection);
     MYSQL_ROW row = mysql_fetch_row(ress);
     if (ress)

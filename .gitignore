@@ -13,7 +13,7 @@
 
 .vs
 .vs
-/bin
+
 /*.db
 /Libs/PocoCppUnitd.pdb
 /Libs/cpspc.pdb
@@ -73,3 +73,4 @@
 /centerapp/Debug/*.idb
 /loginapp/Debug/*.log
 /loginapp/Debug/*.idb
+/Default/*.user

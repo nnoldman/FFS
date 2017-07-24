@@ -2,29 +2,28 @@
 #ifndef World_h__
 #define World_h__
 
-class CX_LIB World :public uCallBack
-{
-public:
-	World();
-	virtual ~World();
+class CX_LIB World : public CallbackObject {
+  public:
+    World();
+    virtual ~World();
 
-	uDelegate onAccountEnterWorld;
-	uDelegate onAccountLeaveWorld;
+    Delegate onAccountEnterWorld;
+    Delegate onAccountLeaveWorld;
 
-	bool initialize();
+    bool initialize();
 
-public:
-	
-	void reclaimAccount(Account* account);
+  public:
 
-	void onEnterWorld(Account* account);
+    void reclaimAccount(Account* account);
 
-	void sync(string account_guid, string cmd);
+    void onEnterWorld(Account* account);
 
-	virtual void onCallBack(const uDelegate& d, uEventArgs* e) override;
+    void sync(string account_guid, string cmd);
 
-private:
-	uMap<string, Account*> mAccounts;
+    virtual void onCallBack(const Delegate& d, uEventArgs* e) override;
+
+  private:
+    Map<string, Account*> mAccounts;
 };
 
 #endif // World_h__

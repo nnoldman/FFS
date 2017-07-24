@@ -1,11 +1,11 @@
 #pragma once
 class Account;
-class NetAgent: public uCallBack {
+class NetAgent: public CallbackObject {
   public:
     NetAgent();
     ~NetAgent();
 
-    virtual void onCallBack(const uDelegate& d, uEventArgs* e) override;
+    virtual void onCallBack(const Delegate& d, uEventArgs* e) override;
 
   protected:
     bool on_rqCreateAccount(string user, string psd, Connection* con);
@@ -18,6 +18,6 @@ class NetAgent: public uCallBack {
     static const char* YW_TABLE_ACCOUNT_PSD;
     static const char* YW_TABLE_ACCOUNT_ID;
   private:
-    static uMap<Connection*, int> mClients;
+    static Map<Connection*, int> mClients;
 };
 
