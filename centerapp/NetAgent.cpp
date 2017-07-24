@@ -103,6 +103,8 @@ bool NetAgent::on_rqLogin(string user, string psw, Connection* con) {
     gateAccount->setConnection(con);
 
     auto accountDefine = (AccountDefine*)gateAccount->getDBInterface();
+	accountDefine->id = 0;
+	accountDefine->user = user.c_str();
     //accountDefine.id = user.c_str();
     //->setField(YW_TABLE_ACCOUNT_USER, user);
 

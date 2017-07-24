@@ -14,6 +14,7 @@ class DBDefine {
         stream_.set(values);
     }
     bool pull(Value keyvalue);
+	bool commit(Value keyvalue);
   public:
     inline DBStream& stream() {
         return stream_;

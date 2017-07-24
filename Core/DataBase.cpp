@@ -115,6 +115,10 @@ bool DataBase::pull(Value keyvalue, OUT DBDefine* def) {
     return ret;
 }
 
+bool DataBase::commit(Value keyvalue, OUT DBDefine* ret) {
+    return false;
+}
+
 bool DataBase::insertDefaultByGUID(const char* table, const char* guid) {
     assert(table);
     assert(guid);

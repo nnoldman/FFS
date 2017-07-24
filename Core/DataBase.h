@@ -30,6 +30,7 @@ class CX_LIB DataBase {
     bool queryRecord(const char* cmd, std::vector<string>& result);
 
     bool pull(Value keyvalue, OUT DBDefine* ret);
+    bool commit(Value keyvalue, OUT DBDefine* ret);
 
     bool insertDefaultByGUID(const char* table, const char* guid);
 
