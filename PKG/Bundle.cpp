@@ -47,7 +47,7 @@ void BundleSender::sendFlatbuffer(u32 opcode, u32 length, char* data) {
     mSocket->sendBytes(mBuffer.getPointer(), mLength);
 }
 
-void BundleSender::sendProboBuffer(u32 opcode, google::protobuf::Message* message) {
+void BundleSender::sendProboBuffer(u32 opcode, google::protobuf::MessageLite* message) {
     mBuffer.clear();
     u32 len = message->ByteSize();
     mLength = HEADER_LENGTH + len;

@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Default;..\Common;..\;.\;..\PKG;.\MySql\include;.\MySql\include\mysql;..\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -113,7 +113,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Default;..\Common;..\;.\;..\PKG;.\MySql\include;.\MySql\include\mysql;..\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

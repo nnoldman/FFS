@@ -94,12 +94,12 @@
       <AdditionalIncludeDirectories>..\Default;..\;..\Common;..\PKG;..\Core;..\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Core.lib;PKG.lib;Common.lib;libprotobufd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Core.lib;pkg.lib;Common.lib;libprotobuf-lited.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\bin\$(Configuration);..\Libs;..\LiteLibs</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
@@ -114,12 +114,12 @@
       <AdditionalIncludeDirectories>..\Default;..\;..\Common;..\PKG;..\Core;..\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>Core.lib;PKG.lib;Common.lib;libprotobufd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>Core.lib;pkg.lib;Common.lib;libprotobuf-lited.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\bin\$(Configuration);..\Libs;..\LiteLibs</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>

@@ -1,7 +1,7 @@
 #pragma once
 #include "DBDefine.h"
 #include "CharBuffer.h"
-class AccountDefine :
+class CX_LIB AccountDefine :
     public DBDefine {
   public:
     int id;

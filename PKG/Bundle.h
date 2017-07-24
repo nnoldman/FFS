@@ -1,12 +1,12 @@
 #pragma once
 #include "Poco\Net\StreamSocket.h"
 #include "PKG.h"
-#include "google\protobuf\message.h"
+#include "google\protobuf\message_lite.h"
 static const u32 HEADER_LENGTH = sizeof(u32);
 
 class Connection;
 
-class BundleReceiver {
+class CX_LIB BundleReceiver {
   public:
 
     BundleReceiver(Connection* ss, char* data, u16 len);
@@ -26,7 +26,7 @@ class BundleReceiver {
     u32 mLength;
 };
 
-class BundleSender {
+class CX_LIB BundleSender {
   private:
     BundleSender();
   public:
@@ -37,7 +37,7 @@ class BundleSender {
     void setConnection(Poco::Net::StreamSocket& ss);
     void send(PKG* pkg, int len);
     void sendFlatbuffer(u32 opcode, u32 length, char* data);
-    void sendProboBuffer(u32 opcode, google::protobuf::Message* message);
+    void sendProboBuffer(u32 opcode, google::protobuf::MessageLite* message);
   private:
     Poco::Net::StreamSocket* mSocket;
     Basic::Buffer mBuffer;

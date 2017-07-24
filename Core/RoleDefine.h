@@ -3,7 +3,7 @@
 #include "Default.h"
 #include "DBStream.h"
 #include "CharBuffer.h"
-class RoleDefine :
+class CX_LIB RoleDefine :
     public DBDefine {
     int id;
     int level;

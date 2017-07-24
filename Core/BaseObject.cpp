@@ -4,7 +4,6 @@
 
 
 BaseObject::BaseObject() {
-    createDefine();
 }
 
 BaseObject::~BaseObject() {
@@ -20,6 +19,7 @@ void BaseObject::setField(const char* key, Value value) {
 }
 
 bool BaseObject::initialize() {
+    this->createDefine();
     return true;
 }
 
