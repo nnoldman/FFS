@@ -6,6 +6,7 @@ class CX_LIB AccountDefine :
   public:
     int id;
     CharBuffer<Default::NameSize> user;
+    CharBuffer<Default::NameSize> password;
   public:
     virtual const char* table() override {
         return "role";
@@ -18,11 +19,13 @@ class CX_LIB AccountDefine :
     virtual void deserialize() override {
         stream() >> id;
         stream() >> user;
+        stream() >> password;
     }
 
     virtual void serialize() override {
         stream() << id;
         stream() << user;
+        stream() << password;
     }
 
 };

@@ -1,6 +1,6 @@
 #pragma once
 class Account;
-class Gate {
+class CX_LIB Gate {
   public:
     Gate();
     ~Gate();

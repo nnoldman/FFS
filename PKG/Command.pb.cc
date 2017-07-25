@@ -17,6 +17,8 @@
 namespace Cmd {
 
 void protobuf_ShutdownFile_Command_2eproto() {
+  delete ReqAccountOperation::default_instance_;
+  delete RetAccountOperation::default_instance_;
   delete RetGameServer::default_instance_;
   delete ReqGameServer::default_instance_;
 }
@@ -34,8 +36,12 @@ void protobuf_AddDesc_Command_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
 #endif
+  ReqAccountOperation::default_instance_ = new ReqAccountOperation();
+  RetAccountOperation::default_instance_ = new RetAccountOperation();
   RetGameServer::default_instance_ = new RetGameServer();
   ReqGameServer::default_instance_ = new ReqGameServer();
+  ReqAccountOperation::default_instance_->InitAsDefaultInstance();
+  RetAccountOperation::default_instance_->InitAsDefaultInstance();
   RetGameServer::default_instance_->InitAsDefaultInstance();
   ReqGameServer::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_Command_2eproto);
@@ -61,6 +67,7 @@ bool AccountAction_IsValid(int value) {
     case 1:
     case 2:
     case 3:
+    case 4:
       return true;
     default:
       return false;
@@ -72,12 +79,1017 @@ bool AccountErrorCode_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
+    case 4:
+    case 5:
       return true;
     default:
       return false;
   }
 }
 
+
+// ===================================================================
+
+static ::std::string* MutableUnknownFieldsForReqAccountOperation(
+    ReqAccountOperation* ptr) {
+  return ptr->mutable_unknown_fields();
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int ReqAccountOperation::kActionFieldNumber;
+const int ReqAccountOperation::kUserFieldNumber;
+const int ReqAccountOperation::kPasswordFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+ReqAccountOperation::ReqAccountOperation()
+  : ::google::protobuf::MessageLite(), _arena_ptr_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:Cmd.ReqAccountOperation)
+}
+
+void ReqAccountOperation::InitAsDefaultInstance() {
+}
+
+ReqAccountOperation::ReqAccountOperation(const ReqAccountOperation& from)
+  : ::google::protobuf::MessageLite(),
+    _arena_ptr_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:Cmd.ReqAccountOperation)
+}
+
+void ReqAccountOperation::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  _unknown_fields_.UnsafeSetDefault(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  action_ = 0;
+  user_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  password_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+ReqAccountOperation::~ReqAccountOperation() {
+  // @@protoc_insertion_point(destructor:Cmd.ReqAccountOperation)
+  SharedDtor();
+}
+
+void ReqAccountOperation::SharedDtor() {
+  _unknown_fields_.DestroyNoArena(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  user_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  password_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+  }
+}
+
+void ReqAccountOperation::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ReqAccountOperation& ReqAccountOperation::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_Command_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_Command_2eproto();
+#endif
+  return *default_instance_;
+}
+
+ReqAccountOperation* ReqAccountOperation::default_instance_ = NULL;
+
+ReqAccountOperation* ReqAccountOperation::New(::google::protobuf::Arena* arena) const {
+  ReqAccountOperation* n = new ReqAccountOperation;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void ReqAccountOperation::Clear() {
+// @@protoc_insertion_point(message_clear_start:Cmd.ReqAccountOperation)
+  if (_has_bits_[0 / 32] & 7u) {
+    action_ = 0;
+    if (has_user()) {
+      user_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    }
+    if (has_password()) {
+      password_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    }
+  }
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  _unknown_fields_.ClearToEmptyNoArena(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool ReqAccountOperation::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::LazyStringOutputStream unknown_fields_string(
+      ::google::protobuf::internal::NewPermanentCallback(
+          &MutableUnknownFieldsForReqAccountOperation, this));
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string, false);
+  // @@protoc_insertion_point(parse_start:Cmd.ReqAccountOperation)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Cmd.AccountAction action = 1;
+      case 1: {
+        if (tag == 8) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::Cmd::AccountAction_IsValid(value)) {
+            set_action(static_cast< ::Cmd::AccountAction >(value));
+          } else {
+            unknown_fields_stream.WriteVarint32(8);
+            unknown_fields_stream.WriteVarint32(value);
+          }
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_user;
+        break;
+      }
+
+      // required string user = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_user:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_user()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_password;
+        break;
+      }
+
+      // required string password = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_password:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_password()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Cmd.ReqAccountOperation)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Cmd.ReqAccountOperation)
+  return false;
+#undef DO_
+}
+
+void ReqAccountOperation::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Cmd.ReqAccountOperation)
+  // required .Cmd.AccountAction action = 1;
+  if (has_action()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->action(), output);
+  }
+
+  // required string user = 2;
+  if (has_user()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->user(), output);
+  }
+
+  // required string password = 3;
+  if (has_password()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->password(), output);
+  }
+
+  output->WriteRaw(unknown_fields().data(),
+                   static_cast<int>(unknown_fields().size()));
+  // @@protoc_insertion_point(serialize_end:Cmd.ReqAccountOperation)
+}
+
+int ReqAccountOperation::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:Cmd.ReqAccountOperation)
+  int total_size = 0;
+
+  if (has_action()) {
+    // required .Cmd.AccountAction action = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->action());
+  }
+
+  if (has_user()) {
+    // required string user = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->user());
+  }
+
+  if (has_password()) {
+    // required string password = 3;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->password());
+  }
+
+  return total_size;
+}
+int ReqAccountOperation::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:Cmd.ReqAccountOperation)
+  int total_size = 0;
+
+  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+    // required .Cmd.AccountAction action = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->action());
+
+    // required string user = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->user());
+
+    // required string password = 3;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->password());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
+  total_size += unknown_fields().size();
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ReqAccountOperation::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const ReqAccountOperation*>(&from));
+}
+
+void ReqAccountOperation::MergeFrom(const ReqAccountOperation& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Cmd.ReqAccountOperation)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_action()) {
+      set_action(from.action());
+    }
+    if (from.has_user()) {
+      set_has_user();
+      user_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.user_);
+    }
+    if (from.has_password()) {
+      set_has_password();
+      password_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.password_);
+    }
+  }
+  if (!from.unknown_fields().empty()) {
+    mutable_unknown_fields()->append(from.unknown_fields());
+  }
+}
+
+void ReqAccountOperation::CopyFrom(const ReqAccountOperation& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Cmd.ReqAccountOperation)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ReqAccountOperation::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
+
+  return true;
+}
+
+void ReqAccountOperation::Swap(ReqAccountOperation* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void ReqAccountOperation::InternalSwap(ReqAccountOperation* other) {
+  std::swap(action_, other->action_);
+  user_.Swap(&other->user_);
+  password_.Swap(&other->password_);
+  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  _unknown_fields_.Swap(&other->_unknown_fields_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::std::string ReqAccountOperation::GetTypeName() const {
+  return "Cmd.ReqAccountOperation";
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// ReqAccountOperation
+
+// required .Cmd.AccountAction action = 1;
+bool ReqAccountOperation::has_action() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+void ReqAccountOperation::set_has_action() {
+  _has_bits_[0] |= 0x00000001u;
+}
+void ReqAccountOperation::clear_has_action() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+void ReqAccountOperation::clear_action() {
+  action_ = 0;
+  clear_has_action();
+}
+ ::Cmd::AccountAction ReqAccountOperation::action() const {
+  // @@protoc_insertion_point(field_get:Cmd.ReqAccountOperation.action)
+  return static_cast< ::Cmd::AccountAction >(action_);
+}
+ void ReqAccountOperation::set_action(::Cmd::AccountAction value) {
+  assert(::Cmd::AccountAction_IsValid(value));
+  set_has_action();
+  action_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.ReqAccountOperation.action)
+}
+
+// required string user = 2;
+bool ReqAccountOperation::has_user() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+void ReqAccountOperation::set_has_user() {
+  _has_bits_[0] |= 0x00000002u;
+}
+void ReqAccountOperation::clear_has_user() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+void ReqAccountOperation::clear_user() {
+  user_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_user();
+}
+ const ::std::string& ReqAccountOperation::user() const {
+  // @@protoc_insertion_point(field_get:Cmd.ReqAccountOperation.user)
+  return user_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void ReqAccountOperation::set_user(const ::std::string& value) {
+  set_has_user();
+  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Cmd.ReqAccountOperation.user)
+}
+ void ReqAccountOperation::set_user(const char* value) {
+  set_has_user();
+  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Cmd.ReqAccountOperation.user)
+}
+ void ReqAccountOperation::set_user(const char* value, size_t size) {
+  set_has_user();
+  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Cmd.ReqAccountOperation.user)
+}
+ ::std::string* ReqAccountOperation::mutable_user() {
+  set_has_user();
+  // @@protoc_insertion_point(field_mutable:Cmd.ReqAccountOperation.user)
+  return user_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* ReqAccountOperation::release_user() {
+  // @@protoc_insertion_point(field_release:Cmd.ReqAccountOperation.user)
+  clear_has_user();
+  return user_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void ReqAccountOperation::set_allocated_user(::std::string* user) {
+  if (user != NULL) {
+    set_has_user();
+  } else {
+    clear_has_user();
+  }
+  user_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), user);
+  // @@protoc_insertion_point(field_set_allocated:Cmd.ReqAccountOperation.user)
+}
+
+// required string password = 3;
+bool ReqAccountOperation::has_password() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+void ReqAccountOperation::set_has_password() {
+  _has_bits_[0] |= 0x00000004u;
+}
+void ReqAccountOperation::clear_has_password() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+void ReqAccountOperation::clear_password() {
+  password_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_password();
+}
+ const ::std::string& ReqAccountOperation::password() const {
+  // @@protoc_insertion_point(field_get:Cmd.ReqAccountOperation.password)
+  return password_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void ReqAccountOperation::set_password(const ::std::string& value) {
+  set_has_password();
+  password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Cmd.ReqAccountOperation.password)
+}
+ void ReqAccountOperation::set_password(const char* value) {
+  set_has_password();
+  password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Cmd.ReqAccountOperation.password)
+}
+ void ReqAccountOperation::set_password(const char* value, size_t size) {
+  set_has_password();
+  password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Cmd.ReqAccountOperation.password)
+}
+ ::std::string* ReqAccountOperation::mutable_password() {
+  set_has_password();
+  // @@protoc_insertion_point(field_mutable:Cmd.ReqAccountOperation.password)
+  return password_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* ReqAccountOperation::release_password() {
+  // @@protoc_insertion_point(field_release:Cmd.ReqAccountOperation.password)
+  clear_has_password();
+  return password_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void ReqAccountOperation::set_allocated_password(::std::string* password) {
+  if (password != NULL) {
+    set_has_password();
+  } else {
+    clear_has_password();
+  }
+  password_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), password);
+  // @@protoc_insertion_point(field_set_allocated:Cmd.ReqAccountOperation.password)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+static ::std::string* MutableUnknownFieldsForRetAccountOperation(
+    RetAccountOperation* ptr) {
+  return ptr->mutable_unknown_fields();
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RetAccountOperation::kErrorFieldNumber;
+const int RetAccountOperation::kUserFieldNumber;
+const int RetAccountOperation::kPasswordFieldNumber;
+const int RetAccountOperation::kUseridFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RetAccountOperation::RetAccountOperation()
+  : ::google::protobuf::MessageLite(), _arena_ptr_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:Cmd.RetAccountOperation)
+}
+
+void RetAccountOperation::InitAsDefaultInstance() {
+}
+
+RetAccountOperation::RetAccountOperation(const RetAccountOperation& from)
+  : ::google::protobuf::MessageLite(),
+    _arena_ptr_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:Cmd.RetAccountOperation)
+}
+
+void RetAccountOperation::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  _unknown_fields_.UnsafeSetDefault(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  error_ = 0;
+  user_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  password_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  userid_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+RetAccountOperation::~RetAccountOperation() {
+  // @@protoc_insertion_point(destructor:Cmd.RetAccountOperation)
+  SharedDtor();
+}
+
+void RetAccountOperation::SharedDtor() {
+  _unknown_fields_.DestroyNoArena(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  user_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  password_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+  }
+}
+
+void RetAccountOperation::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const RetAccountOperation& RetAccountOperation::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_Command_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_Command_2eproto();
+#endif
+  return *default_instance_;
+}
+
+RetAccountOperation* RetAccountOperation::default_instance_ = NULL;
+
+RetAccountOperation* RetAccountOperation::New(::google::protobuf::Arena* arena) const {
+  RetAccountOperation* n = new RetAccountOperation;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RetAccountOperation::Clear() {
+// @@protoc_insertion_point(message_clear_start:Cmd.RetAccountOperation)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(RetAccountOperation, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<RetAccountOperation*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  if (_has_bits_[0 / 32] & 15u) {
+    ZR_(error_, userid_);
+    if (has_user()) {
+      user_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    }
+    if (has_password()) {
+      password_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    }
+  }
+
+#undef ZR_HELPER_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  _unknown_fields_.ClearToEmptyNoArena(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool RetAccountOperation::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::LazyStringOutputStream unknown_fields_string(
+      ::google::protobuf::internal::NewPermanentCallback(
+          &MutableUnknownFieldsForRetAccountOperation, this));
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string, false);
+  // @@protoc_insertion_point(parse_start:Cmd.RetAccountOperation)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Cmd.AccountErrorCode error = 1;
+      case 1: {
+        if (tag == 8) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::Cmd::AccountErrorCode_IsValid(value)) {
+            set_error(static_cast< ::Cmd::AccountErrorCode >(value));
+          } else {
+            unknown_fields_stream.WriteVarint32(8);
+            unknown_fields_stream.WriteVarint32(value);
+          }
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_user;
+        break;
+      }
+
+      // required string user = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_user:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_user()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_password;
+        break;
+      }
+
+      // required string password = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_password:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_password()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_userid;
+        break;
+      }
+
+      // required int32 userid = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_userid:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &userid_)));
+          set_has_userid();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Cmd.RetAccountOperation)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Cmd.RetAccountOperation)
+  return false;
+#undef DO_
+}
+
+void RetAccountOperation::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Cmd.RetAccountOperation)
+  // required .Cmd.AccountErrorCode error = 1;
+  if (has_error()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->error(), output);
+  }
+
+  // required string user = 2;
+  if (has_user()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      2, this->user(), output);
+  }
+
+  // required string password = 3;
+  if (has_password()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->password(), output);
+  }
+
+  // required int32 userid = 4;
+  if (has_userid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->userid(), output);
+  }
+
+  output->WriteRaw(unknown_fields().data(),
+                   static_cast<int>(unknown_fields().size()));
+  // @@protoc_insertion_point(serialize_end:Cmd.RetAccountOperation)
+}
+
+int RetAccountOperation::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:Cmd.RetAccountOperation)
+  int total_size = 0;
+
+  if (has_error()) {
+    // required .Cmd.AccountErrorCode error = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+  }
+
+  if (has_user()) {
+    // required string user = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->user());
+  }
+
+  if (has_password()) {
+    // required string password = 3;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->password());
+  }
+
+  if (has_userid()) {
+    // required int32 userid = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->userid());
+  }
+
+  return total_size;
+}
+int RetAccountOperation::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:Cmd.RetAccountOperation)
+  int total_size = 0;
+
+  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
+    // required .Cmd.AccountErrorCode error = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+
+    // required string user = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->user());
+
+    // required string password = 3;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->password());
+
+    // required int32 userid = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->userid());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
+  total_size += unknown_fields().size();
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RetAccountOperation::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const RetAccountOperation*>(&from));
+}
+
+void RetAccountOperation::MergeFrom(const RetAccountOperation& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Cmd.RetAccountOperation)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_error()) {
+      set_error(from.error());
+    }
+    if (from.has_user()) {
+      set_has_user();
+      user_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.user_);
+    }
+    if (from.has_password()) {
+      set_has_password();
+      password_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.password_);
+    }
+    if (from.has_userid()) {
+      set_userid(from.userid());
+    }
+  }
+  if (!from.unknown_fields().empty()) {
+    mutable_unknown_fields()->append(from.unknown_fields());
+  }
+}
+
+void RetAccountOperation::CopyFrom(const RetAccountOperation& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Cmd.RetAccountOperation)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RetAccountOperation::IsInitialized() const {
+  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+
+  return true;
+}
+
+void RetAccountOperation::Swap(RetAccountOperation* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RetAccountOperation::InternalSwap(RetAccountOperation* other) {
+  std::swap(error_, other->error_);
+  user_.Swap(&other->user_);
+  password_.Swap(&other->password_);
+  std::swap(userid_, other->userid_);
+  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  _unknown_fields_.Swap(&other->_unknown_fields_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::std::string RetAccountOperation::GetTypeName() const {
+  return "Cmd.RetAccountOperation";
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RetAccountOperation
+
+// required .Cmd.AccountErrorCode error = 1;
+bool RetAccountOperation::has_error() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+void RetAccountOperation::set_has_error() {
+  _has_bits_[0] |= 0x00000001u;
+}
+void RetAccountOperation::clear_has_error() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+void RetAccountOperation::clear_error() {
+  error_ = 0;
+  clear_has_error();
+}
+ ::Cmd::AccountErrorCode RetAccountOperation::error() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.error)
+  return static_cast< ::Cmd::AccountErrorCode >(error_);
+}
+ void RetAccountOperation::set_error(::Cmd::AccountErrorCode value) {
+  assert(::Cmd::AccountErrorCode_IsValid(value));
+  set_has_error();
+  error_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.error)
+}
+
+// required string user = 2;
+bool RetAccountOperation::has_user() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+void RetAccountOperation::set_has_user() {
+  _has_bits_[0] |= 0x00000002u;
+}
+void RetAccountOperation::clear_has_user() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+void RetAccountOperation::clear_user() {
+  user_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_user();
+}
+ const ::std::string& RetAccountOperation::user() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.user)
+  return user_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RetAccountOperation::set_user(const ::std::string& value) {
+  set_has_user();
+  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.user)
+}
+ void RetAccountOperation::set_user(const char* value) {
+  set_has_user();
+  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Cmd.RetAccountOperation.user)
+}
+ void RetAccountOperation::set_user(const char* value, size_t size) {
+  set_has_user();
+  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Cmd.RetAccountOperation.user)
+}
+ ::std::string* RetAccountOperation::mutable_user() {
+  set_has_user();
+  // @@protoc_insertion_point(field_mutable:Cmd.RetAccountOperation.user)
+  return user_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RetAccountOperation::release_user() {
+  // @@protoc_insertion_point(field_release:Cmd.RetAccountOperation.user)
+  clear_has_user();
+  return user_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RetAccountOperation::set_allocated_user(::std::string* user) {
+  if (user != NULL) {
+    set_has_user();
+  } else {
+    clear_has_user();
+  }
+  user_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), user);
+  // @@protoc_insertion_point(field_set_allocated:Cmd.RetAccountOperation.user)
+}
+
+// required string password = 3;
+bool RetAccountOperation::has_password() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+void RetAccountOperation::set_has_password() {
+  _has_bits_[0] |= 0x00000004u;
+}
+void RetAccountOperation::clear_has_password() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+void RetAccountOperation::clear_password() {
+  password_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_password();
+}
+ const ::std::string& RetAccountOperation::password() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.password)
+  return password_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RetAccountOperation::set_password(const ::std::string& value) {
+  set_has_password();
+  password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.password)
+}
+ void RetAccountOperation::set_password(const char* value) {
+  set_has_password();
+  password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Cmd.RetAccountOperation.password)
+}
+ void RetAccountOperation::set_password(const char* value, size_t size) {
+  set_has_password();
+  password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Cmd.RetAccountOperation.password)
+}
+ ::std::string* RetAccountOperation::mutable_password() {
+  set_has_password();
+  // @@protoc_insertion_point(field_mutable:Cmd.RetAccountOperation.password)
+  return password_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* RetAccountOperation::release_password() {
+  // @@protoc_insertion_point(field_release:Cmd.RetAccountOperation.password)
+  clear_has_password();
+  return password_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void RetAccountOperation::set_allocated_password(::std::string* password) {
+  if (password != NULL) {
+    set_has_password();
+  } else {
+    clear_has_password();
+  }
+  password_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), password);
+  // @@protoc_insertion_point(field_set_allocated:Cmd.RetAccountOperation.password)
+}
+
+// required int32 userid = 4;
+bool RetAccountOperation::has_userid() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+void RetAccountOperation::set_has_userid() {
+  _has_bits_[0] |= 0x00000008u;
+}
+void RetAccountOperation::clear_has_userid() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+void RetAccountOperation::clear_userid() {
+  userid_ = 0;
+  clear_has_userid();
+}
+ ::google::protobuf::int32 RetAccountOperation::userid() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.userid)
+  return userid_;
+}
+ void RetAccountOperation::set_userid(::google::protobuf::int32 value) {
+  set_has_userid();
+  userid_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.userid)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
 
 // ===================================================================
 

@@ -108,3 +108,5 @@ DataBase App::DataBase;
 NetWork App::Net;
 
 World App::World;
+
+Gate App::Gate;

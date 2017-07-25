@@ -9,10 +9,12 @@ class NetAgent: public CallbackObject {
     virtual void onCallBack(const Delegate& d, uEventArgs* e) override;
 
   protected:
-    bool on_rqCreateAccount(string user, string psd);
-    bool on_rqLogin(string user, string psw, Connection* con);
+    bool on_rqLoginAccount(const string& user, const string& password, Connection* con);
+    bool on_rqCreateAccount(const string& user, const string& password, Connection* con);
+    bool on_rqDeleteAccount(const string& user, const string& password, Connection* con);
+    bool on_rqRenameAccount(const string& user, const string& password, Connection* con);
   protected:
-    bool createAccount(string user, string psd);
+    bool createAccount(string user, string psd, Connection* con);
   private:
     static const char* YW_DB;
     static const char* YW_TABLE_ACCOUNT;
