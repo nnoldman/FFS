@@ -21,7 +21,7 @@ void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
             switch (pkg->childid) {
             case OPCODE::CenterClientType::RqLogin: {
                 rqLoginGame* rq = (rqLoginGame*)pkg;
-                on_rqLogin(rq->user, rq->psw, connect);
+                on_rqLoginAccount(rq->user, rq->psw, connect);
             }
             break;
             case OPCODE::CenterClientType::RqAccount: {
@@ -47,7 +47,7 @@ void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
     }
 }
 
-bool NetAgent::on_rqCreateAccount(string user, string psw, Connection* con) {
+bool NetAgent::on_rqCreateAccount(const string& user, const string& password, Connection* con) {
     rtAccount pkg;
     if (App::DataBase.queryKey(YW_TABLE_ACCOUNT, YW_TABLE_ACCOUNT_USER, user.c_str())) {
         pkg.errorCode = AccountErrorCode::AccountErrorCode_Existed;
@@ -87,7 +87,7 @@ bool NetAgent::on_rqCreateAccount(string user, string psw, Connection* con) {
 }
 
 
-bool NetAgent::on_rqLogin(string user, string psw, Connection* con) {
+bool NetAgent::on_rqLoginAccount(string user, string psw, Connection* con) {
     //the account enter the net gate
     rtLoginGame pkg;
     Account* gateAccount = new Account();
@@ -103,8 +103,8 @@ bool NetAgent::on_rqLogin(string user, string psw, Connection* con) {
     gateAccount->setConnection(con);
 
     auto accountDefine = (AccountDefine*)gateAccount->getDBInterface();
-	accountDefine->id = 0;
-	accountDefine->user = user.c_str();
+    accountDefine->id = 0;
+    accountDefine->user = user.c_str();
     //accountDefine.id = user.c_str();
     //->setField(YW_TABLE_ACCOUNT_USER, user);
 

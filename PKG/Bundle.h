@@ -37,7 +37,7 @@ class CX_LIB BundleSender {
     void setConnection(Poco::Net::StreamSocket& ss);
     void send(PKG* pkg, int len);
     void sendFlatbuffer(u32 opcode, u32 length, char* data);
-    void sendProboBuffer(u32 opcode, google::protobuf::MessageLite* message);
+    void sendProtoBuffer(u32 opcode, google::protobuf::MessageLite* message);
   private:
     Poco::Net::StreamSocket* mSocket;
     Basic::Buffer mBuffer;
@@ -48,6 +48,6 @@ class CX_LIB BundleSender {
 #define SendProtoBuffer(connection,opcode,data) \
 {\
 	BundleSender::GetInstance().setConnection(connection);\
-	BundleSender::GetInstance().sendProboBuffer(1, &data);\
+	BundleSender::GetInstance().sendProtoBuffer(opcode, &data);\
 }
 

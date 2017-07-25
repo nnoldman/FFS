@@ -8,8 +8,8 @@ class NetAgent: public CallbackObject {
     virtual void onCallBack(const Delegate& d, uEventArgs* e) override;
 
   protected:
-    bool on_rqCreateAccount(string user, string psd, Connection* con);
-    bool on_rqLogin(string user, string psw, Connection* con);
+    bool on_rqCreateAccount(const string& user, const string& password, Connection* con);
+    bool on_rqLoginAccount(string user, string psw, Connection* con);
     void onLoginSucess(Account* account);
   private:
     static const char* YW_DB;

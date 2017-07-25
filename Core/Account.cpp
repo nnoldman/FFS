@@ -30,9 +30,9 @@ void Account::onRoleRqEnterWorld(string guid) {
 
 void Account::sendDBToClient(string data) {
     assert(mNetInterface);
-    rtDBData rt;
-    assert(data.length() < Default::DataSize);
-    dMemoryCopy(rt.data, (void*)data.c_str(), data.length());
+    //rtDBData rt;
+    //assert(data.length() < Default::DataSize);
+    //dMemoryCopy(rt.data, (void*)data.c_str(), data.length());
     //SendPKG(mNetInterface->getSocket(), rt);
 }
 

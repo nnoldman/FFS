@@ -36,21 +36,21 @@ void protobuf_ShutdownFile_Cmd_2eproto();
 
 
 enum CLIENT_COMMAND {
-  RQGameServerInfo = 1,
-  RQLogin = 2
+  RQGameServerInfo = 100,
+  RQAccountOperation = 300
 };
 bool CLIENT_COMMAND_IsValid(int value);
 const CLIENT_COMMAND CLIENT_COMMAND_MIN = RQGameServerInfo;
-const CLIENT_COMMAND CLIENT_COMMAND_MAX = RQLogin;
+const CLIENT_COMMAND CLIENT_COMMAND_MAX = RQAccountOperation;
 const int CLIENT_COMMAND_ARRAYSIZE = CLIENT_COMMAND_MAX + 1;
 
 enum SERVER_COMMAND {
-  RTLogin = 0,
-  RTGameServer = 1
+  RTGameServer = 100,
+  RTAccountOperation = 300
 };
 bool SERVER_COMMAND_IsValid(int value);
-const SERVER_COMMAND SERVER_COMMAND_MIN = RTLogin;
-const SERVER_COMMAND SERVER_COMMAND_MAX = RTGameServer;
+const SERVER_COMMAND SERVER_COMMAND_MIN = RTGameServer;
+const SERVER_COMMAND SERVER_COMMAND_MAX = RTAccountOperation;
 const int SERVER_COMMAND_ARRAYSIZE = SERVER_COMMAND_MAX + 1;
 
 // ===================================================================

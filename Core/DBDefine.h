@@ -2,7 +2,7 @@
 class DataBase;
 #include "DBStream.h"
 #include "Value.h"
-class DBDefine {
+class CX_LIB DBDefine {
   public:
     virtual const char* table() = 0;
     virtual const char* key() = 0;
@@ -14,7 +14,7 @@ class DBDefine {
         stream_.set(values);
     }
     bool pull(Value keyvalue);
-	bool commit(Value keyvalue);
+    bool commit(Value keyvalue);
   public:
     inline DBStream& stream() {
         return stream_;
