@@ -50,8 +50,8 @@ struct StaticDescriptorInitializer_Cmd_2eproto {
 #endif
 bool CLIENT_COMMAND_IsValid(int value) {
   switch(value) {
-    case 0:
     case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -61,6 +61,7 @@ bool CLIENT_COMMAND_IsValid(int value) {
 bool SERVER_COMMAND_IsValid(int value) {
   switch(value) {
     case 0:
+    case 1:
       return true;
     default:
       return false;
