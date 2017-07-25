@@ -25,6 +25,7 @@
 #include <google/protobuf/message_lite.h>
 #include <google/protobuf/repeated_field.h>
 #include <google/protobuf/extension_set.h>
+#include <google/protobuf/generated_enum_util.h>
 // @@protoc_insertion_point(includes)
 
 namespace Cmd {
@@ -34,45 +35,76 @@ void protobuf_AddDesc_Command_2eproto();
 void protobuf_AssignDesc_Command_2eproto();
 void protobuf_ShutdownFile_Command_2eproto();
 
-class Duration;
-class RTGameServer;
+class ReqGameServer;
+class RetGameServer;
+
+enum AccountAction {
+  AccountAction_None = 0,
+  AccountAction_Create = 1,
+  AccountAction_Rename = 2,
+  AccountAction_Delete = 3
+};
+bool AccountAction_IsValid(int value);
+const AccountAction AccountAction_MIN = AccountAction_None;
+const AccountAction AccountAction_MAX = AccountAction_Delete;
+const int AccountAction_ARRAYSIZE = AccountAction_MAX + 1;
+
+enum AccountErrorCode {
+  AccountErrorCode_None = 0,
+  AccountErrorCode_Sucessed = 1,
+  AccountErrorCode_Existed = 2
+};
+bool AccountErrorCode_IsValid(int value);
+const AccountErrorCode AccountErrorCode_MIN = AccountErrorCode_None;
+const AccountErrorCode AccountErrorCode_MAX = AccountErrorCode_Existed;
+const int AccountErrorCode_ARRAYSIZE = AccountErrorCode_MAX + 1;
 
 // ===================================================================
 
-class Duration : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:Cmd.Duration) */ {
+class RetGameServer : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:Cmd.RetGameServer) */ {
  public:
-  Duration();
-  virtual ~Duration();
+  RetGameServer();
+  virtual ~RetGameServer();
 
-  Duration(const Duration& from);
+  RetGameServer(const RetGameServer& from);
 
-  inline Duration& operator=(const Duration& from) {
+  inline RetGameServer& operator=(const RetGameServer& from) {
     CopyFrom(from);
     return *this;
   }
 
-  static const Duration& default_instance();
+  inline const ::std::string& unknown_fields() const {
+    return _unknown_fields_.GetNoArena(
+        &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+
+  inline ::std::string* mutable_unknown_fields() {
+    return _unknown_fields_.MutableNoArena(
+        &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+
+  static const RetGameServer& default_instance();
 
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   // Returns the internal default instance pointer. This function can
   // return NULL thus should not be used by the user. This is intended
   // for Protobuf internal code. Please use default_instance() declared
   // above instead.
-  static inline const Duration* internal_default_instance() {
+  static inline const RetGameServer* internal_default_instance() {
     return default_instance_;
   }
   #endif
 
-  void Swap(Duration* other);
+  void Swap(RetGameServer* other);
 
   // implements Message ----------------------------------------------
 
-  inline Duration* New() const { return New(NULL); }
+  inline RetGameServer* New() const { return New(NULL); }
 
-  Duration* New(::google::protobuf::Arena* arena) const;
+  RetGameServer* New(::google::protobuf::Arena* arena) const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const Duration& from);
-  void MergeFrom(const Duration& from);
+  void CopyFrom(const RetGameServer& from);
+  void MergeFrom(const RetGameServer& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -87,7 +119,7 @@ class Duration : public ::google::protobuf::MessageLite /* @@protoc_insertion_po
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(Duration* other);
+  void InternalSwap(RetGameServer* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _arena_ptr_;
@@ -103,118 +135,8 @@ class Duration : public ::google::protobuf::MessageLite /* @@protoc_insertion_po
 
   // accessors -------------------------------------------------------
 
-  // optional int64 seconds = 1;
-  void clear_seconds();
-  static const int kSecondsFieldNumber = 1;
-  ::google::protobuf::int64 seconds() const;
-  void set_seconds(::google::protobuf::int64 value);
-
-  // optional int32 nanos = 2;
-  void clear_nanos();
-  static const int kNanosFieldNumber = 2;
-  ::google::protobuf::int32 nanos() const;
-  void set_nanos(::google::protobuf::int32 value);
-
-  // optional string name = 3;
-  void clear_name();
-  static const int kNameFieldNumber = 3;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
-
-  // @@protoc_insertion_point(class_scope:Cmd.Duration)
- private:
-
-  ::google::protobuf::internal::ArenaStringPtr _unknown_fields_;
-  ::google::protobuf::Arena* _arena_ptr_;
-
-  bool _is_default_instance_;
-  ::google::protobuf::int64 seconds_;
-  ::google::protobuf::internal::ArenaStringPtr name_;
-  ::google::protobuf::int32 nanos_;
-  mutable int _cached_size_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_Command_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_Command_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_Command_2eproto();
-  friend void protobuf_ShutdownFile_Command_2eproto();
-
-  void InitAsDefaultInstance();
-  static Duration* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class RTGameServer : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:Cmd.RTGameServer) */ {
- public:
-  RTGameServer();
-  virtual ~RTGameServer();
-
-  RTGameServer(const RTGameServer& from);
-
-  inline RTGameServer& operator=(const RTGameServer& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  static const RTGameServer& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const RTGameServer* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(RTGameServer* other);
-
-  // implements Message ----------------------------------------------
-
-  inline RTGameServer* New() const { return New(NULL); }
-
-  RTGameServer* New(::google::protobuf::Arena* arena) const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const RTGameServer& from);
-  void MergeFrom(const RTGameServer& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(RTGameServer* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _arena_ptr_;
-  }
-  inline ::google::protobuf::Arena* MaybeArenaPtr() const {
-    return _arena_ptr_;
-  }
-  public:
-
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // optional string ip = 1;
+  // required string ip = 1;
+  bool has_ip() const;
   void clear_ip();
   static const int kIpFieldNumber = 1;
   const ::std::string& ip() const;
@@ -225,22 +147,30 @@ class RTGameServer : public ::google::protobuf::MessageLite /* @@protoc_insertio
   ::std::string* release_ip();
   void set_allocated_ip(::std::string* ip);
 
-  // optional int32 port = 2;
+  // required int32 port = 2;
+  bool has_port() const;
   void clear_port();
   static const int kPortFieldNumber = 2;
   ::google::protobuf::int32 port() const;
   void set_port(::google::protobuf::int32 value);
 
-  // @@protoc_insertion_point(class_scope:Cmd.RTGameServer)
+  // @@protoc_insertion_point(class_scope:Cmd.RetGameServer)
  private:
+  inline void set_has_ip();
+  inline void clear_has_ip();
+  inline void set_has_port();
+  inline void clear_has_port();
+
+  // helper for ByteSize()
+  int RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::ArenaStringPtr _unknown_fields_;
   ::google::protobuf::Arena* _arena_ptr_;
 
-  bool _is_default_instance_;
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
   ::google::protobuf::internal::ArenaStringPtr ip_;
   ::google::protobuf::int32 port_;
-  mutable int _cached_size_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_Command_2eproto_impl();
   #else
@@ -250,7 +180,112 @@ class RTGameServer : public ::google::protobuf::MessageLite /* @@protoc_insertio
   friend void protobuf_ShutdownFile_Command_2eproto();
 
   void InitAsDefaultInstance();
-  static RTGameServer* default_instance_;
+  static RetGameServer* default_instance_;
+};
+// -------------------------------------------------------------------
+
+class ReqGameServer : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:Cmd.ReqGameServer) */ {
+ public:
+  ReqGameServer();
+  virtual ~ReqGameServer();
+
+  ReqGameServer(const ReqGameServer& from);
+
+  inline ReqGameServer& operator=(const ReqGameServer& from) {
+    CopyFrom(from);
+    return *this;
+  }
+
+  inline const ::std::string& unknown_fields() const {
+    return _unknown_fields_.GetNoArena(
+        &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+
+  inline ::std::string* mutable_unknown_fields() {
+    return _unknown_fields_.MutableNoArena(
+        &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  }
+
+  static const ReqGameServer& default_instance();
+
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  // Returns the internal default instance pointer. This function can
+  // return NULL thus should not be used by the user. This is intended
+  // for Protobuf internal code. Please use default_instance() declared
+  // above instead.
+  static inline const ReqGameServer* internal_default_instance() {
+    return default_instance_;
+  }
+  #endif
+
+  void Swap(ReqGameServer* other);
+
+  // implements Message ----------------------------------------------
+
+  inline ReqGameServer* New() const { return New(NULL); }
+
+  ReqGameServer* New(::google::protobuf::Arena* arena) const;
+  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
+  void CopyFrom(const ReqGameServer& from);
+  void MergeFrom(const ReqGameServer& from);
+  void Clear();
+  bool IsInitialized() const;
+
+  int ByteSize() const;
+  bool MergePartialFromCodedStream(
+      ::google::protobuf::io::CodedInputStream* input);
+  void SerializeWithCachedSizes(
+      ::google::protobuf::io::CodedOutputStream* output) const;
+  void DiscardUnknownFields();
+  int GetCachedSize() const { return _cached_size_; }
+  private:
+  void SharedCtor();
+  void SharedDtor();
+  void SetCachedSize(int size) const;
+  void InternalSwap(ReqGameServer* other);
+  private:
+  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
+    return _arena_ptr_;
+  }
+  inline ::google::protobuf::Arena* MaybeArenaPtr() const {
+    return _arena_ptr_;
+  }
+  public:
+
+  ::std::string GetTypeName() const;
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  // required int32 serverID = 1;
+  bool has_serverid() const;
+  void clear_serverid();
+  static const int kServerIDFieldNumber = 1;
+  ::google::protobuf::int32 serverid() const;
+  void set_serverid(::google::protobuf::int32 value);
+
+  // @@protoc_insertion_point(class_scope:Cmd.ReqGameServer)
+ private:
+  inline void set_has_serverid();
+  inline void clear_has_serverid();
+
+  ::google::protobuf::internal::ArenaStringPtr _unknown_fields_;
+  ::google::protobuf::Arena* _arena_ptr_;
+
+  ::google::protobuf::uint32 _has_bits_[1];
+  mutable int _cached_size_;
+  ::google::protobuf::int32 serverid_;
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  friend void  protobuf_AddDesc_Command_2eproto_impl();
+  #else
+  friend void  protobuf_AddDesc_Command_2eproto();
+  #endif
+  friend void protobuf_AssignDesc_Command_2eproto();
+  friend void protobuf_ShutdownFile_Command_2eproto();
+
+  void InitAsDefaultInstance();
+  static ReqGameServer* default_instance_;
 };
 // ===================================================================
 
@@ -258,140 +293,112 @@ class RTGameServer : public ::google::protobuf::MessageLite /* @@protoc_insertio
 // ===================================================================
 
 #if !PROTOBUF_INLINE_NOT_IN_HEADERS
-// Duration
+// RetGameServer
 
-// optional int64 seconds = 1;
-inline void Duration::clear_seconds() {
-  seconds_ = GOOGLE_LONGLONG(0);
+// required string ip = 1;
+inline bool RetGameServer::has_ip() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline ::google::protobuf::int64 Duration::seconds() const {
-  // @@protoc_insertion_point(field_get:Cmd.Duration.seconds)
-  return seconds_;
+inline void RetGameServer::set_has_ip() {
+  _has_bits_[0] |= 0x00000001u;
 }
-inline void Duration::set_seconds(::google::protobuf::int64 value) {
-  
-  seconds_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.Duration.seconds)
+inline void RetGameServer::clear_has_ip() {
+  _has_bits_[0] &= ~0x00000001u;
 }
-
-// optional int32 nanos = 2;
-inline void Duration::clear_nanos() {
-  nanos_ = 0;
+inline void RetGameServer::clear_ip() {
+  ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_ip();
 }
-inline ::google::protobuf::int32 Duration::nanos() const {
-  // @@protoc_insertion_point(field_get:Cmd.Duration.nanos)
-  return nanos_;
+inline const ::std::string& RetGameServer::ip() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetGameServer.ip)
+  return ip_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void Duration::set_nanos(::google::protobuf::int32 value) {
-  
-  nanos_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.Duration.nanos)
+inline void RetGameServer::set_ip(const ::std::string& value) {
+  set_has_ip();
+  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Cmd.RetGameServer.ip)
 }
-
-// optional string name = 3;
-inline void Duration::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void RetGameServer::set_ip(const char* value) {
+  set_has_ip();
+  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Cmd.RetGameServer.ip)
 }
-inline const ::std::string& Duration::name() const {
-  // @@protoc_insertion_point(field_get:Cmd.Duration.name)
-  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void Duration::set_name(const ::std::string& value) {
-  
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Cmd.Duration.name)
-}
-inline void Duration::set_name(const char* value) {
-  
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Cmd.Duration.name)
-}
-inline void Duration::set_name(const char* value, size_t size) {
-  
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+inline void RetGameServer::set_ip(const char* value, size_t size) {
+  set_has_ip();
+  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
       ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Cmd.Duration.name)
+  // @@protoc_insertion_point(field_set_pointer:Cmd.RetGameServer.ip)
 }
-inline ::std::string* Duration::mutable_name() {
-  
-  // @@protoc_insertion_point(field_mutable:Cmd.Duration.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string* RetGameServer::mutable_ip() {
+  set_has_ip();
+  // @@protoc_insertion_point(field_mutable:Cmd.RetGameServer.ip)
+  return ip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline ::std::string* Duration::release_name() {
-  // @@protoc_insertion_point(field_release:Cmd.Duration.name)
-  
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline ::std::string* RetGameServer::release_ip() {
+  // @@protoc_insertion_point(field_release:Cmd.RetGameServer.ip)
+  clear_has_ip();
+  return ip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
 }
-inline void Duration::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
-    
+inline void RetGameServer::set_allocated_ip(::std::string* ip) {
+  if (ip != NULL) {
+    set_has_ip();
   } else {
-    
+    clear_has_ip();
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:Cmd.Duration.name)
+  ip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ip);
+  // @@protoc_insertion_point(field_set_allocated:Cmd.RetGameServer.ip)
+}
+
+// required int32 port = 2;
+inline bool RetGameServer::has_port() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+inline void RetGameServer::set_has_port() {
+  _has_bits_[0] |= 0x00000002u;
+}
+inline void RetGameServer::clear_has_port() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+inline void RetGameServer::clear_port() {
+  port_ = 0;
+  clear_has_port();
+}
+inline ::google::protobuf::int32 RetGameServer::port() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetGameServer.port)
+  return port_;
+}
+inline void RetGameServer::set_port(::google::protobuf::int32 value) {
+  set_has_port();
+  port_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.RetGameServer.port)
 }
 
 // -------------------------------------------------------------------
 
-// RTGameServer
+// ReqGameServer
 
-// optional string ip = 1;
-inline void RTGameServer::clear_ip() {
-  ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+// required int32 serverID = 1;
+inline bool ReqGameServer::has_serverid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline const ::std::string& RTGameServer::ip() const {
-  // @@protoc_insertion_point(field_get:Cmd.RTGameServer.ip)
-  return ip_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+inline void ReqGameServer::set_has_serverid() {
+  _has_bits_[0] |= 0x00000001u;
 }
-inline void RTGameServer::set_ip(const ::std::string& value) {
-  
-  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Cmd.RTGameServer.ip)
+inline void ReqGameServer::clear_has_serverid() {
+  _has_bits_[0] &= ~0x00000001u;
 }
-inline void RTGameServer::set_ip(const char* value) {
-  
-  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Cmd.RTGameServer.ip)
+inline void ReqGameServer::clear_serverid() {
+  serverid_ = 0;
+  clear_has_serverid();
 }
-inline void RTGameServer::set_ip(const char* value, size_t size) {
-  
-  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Cmd.RTGameServer.ip)
+inline ::google::protobuf::int32 ReqGameServer::serverid() const {
+  // @@protoc_insertion_point(field_get:Cmd.ReqGameServer.serverID)
+  return serverid_;
 }
-inline ::std::string* RTGameServer::mutable_ip() {
-  
-  // @@protoc_insertion_point(field_mutable:Cmd.RTGameServer.ip)
-  return ip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* RTGameServer::release_ip() {
-  // @@protoc_insertion_point(field_release:Cmd.RTGameServer.ip)
-  
-  return ip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void RTGameServer::set_allocated_ip(::std::string* ip) {
-  if (ip != NULL) {
-    
-  } else {
-    
-  }
-  ip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ip);
-  // @@protoc_insertion_point(field_set_allocated:Cmd.RTGameServer.ip)
-}
-
-// optional int32 port = 2;
-inline void RTGameServer::clear_port() {
-  port_ = 0;
-}
-inline ::google::protobuf::int32 RTGameServer::port() const {
-  // @@protoc_insertion_point(field_get:Cmd.RTGameServer.port)
-  return port_;
-}
-inline void RTGameServer::set_port(::google::protobuf::int32 value) {
-  
-  port_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.RTGameServer.port)
+inline void ReqGameServer::set_serverid(::google::protobuf::int32 value) {
+  set_has_serverid();
+  serverid_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.ReqGameServer.serverID)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -401,6 +408,17 @@ inline void RTGameServer::set_port(::google::protobuf::int32 value) {
 // @@protoc_insertion_point(namespace_scope)
 
 }  // namespace Cmd
+
+#ifndef SWIG
+namespace google {
+namespace protobuf {
+
+template <> struct is_proto_enum< ::Cmd::AccountAction> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::Cmd::AccountErrorCode> : ::google::protobuf::internal::true_type {};
+
+}  // namespace protobuf
+}  // namespace google
+#endif  // SWIG
 
 // @@protoc_insertion_point(global_scope)
 

@@ -74,3 +74,9 @@
 /loginapp/Debug/*.log
 /loginapp/Debug/*.idb
 /Default/*.user
+/bin/Debug/pkg.lib
+/bin/Debug/Common.lib
+/bin/Debug/Core.dll
+/bin/Debug/Core.exp
+/bin/Debug/Core.lib
+/bin/Debug/game.loginapp.exe
