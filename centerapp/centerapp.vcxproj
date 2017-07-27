@@ -93,7 +93,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Default;..\;..\Common;..\PKG;..\Core;..\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Default;..\;..\Common;..\PKG;..\Core;..\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -158,14 +158,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CenterApp.cpp" />
-    <ClCompile Include="duration.pb.cc" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NetAgent.cpp" />
     <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CenterApp.h" />
-    <ClInclude Include="duration.pb.h" />
     <ClInclude Include="NetAgent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="vld.h" />

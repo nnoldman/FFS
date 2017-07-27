@@ -22,9 +22,7 @@ void DBObject::sync(string data) {
 }
 
 bool DBObject::fetch() {
-    bool res = fetchByField(dbKey());
-    //callDB("onFetch", nullptr);
-    return res;
+    return false;
 }
 
 bool DBObject::saveToDB() {
@@ -40,7 +38,3 @@ void DBObject::requireGUID() {
     //setField("guid", mGUID);
 }
 
-
-const char* DBObject::dbKey() {
-    return guid();
-}

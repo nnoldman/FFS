@@ -19,8 +19,6 @@ namespace Cmd {
 void protobuf_ShutdownFile_Command_2eproto() {
   delete ReqAccountOperation::default_instance_;
   delete RetAccountOperation::default_instance_;
-  delete RetGameServer::default_instance_;
-  delete ReqGameServer::default_instance_;
 }
 
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
@@ -38,12 +36,8 @@ void protobuf_AddDesc_Command_2eproto() {
 #endif
   ReqAccountOperation::default_instance_ = new ReqAccountOperation();
   RetAccountOperation::default_instance_ = new RetAccountOperation();
-  RetGameServer::default_instance_ = new RetGameServer();
-  ReqGameServer::default_instance_ = new ReqGameServer();
   ReqAccountOperation::default_instance_->InitAsDefaultInstance();
   RetAccountOperation::default_instance_->InitAsDefaultInstance();
-  RetGameServer::default_instance_->InitAsDefaultInstance();
-  ReqGameServer::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_Command_2eproto);
 }
 
@@ -558,9 +552,8 @@ static ::std::string* MutableUnknownFieldsForRetAccountOperation(
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int RetAccountOperation::kErrorFieldNumber;
-const int RetAccountOperation::kUserFieldNumber;
 const int RetAccountOperation::kPasswordFieldNumber;
-const int RetAccountOperation::kUseridFieldNumber;
+const int RetAccountOperation::kAccountidFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RetAccountOperation::RetAccountOperation()
@@ -586,9 +579,8 @@ void RetAccountOperation::SharedCtor() {
   _unknown_fields_.UnsafeSetDefault(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
   error_ = 0;
-  user_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   password_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  userid_ = 0;
+  accountid_ = 0;
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -600,7 +592,6 @@ RetAccountOperation::~RetAccountOperation() {
 void RetAccountOperation::SharedDtor() {
   _unknown_fields_.DestroyNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  user_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   password_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   if (this != &default_instance()) {
@@ -652,11 +643,8 @@ void RetAccountOperation::Clear() {
            ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
 } while (0)
 
-  if (_has_bits_[0 / 32] & 15u) {
-    ZR_(error_, userid_);
-    if (has_user()) {
-      user_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    }
+  if (_has_bits_[0 / 32] & 7u) {
+    ZR_(error_, accountid_);
     if (has_password()) {
       password_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
     }
@@ -701,44 +689,31 @@ bool RetAccountOperation::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(18)) goto parse_user;
+        if (input->ExpectTag(18)) goto parse_password;
         break;
       }
 
-      // required string user = 2;
+      // required string password = 2;
       case 2: {
         if (tag == 18) {
-         parse_user:
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_user()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(26)) goto parse_password;
-        break;
-      }
-
-      // required string password = 3;
-      case 3: {
-        if (tag == 26) {
          parse_password:
           DO_(::google::protobuf::internal::WireFormatLite::ReadString(
                 input, this->mutable_password()));
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(32)) goto parse_userid;
+        if (input->ExpectTag(24)) goto parse_accountid;
         break;
       }
 
-      // required int32 userid = 4;
-      case 4: {
-        if (tag == 32) {
-         parse_userid:
+      // required int32 accountid = 3;
+      case 3: {
+        if (tag == 24) {
+         parse_accountid:
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &userid_)));
-          set_has_userid();
+                 input, &accountid_)));
+          set_has_accountid();
         } else {
           goto handle_unusual;
         }
@@ -777,21 +752,15 @@ void RetAccountOperation::SerializeWithCachedSizes(
       1, this->error(), output);
   }
 
-  // required string user = 2;
-  if (has_user()) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      2, this->user(), output);
-  }
-
-  // required string password = 3;
+  // required string password = 2;
   if (has_password()) {
     ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      3, this->password(), output);
+      2, this->password(), output);
   }
 
-  // required int32 userid = 4;
-  if (has_userid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->userid(), output);
+  // required int32 accountid = 3;
+  if (has_accountid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->accountid(), output);
   }
 
   output->WriteRaw(unknown_fields().data(),
@@ -809,25 +778,18 @@ int RetAccountOperation::RequiredFieldsByteSizeFallback() const {
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
   }
 
-  if (has_user()) {
-    // required string user = 2;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->user());
-  }
-
   if (has_password()) {
-    // required string password = 3;
+    // required string password = 2;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->password());
   }
 
-  if (has_userid()) {
-    // required int32 userid = 4;
+  if (has_accountid()) {
+    // required int32 accountid = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->userid());
+        this->accountid());
   }
 
   return total_size;
@@ -836,25 +798,20 @@ int RetAccountOperation::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:Cmd.RetAccountOperation)
   int total_size = 0;
 
-  if (((_has_bits_[0] & 0x0000000f) ^ 0x0000000f) == 0) {  // All required fields are present.
+  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
     // required .Cmd.AccountErrorCode error = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
 
-    // required string user = 2;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->user());
-
-    // required string password = 3;
+    // required string password = 2;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::StringSize(
         this->password());
 
-    // required int32 userid = 4;
+    // required int32 accountid = 3;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->userid());
+        this->accountid());
 
   } else {
     total_size += RequiredFieldsByteSizeFallback();
@@ -881,16 +838,12 @@ void RetAccountOperation::MergeFrom(const RetAccountOperation& from) {
     if (from.has_error()) {
       set_error(from.error());
     }
-    if (from.has_user()) {
-      set_has_user();
-      user_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.user_);
-    }
     if (from.has_password()) {
       set_has_password();
       password_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.password_);
     }
-    if (from.has_userid()) {
-      set_userid(from.userid());
+    if (from.has_accountid()) {
+      set_accountid(from.accountid());
     }
   }
   if (!from.unknown_fields().empty()) {
@@ -906,7 +859,7 @@ void RetAccountOperation::CopyFrom(const RetAccountOperation& from) {
 }
 
 bool RetAccountOperation::IsInitialized() const {
-  if ((_has_bits_[0] & 0x0000000f) != 0x0000000f) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
 
   return true;
 }
@@ -917,9 +870,8 @@ void RetAccountOperation::Swap(RetAccountOperation* other) {
 }
 void RetAccountOperation::InternalSwap(RetAccountOperation* other) {
   std::swap(error_, other->error_);
-  user_.Swap(&other->user_);
   password_.Swap(&other->password_);
-  std::swap(userid_, other->userid_);
+  std::swap(accountid_, other->accountid_);
   std::swap(_has_bits_[0], other->_has_bits_[0]);
   _unknown_fields_.Swap(&other->_unknown_fields_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -957,69 +909,15 @@ void RetAccountOperation::clear_error() {
   // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.error)
 }
 
-// required string user = 2;
-bool RetAccountOperation::has_user() const {
+// required string password = 2;
+bool RetAccountOperation::has_password() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-void RetAccountOperation::set_has_user() {
+void RetAccountOperation::set_has_password() {
   _has_bits_[0] |= 0x00000002u;
 }
-void RetAccountOperation::clear_has_user() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-void RetAccountOperation::clear_user() {
-  user_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_user();
-}
- const ::std::string& RetAccountOperation::user() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.user)
-  return user_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void RetAccountOperation::set_user(const ::std::string& value) {
-  set_has_user();
-  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.user)
-}
- void RetAccountOperation::set_user(const char* value) {
-  set_has_user();
-  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Cmd.RetAccountOperation.user)
-}
- void RetAccountOperation::set_user(const char* value, size_t size) {
-  set_has_user();
-  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Cmd.RetAccountOperation.user)
-}
- ::std::string* RetAccountOperation::mutable_user() {
-  set_has_user();
-  // @@protoc_insertion_point(field_mutable:Cmd.RetAccountOperation.user)
-  return user_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* RetAccountOperation::release_user() {
-  // @@protoc_insertion_point(field_release:Cmd.RetAccountOperation.user)
-  clear_has_user();
-  return user_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void RetAccountOperation::set_allocated_user(::std::string* user) {
-  if (user != NULL) {
-    set_has_user();
-  } else {
-    clear_has_user();
-  }
-  user_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), user);
-  // @@protoc_insertion_point(field_set_allocated:Cmd.RetAccountOperation.user)
-}
-
-// required string password = 3;
-bool RetAccountOperation::has_password() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-void RetAccountOperation::set_has_password() {
-  _has_bits_[0] |= 0x00000004u;
-}
 void RetAccountOperation::clear_has_password() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 void RetAccountOperation::clear_password() {
   password_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -1065,630 +963,28 @@ void RetAccountOperation::clear_password() {
   // @@protoc_insertion_point(field_set_allocated:Cmd.RetAccountOperation.password)
 }
 
-// required int32 userid = 4;
-bool RetAccountOperation::has_userid() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
-}
-void RetAccountOperation::set_has_userid() {
-  _has_bits_[0] |= 0x00000008u;
-}
-void RetAccountOperation::clear_has_userid() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-void RetAccountOperation::clear_userid() {
-  userid_ = 0;
-  clear_has_userid();
-}
- ::google::protobuf::int32 RetAccountOperation::userid() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.userid)
-  return userid_;
-}
- void RetAccountOperation::set_userid(::google::protobuf::int32 value) {
-  set_has_userid();
-  userid_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.userid)
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-static ::std::string* MutableUnknownFieldsForRetGameServer(
-    RetGameServer* ptr) {
-  return ptr->mutable_unknown_fields();
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int RetGameServer::kIpFieldNumber;
-const int RetGameServer::kPortFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-RetGameServer::RetGameServer()
-  : ::google::protobuf::MessageLite(), _arena_ptr_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:Cmd.RetGameServer)
-}
-
-void RetGameServer::InitAsDefaultInstance() {
-}
-
-RetGameServer::RetGameServer(const RetGameServer& from)
-  : ::google::protobuf::MessageLite(),
-    _arena_ptr_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:Cmd.RetGameServer)
-}
-
-void RetGameServer::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  _unknown_fields_.UnsafeSetDefault(
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ip_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  port_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-RetGameServer::~RetGameServer() {
-  // @@protoc_insertion_point(destructor:Cmd.RetGameServer)
-  SharedDtor();
-}
-
-void RetGameServer::SharedDtor() {
-  _unknown_fields_.DestroyNoArena(
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  ip_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void RetGameServer::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const RetGameServer& RetGameServer::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_Command_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_Command_2eproto();
-#endif
-  return *default_instance_;
-}
-
-RetGameServer* RetGameServer::default_instance_ = NULL;
-
-RetGameServer* RetGameServer::New(::google::protobuf::Arena* arena) const {
-  RetGameServer* n = new RetGameServer;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void RetGameServer::Clear() {
-// @@protoc_insertion_point(message_clear_start:Cmd.RetGameServer)
-  if (_has_bits_[0 / 32] & 3u) {
-    if (has_ip()) {
-      ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-    }
-    port_ = 0;
-  }
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  _unknown_fields_.ClearToEmptyNoArena(
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool RetGameServer::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::LazyStringOutputStream unknown_fields_string(
-      ::google::protobuf::internal::NewPermanentCallback(
-          &MutableUnknownFieldsForRetGameServer, this));
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string, false);
-  // @@protoc_insertion_point(parse_start:Cmd.RetGameServer)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required string ip = 1;
-      case 1: {
-        if (tag == 10) {
-          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
-                input, this->mutable_ip()));
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectTag(16)) goto parse_port;
-        break;
-      }
-
-      // required int32 port = 2;
-      case 2: {
-        if (tag == 16) {
-         parse_port:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &port_)));
-          set_has_port();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:Cmd.RetGameServer)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:Cmd.RetGameServer)
-  return false;
-#undef DO_
-}
-
-void RetGameServer::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:Cmd.RetGameServer)
-  // required string ip = 1;
-  if (has_ip()) {
-    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
-      1, this->ip(), output);
-  }
-
-  // required int32 port = 2;
-  if (has_port()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->port(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   static_cast<int>(unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:Cmd.RetGameServer)
-}
-
-int RetGameServer::RequiredFieldsByteSizeFallback() const {
-// @@protoc_insertion_point(required_fields_byte_size_fallback_start:Cmd.RetGameServer)
-  int total_size = 0;
-
-  if (has_ip()) {
-    // required string ip = 1;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->ip());
-  }
-
-  if (has_port()) {
-    // required int32 port = 2;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->port());
-  }
-
-  return total_size;
-}
-int RetGameServer::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:Cmd.RetGameServer)
-  int total_size = 0;
-
-  if (((_has_bits_[0] & 0x00000003) ^ 0x00000003) == 0) {  // All required fields are present.
-    // required string ip = 1;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::StringSize(
-        this->ip());
-
-    // required int32 port = 2;
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->port());
-
-  } else {
-    total_size += RequiredFieldsByteSizeFallback();
-  }
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void RetGameServer::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const RetGameServer*>(&from));
-}
-
-void RetGameServer::MergeFrom(const RetGameServer& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Cmd.RetGameServer)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) {
-    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
-  }
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_ip()) {
-      set_has_ip();
-      ip_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.ip_);
-    }
-    if (from.has_port()) {
-      set_port(from.port());
-    }
-  }
-  if (!from.unknown_fields().empty()) {
-    mutable_unknown_fields()->append(from.unknown_fields());
-  }
-}
-
-void RetGameServer::CopyFrom(const RetGameServer& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Cmd.RetGameServer)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool RetGameServer::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000003) != 0x00000003) return false;
-
-  return true;
-}
-
-void RetGameServer::Swap(RetGameServer* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void RetGameServer::InternalSwap(RetGameServer* other) {
-  ip_.Swap(&other->ip_);
-  std::swap(port_, other->port_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
-  _unknown_fields_.Swap(&other->_unknown_fields_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::std::string RetGameServer::GetTypeName() const {
-  return "Cmd.RetGameServer";
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// RetGameServer
-
-// required string ip = 1;
-bool RetGameServer::has_ip() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-void RetGameServer::set_has_ip() {
-  _has_bits_[0] |= 0x00000001u;
-}
-void RetGameServer::clear_has_ip() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-void RetGameServer::clear_ip() {
-  ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_ip();
-}
- const ::std::string& RetGameServer::ip() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetGameServer.ip)
-  return ip_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void RetGameServer::set_ip(const ::std::string& value) {
-  set_has_ip();
-  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Cmd.RetGameServer.ip)
-}
- void RetGameServer::set_ip(const char* value) {
-  set_has_ip();
-  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Cmd.RetGameServer.ip)
-}
- void RetGameServer::set_ip(const char* value, size_t size) {
-  set_has_ip();
-  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Cmd.RetGameServer.ip)
-}
- ::std::string* RetGameServer::mutable_ip() {
-  set_has_ip();
-  // @@protoc_insertion_point(field_mutable:Cmd.RetGameServer.ip)
-  return ip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- ::std::string* RetGameServer::release_ip() {
-  // @@protoc_insertion_point(field_release:Cmd.RetGameServer.ip)
-  clear_has_ip();
-  return ip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
- void RetGameServer::set_allocated_ip(::std::string* ip) {
-  if (ip != NULL) {
-    set_has_ip();
-  } else {
-    clear_has_ip();
-  }
-  ip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ip);
-  // @@protoc_insertion_point(field_set_allocated:Cmd.RetGameServer.ip)
-}
-
-// required int32 port = 2;
-bool RetGameServer::has_port() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-void RetGameServer::set_has_port() {
-  _has_bits_[0] |= 0x00000002u;
-}
-void RetGameServer::clear_has_port() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-void RetGameServer::clear_port() {
-  port_ = 0;
-  clear_has_port();
-}
- ::google::protobuf::int32 RetGameServer::port() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetGameServer.port)
-  return port_;
-}
- void RetGameServer::set_port(::google::protobuf::int32 value) {
-  set_has_port();
-  port_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.RetGameServer.port)
-}
-
-#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
-
-// ===================================================================
-
-static ::std::string* MutableUnknownFieldsForReqGameServer(
-    ReqGameServer* ptr) {
-  return ptr->mutable_unknown_fields();
-}
-
-#if !defined(_MSC_VER) || _MSC_VER >= 1900
-const int ReqGameServer::kServerIDFieldNumber;
-#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
-
-ReqGameServer::ReqGameServer()
-  : ::google::protobuf::MessageLite(), _arena_ptr_(NULL) {
-  SharedCtor();
-  // @@protoc_insertion_point(constructor:Cmd.ReqGameServer)
-}
-
-void ReqGameServer::InitAsDefaultInstance() {
-}
-
-ReqGameServer::ReqGameServer(const ReqGameServer& from)
-  : ::google::protobuf::MessageLite(),
-    _arena_ptr_(NULL) {
-  SharedCtor();
-  MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:Cmd.ReqGameServer)
-}
-
-void ReqGameServer::SharedCtor() {
-  ::google::protobuf::internal::GetEmptyString();
-  _cached_size_ = 0;
-  _unknown_fields_.UnsafeSetDefault(
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  serverid_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-}
-
-ReqGameServer::~ReqGameServer() {
-  // @@protoc_insertion_point(destructor:Cmd.ReqGameServer)
-  SharedDtor();
-}
-
-void ReqGameServer::SharedDtor() {
-  _unknown_fields_.DestroyNoArena(
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  if (this != &default_instance()) {
-  #else
-  if (this != default_instance_) {
-  #endif
-  }
-}
-
-void ReqGameServer::SetCachedSize(int size) const {
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-}
-const ReqGameServer& ReqGameServer::default_instance() {
-#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  protobuf_AddDesc_Command_2eproto();
-#else
-  if (default_instance_ == NULL) protobuf_AddDesc_Command_2eproto();
-#endif
-  return *default_instance_;
-}
-
-ReqGameServer* ReqGameServer::default_instance_ = NULL;
-
-ReqGameServer* ReqGameServer::New(::google::protobuf::Arena* arena) const {
-  ReqGameServer* n = new ReqGameServer;
-  if (arena != NULL) {
-    arena->Own(n);
-  }
-  return n;
-}
-
-void ReqGameServer::Clear() {
-// @@protoc_insertion_point(message_clear_start:Cmd.ReqGameServer)
-  serverid_ = 0;
-  ::memset(_has_bits_, 0, sizeof(_has_bits_));
-  _unknown_fields_.ClearToEmptyNoArena(
-      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-
-bool ReqGameServer::MergePartialFromCodedStream(
-    ::google::protobuf::io::CodedInputStream* input) {
-#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
-  ::google::protobuf::uint32 tag;
-  ::google::protobuf::io::LazyStringOutputStream unknown_fields_string(
-      ::google::protobuf::internal::NewPermanentCallback(
-          &MutableUnknownFieldsForReqGameServer, this));
-  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
-      &unknown_fields_string, false);
-  // @@protoc_insertion_point(parse_start:Cmd.ReqGameServer)
-  for (;;) {
-    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
-    tag = p.first;
-    if (!p.second) goto handle_unusual;
-    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // required int32 serverID = 1;
-      case 1: {
-        if (tag == 8) {
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &serverid_)));
-          set_has_serverid();
-        } else {
-          goto handle_unusual;
-        }
-        if (input->ExpectAtEnd()) goto success;
-        break;
-      }
-
-      default: {
-      handle_unusual:
-        if (tag == 0 ||
-            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
-            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
-          goto success;
-        }
-        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
-            input, tag, &unknown_fields_stream));
-        break;
-      }
-    }
-  }
-success:
-  // @@protoc_insertion_point(parse_success:Cmd.ReqGameServer)
-  return true;
-failure:
-  // @@protoc_insertion_point(parse_failure:Cmd.ReqGameServer)
-  return false;
-#undef DO_
-}
-
-void ReqGameServer::SerializeWithCachedSizes(
-    ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:Cmd.ReqGameServer)
-  // required int32 serverID = 1;
-  if (has_serverid()) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->serverid(), output);
-  }
-
-  output->WriteRaw(unknown_fields().data(),
-                   static_cast<int>(unknown_fields().size()));
-  // @@protoc_insertion_point(serialize_end:Cmd.ReqGameServer)
-}
-
-int ReqGameServer::ByteSize() const {
-// @@protoc_insertion_point(message_byte_size_start:Cmd.ReqGameServer)
-  int total_size = 0;
-
-  // required int32 serverID = 1;
-  if (has_serverid()) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->serverid());
-  }
-  total_size += unknown_fields().size();
-
-  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
-  _cached_size_ = total_size;
-  GOOGLE_SAFE_CONCURRENT_WRITES_END();
-  return total_size;
-}
-
-void ReqGameServer::CheckTypeAndMergeFrom(
-    const ::google::protobuf::MessageLite& from) {
-  MergeFrom(*::google::protobuf::down_cast<const ReqGameServer*>(&from));
-}
-
-void ReqGameServer::MergeFrom(const ReqGameServer& from) {
-// @@protoc_insertion_point(class_specific_merge_from_start:Cmd.ReqGameServer)
-  if (GOOGLE_PREDICT_FALSE(&from == this)) {
-    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
-  }
-  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
-    if (from.has_serverid()) {
-      set_serverid(from.serverid());
-    }
-  }
-  if (!from.unknown_fields().empty()) {
-    mutable_unknown_fields()->append(from.unknown_fields());
-  }
-}
-
-void ReqGameServer::CopyFrom(const ReqGameServer& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:Cmd.ReqGameServer)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-bool ReqGameServer::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
-
-  return true;
-}
-
-void ReqGameServer::Swap(ReqGameServer* other) {
-  if (other == this) return;
-  InternalSwap(other);
-}
-void ReqGameServer::InternalSwap(ReqGameServer* other) {
-  std::swap(serverid_, other->serverid_);
-  std::swap(_has_bits_[0], other->_has_bits_[0]);
-  _unknown_fields_.Swap(&other->_unknown_fields_);
-  std::swap(_cached_size_, other->_cached_size_);
-}
-
-::std::string ReqGameServer::GetTypeName() const {
-  return "Cmd.ReqGameServer";
-}
-
-#if PROTOBUF_INLINE_NOT_IN_HEADERS
-// ReqGameServer
-
-// required int32 serverID = 1;
-bool ReqGameServer::has_serverid() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-void ReqGameServer::set_has_serverid() {
-  _has_bits_[0] |= 0x00000001u;
-}
-void ReqGameServer::clear_has_serverid() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-void ReqGameServer::clear_serverid() {
-  serverid_ = 0;
-  clear_has_serverid();
-}
- ::google::protobuf::int32 ReqGameServer::serverid() const {
-  // @@protoc_insertion_point(field_get:Cmd.ReqGameServer.serverID)
-  return serverid_;
-}
- void ReqGameServer::set_serverid(::google::protobuf::int32 value) {
-  set_has_serverid();
-  serverid_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.ReqGameServer.serverID)
+// required int32 accountid = 3;
+bool RetAccountOperation::has_accountid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+void RetAccountOperation::set_has_accountid() {
+  _has_bits_[0] |= 0x00000004u;
+}
+void RetAccountOperation::clear_has_accountid() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+void RetAccountOperation::clear_accountid() {
+  accountid_ = 0;
+  clear_has_accountid();
+}
+ ::google::protobuf::int32 RetAccountOperation::accountid() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.accountid)
+  return accountid_;
+}
+ void RetAccountOperation::set_accountid(::google::protobuf::int32 value) {
+  set_has_accountid();
+  accountid_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.accountid)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
