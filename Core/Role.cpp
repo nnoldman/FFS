@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "Role.h"
-#include "RoleDefine.h"
+#include "GlobalRoleDefine.h"
 
 
 Role::Role() {
@@ -15,6 +15,6 @@ void Role::enterScene() {
 }
 
 void Role::createDefine() {
-    mDBInterface = new RoleDefine();
+    mDBInterface = new GlobalRoleDefine();
 }
 

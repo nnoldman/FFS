@@ -3,10 +3,8 @@
 #include "DBDefine.h"
 #include "BaseObject.h"
 class Role;
-class CX_LIB Account
-    : public BaseObject {
+class Account : public BaseObject {
   public:
-
     Account();
     ~Account();
 
@@ -14,18 +12,11 @@ class CX_LIB Account
 
     void onEnterGate();
 
-    void onRoleRqEnterWorld(string guid);
-
-    void sendDBToClient(string data);
-
-    void setConnection(Connection* connect);
+    void onRoleRqEnterWorld(int globalID);
 
     void sync(string data);
 
     void enterWorld();
-
-    inline Connection* getNetInterface();
-
 
     virtual void createDefine() override;
 
@@ -37,8 +28,4 @@ class CX_LIB Account
 
     Role* mActiveRole;
 
-    Connection* mNetInterface;
 };
-inline Connection* Account::getNetInterface() {
-    return mNetInterface;
-}

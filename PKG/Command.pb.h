@@ -36,9 +36,8 @@ void protobuf_AssignDesc_Command_2eproto();
 void protobuf_ShutdownFile_Command_2eproto();
 
 class ReqAccountOperation;
-class ReqGameServer;
+class ReqLoginGameServer;
 class RetAccountOperation;
-class RetGameServer;
 
 enum AccountAction {
   AccountAction_None = 0,
@@ -286,22 +285,10 @@ class RetAccountOperation : public ::google::protobuf::MessageLite /* @@protoc_i
   ::Cmd::AccountErrorCode error() const;
   void set_error(::Cmd::AccountErrorCode value);
 
-  // required string user = 2;
-  bool has_user() const;
-  void clear_user();
-  static const int kUserFieldNumber = 2;
-  const ::std::string& user() const;
-  void set_user(const ::std::string& value);
-  void set_user(const char* value);
-  void set_user(const char* value, size_t size);
-  ::std::string* mutable_user();
-  ::std::string* release_user();
-  void set_allocated_user(::std::string* user);
-
-  // required string password = 3;
+  // required string password = 2;
   bool has_password() const;
   void clear_password();
-  static const int kPasswordFieldNumber = 3;
+  static const int kPasswordFieldNumber = 2;
   const ::std::string& password() const;
   void set_password(const ::std::string& value);
   void set_password(const char* value);
@@ -310,23 +297,21 @@ class RetAccountOperation : public ::google::protobuf::MessageLite /* @@protoc_i
   ::std::string* release_password();
   void set_allocated_password(::std::string* password);
 
-  // required int32 userid = 4;
-  bool has_userid() const;
-  void clear_userid();
-  static const int kUseridFieldNumber = 4;
-  ::google::protobuf::int32 userid() const;
-  void set_userid(::google::protobuf::int32 value);
+  // required int32 accountid = 3;
+  bool has_accountid() const;
+  void clear_accountid();
+  static const int kAccountidFieldNumber = 3;
+  ::google::protobuf::int32 accountid() const;
+  void set_accountid(::google::protobuf::int32 value);
 
   // @@protoc_insertion_point(class_scope:Cmd.RetAccountOperation)
  private:
   inline void set_has_error();
   inline void clear_has_error();
-  inline void set_has_user();
-  inline void clear_has_user();
   inline void set_has_password();
   inline void clear_has_password();
-  inline void set_has_userid();
-  inline void clear_has_userid();
+  inline void set_has_accountid();
+  inline void clear_has_accountid();
 
   // helper for ByteSize()
   int RequiredFieldsByteSizeFallback() const;
@@ -336,10 +321,9 @@ class RetAccountOperation : public ::google::protobuf::MessageLite /* @@protoc_i
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::internal::ArenaStringPtr user_;
-  int error_;
-  ::google::protobuf::int32 userid_;
   ::google::protobuf::internal::ArenaStringPtr password_;
+  int error_;
+  ::google::protobuf::int32 accountid_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_Command_2eproto_impl();
   #else
@@ -353,14 +337,14 @@ class RetAccountOperation : public ::google::protobuf::MessageLite /* @@protoc_i
 };
 // -------------------------------------------------------------------
 
-class RetGameServer : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:Cmd.RetGameServer) */ {
+class ReqLoginGameServer : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:Cmd.ReqLoginGameServer) */ {
  public:
-  RetGameServer();
-  virtual ~RetGameServer();
+  ReqLoginGameServer();
+  virtual ~ReqLoginGameServer();
 
-  RetGameServer(const RetGameServer& from);
+  ReqLoginGameServer(const ReqLoginGameServer& from);
 
-  inline RetGameServer& operator=(const RetGameServer& from) {
+  inline ReqLoginGameServer& operator=(const ReqLoginGameServer& from) {
     CopyFrom(from);
     return *this;
   }
@@ -375,28 +359,28 @@ class RetGameServer : public ::google::protobuf::MessageLite /* @@protoc_inserti
         &::google::protobuf::internal::GetEmptyStringAlreadyInited());
   }
 
-  static const RetGameServer& default_instance();
+  static const ReqLoginGameServer& default_instance();
 
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   // Returns the internal default instance pointer. This function can
   // return NULL thus should not be used by the user. This is intended
   // for Protobuf internal code. Please use default_instance() declared
   // above instead.
-  static inline const RetGameServer* internal_default_instance() {
+  static inline const ReqLoginGameServer* internal_default_instance() {
     return default_instance_;
   }
   #endif
 
-  void Swap(RetGameServer* other);
+  void Swap(ReqLoginGameServer* other);
 
   // implements Message ----------------------------------------------
 
-  inline RetGameServer* New() const { return New(NULL); }
+  inline ReqLoginGameServer* New() const { return New(NULL); }
 
-  RetGameServer* New(::google::protobuf::Arena* arena) const;
+  ReqLoginGameServer* New(::google::protobuf::Arena* arena) const;
   void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const RetGameServer& from);
-  void MergeFrom(const RetGameServer& from);
+  void CopyFrom(const ReqLoginGameServer& from);
+  void MergeFrom(const ReqLoginGameServer& from);
   void Clear();
   bool IsInitialized() const;
 
@@ -411,7 +395,7 @@ class RetGameServer : public ::google::protobuf::MessageLite /* @@protoc_inserti
   void SharedCtor();
   void SharedDtor();
   void SetCachedSize(int size) const;
-  void InternalSwap(RetGameServer* other);
+  void InternalSwap(ReqLoginGameServer* other);
   private:
   inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
     return _arena_ptr_;
@@ -427,42 +411,24 @@ class RetGameServer : public ::google::protobuf::MessageLite /* @@protoc_inserti
 
   // accessors -------------------------------------------------------
 
-  // required string ip = 1;
-  bool has_ip() const;
-  void clear_ip();
-  static const int kIpFieldNumber = 1;
-  const ::std::string& ip() const;
-  void set_ip(const ::std::string& value);
-  void set_ip(const char* value);
-  void set_ip(const char* value, size_t size);
-  ::std::string* mutable_ip();
-  ::std::string* release_ip();
-  void set_allocated_ip(::std::string* ip);
+  // required int32 accountid = 1;
+  bool has_accountid() const;
+  void clear_accountid();
+  static const int kAccountidFieldNumber = 1;
+  ::google::protobuf::int32 accountid() const;
+  void set_accountid(::google::protobuf::int32 value);
 
-  // required int32 port = 2;
-  bool has_port() const;
-  void clear_port();
-  static const int kPortFieldNumber = 2;
-  ::google::protobuf::int32 port() const;
-  void set_port(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:Cmd.RetGameServer)
+  // @@protoc_insertion_point(class_scope:Cmd.ReqLoginGameServer)
  private:
-  inline void set_has_ip();
-  inline void clear_has_ip();
-  inline void set_has_port();
-  inline void clear_has_port();
-
-  // helper for ByteSize()
-  int RequiredFieldsByteSizeFallback() const;
+  inline void set_has_accountid();
+  inline void clear_has_accountid();
 
   ::google::protobuf::internal::ArenaStringPtr _unknown_fields_;
   ::google::protobuf::Arena* _arena_ptr_;
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::internal::ArenaStringPtr ip_;
-  ::google::protobuf::int32 port_;
+  ::google::protobuf::int32 accountid_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_Command_2eproto_impl();
   #else
@@ -472,112 +438,7 @@ class RetGameServer : public ::google::protobuf::MessageLite /* @@protoc_inserti
   friend void protobuf_ShutdownFile_Command_2eproto();
 
   void InitAsDefaultInstance();
-  static RetGameServer* default_instance_;
-};
-// -------------------------------------------------------------------
-
-class ReqGameServer : public ::google::protobuf::MessageLite /* @@protoc_insertion_point(class_definition:Cmd.ReqGameServer) */ {
- public:
-  ReqGameServer();
-  virtual ~ReqGameServer();
-
-  ReqGameServer(const ReqGameServer& from);
-
-  inline ReqGameServer& operator=(const ReqGameServer& from) {
-    CopyFrom(from);
-    return *this;
-  }
-
-  inline const ::std::string& unknown_fields() const {
-    return _unknown_fields_.GetNoArena(
-        &::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-
-  inline ::std::string* mutable_unknown_fields() {
-    return _unknown_fields_.MutableNoArena(
-        &::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  }
-
-  static const ReqGameServer& default_instance();
-
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  // Returns the internal default instance pointer. This function can
-  // return NULL thus should not be used by the user. This is intended
-  // for Protobuf internal code. Please use default_instance() declared
-  // above instead.
-  static inline const ReqGameServer* internal_default_instance() {
-    return default_instance_;
-  }
-  #endif
-
-  void Swap(ReqGameServer* other);
-
-  // implements Message ----------------------------------------------
-
-  inline ReqGameServer* New() const { return New(NULL); }
-
-  ReqGameServer* New(::google::protobuf::Arena* arena) const;
-  void CheckTypeAndMergeFrom(const ::google::protobuf::MessageLite& from);
-  void CopyFrom(const ReqGameServer& from);
-  void MergeFrom(const ReqGameServer& from);
-  void Clear();
-  bool IsInitialized() const;
-
-  int ByteSize() const;
-  bool MergePartialFromCodedStream(
-      ::google::protobuf::io::CodedInputStream* input);
-  void SerializeWithCachedSizes(
-      ::google::protobuf::io::CodedOutputStream* output) const;
-  void DiscardUnknownFields();
-  int GetCachedSize() const { return _cached_size_; }
-  private:
-  void SharedCtor();
-  void SharedDtor();
-  void SetCachedSize(int size) const;
-  void InternalSwap(ReqGameServer* other);
-  private:
-  inline ::google::protobuf::Arena* GetArenaNoVirtual() const {
-    return _arena_ptr_;
-  }
-  inline ::google::protobuf::Arena* MaybeArenaPtr() const {
-    return _arena_ptr_;
-  }
-  public:
-
-  ::std::string GetTypeName() const;
-
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-
-  // required int32 serverID = 1;
-  bool has_serverid() const;
-  void clear_serverid();
-  static const int kServerIDFieldNumber = 1;
-  ::google::protobuf::int32 serverid() const;
-  void set_serverid(::google::protobuf::int32 value);
-
-  // @@protoc_insertion_point(class_scope:Cmd.ReqGameServer)
- private:
-  inline void set_has_serverid();
-  inline void clear_has_serverid();
-
-  ::google::protobuf::internal::ArenaStringPtr _unknown_fields_;
-  ::google::protobuf::Arena* _arena_ptr_;
-
-  ::google::protobuf::uint32 _has_bits_[1];
-  mutable int _cached_size_;
-  ::google::protobuf::int32 serverid_;
-  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
-  friend void  protobuf_AddDesc_Command_2eproto_impl();
-  #else
-  friend void  protobuf_AddDesc_Command_2eproto();
-  #endif
-  friend void protobuf_AssignDesc_Command_2eproto();
-  friend void protobuf_ShutdownFile_Command_2eproto();
-
-  void InitAsDefaultInstance();
-  static ReqGameServer* default_instance_;
+  static ReqLoginGameServer* default_instance_;
 };
 // ===================================================================
 
@@ -749,69 +610,15 @@ inline void RetAccountOperation::set_error(::Cmd::AccountErrorCode value) {
   // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.error)
 }
 
-// required string user = 2;
-inline bool RetAccountOperation::has_user() const {
+// required string password = 2;
+inline bool RetAccountOperation::has_password() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void RetAccountOperation::set_has_user() {
+inline void RetAccountOperation::set_has_password() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void RetAccountOperation::clear_has_user() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void RetAccountOperation::clear_user() {
-  user_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_user();
-}
-inline const ::std::string& RetAccountOperation::user() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.user)
-  return user_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void RetAccountOperation::set_user(const ::std::string& value) {
-  set_has_user();
-  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.user)
-}
-inline void RetAccountOperation::set_user(const char* value) {
-  set_has_user();
-  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Cmd.RetAccountOperation.user)
-}
-inline void RetAccountOperation::set_user(const char* value, size_t size) {
-  set_has_user();
-  user_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Cmd.RetAccountOperation.user)
-}
-inline ::std::string* RetAccountOperation::mutable_user() {
-  set_has_user();
-  // @@protoc_insertion_point(field_mutable:Cmd.RetAccountOperation.user)
-  return user_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* RetAccountOperation::release_user() {
-  // @@protoc_insertion_point(field_release:Cmd.RetAccountOperation.user)
-  clear_has_user();
-  return user_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void RetAccountOperation::set_allocated_user(::std::string* user) {
-  if (user != NULL) {
-    set_has_user();
-  } else {
-    clear_has_user();
-  }
-  user_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), user);
-  // @@protoc_insertion_point(field_set_allocated:Cmd.RetAccountOperation.user)
-}
-
-// required string password = 3;
-inline bool RetAccountOperation::has_password() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void RetAccountOperation::set_has_password() {
-  _has_bits_[0] |= 0x00000004u;
-}
 inline void RetAccountOperation::clear_has_password() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void RetAccountOperation::clear_password() {
   password_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -857,143 +664,59 @@ inline void RetAccountOperation::set_allocated_password(::std::string* password)
   // @@protoc_insertion_point(field_set_allocated:Cmd.RetAccountOperation.password)
 }
 
-// required int32 userid = 4;
-inline bool RetAccountOperation::has_userid() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+// required int32 accountid = 3;
+inline bool RetAccountOperation::has_accountid() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
 }
-inline void RetAccountOperation::set_has_userid() {
-  _has_bits_[0] |= 0x00000008u;
+inline void RetAccountOperation::set_has_accountid() {
+  _has_bits_[0] |= 0x00000004u;
 }
-inline void RetAccountOperation::clear_has_userid() {
-  _has_bits_[0] &= ~0x00000008u;
+inline void RetAccountOperation::clear_has_accountid() {
+  _has_bits_[0] &= ~0x00000004u;
 }
-inline void RetAccountOperation::clear_userid() {
-  userid_ = 0;
-  clear_has_userid();
+inline void RetAccountOperation::clear_accountid() {
+  accountid_ = 0;
+  clear_has_accountid();
 }
-inline ::google::protobuf::int32 RetAccountOperation::userid() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.userid)
-  return userid_;
+inline ::google::protobuf::int32 RetAccountOperation::accountid() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.accountid)
+  return accountid_;
 }
-inline void RetAccountOperation::set_userid(::google::protobuf::int32 value) {
-  set_has_userid();
-  userid_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.userid)
-}
-
-// -------------------------------------------------------------------
-
-// RetGameServer
-
-// required string ip = 1;
-inline bool RetGameServer::has_ip() const {
-  return (_has_bits_[0] & 0x00000001u) != 0;
-}
-inline void RetGameServer::set_has_ip() {
-  _has_bits_[0] |= 0x00000001u;
-}
-inline void RetGameServer::clear_has_ip() {
-  _has_bits_[0] &= ~0x00000001u;
-}
-inline void RetGameServer::clear_ip() {
-  ip_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_ip();
-}
-inline const ::std::string& RetGameServer::ip() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetGameServer.ip)
-  return ip_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void RetGameServer::set_ip(const ::std::string& value) {
-  set_has_ip();
-  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Cmd.RetGameServer.ip)
-}
-inline void RetGameServer::set_ip(const char* value) {
-  set_has_ip();
-  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Cmd.RetGameServer.ip)
-}
-inline void RetGameServer::set_ip(const char* value, size_t size) {
-  set_has_ip();
-  ip_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Cmd.RetGameServer.ip)
-}
-inline ::std::string* RetGameServer::mutable_ip() {
-  set_has_ip();
-  // @@protoc_insertion_point(field_mutable:Cmd.RetGameServer.ip)
-  return ip_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* RetGameServer::release_ip() {
-  // @@protoc_insertion_point(field_release:Cmd.RetGameServer.ip)
-  clear_has_ip();
-  return ip_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void RetGameServer::set_allocated_ip(::std::string* ip) {
-  if (ip != NULL) {
-    set_has_ip();
-  } else {
-    clear_has_ip();
-  }
-  ip_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ip);
-  // @@protoc_insertion_point(field_set_allocated:Cmd.RetGameServer.ip)
-}
-
-// required int32 port = 2;
-inline bool RetGameServer::has_port() const {
-  return (_has_bits_[0] & 0x00000002u) != 0;
-}
-inline void RetGameServer::set_has_port() {
-  _has_bits_[0] |= 0x00000002u;
-}
-inline void RetGameServer::clear_has_port() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void RetGameServer::clear_port() {
-  port_ = 0;
-  clear_has_port();
-}
-inline ::google::protobuf::int32 RetGameServer::port() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetGameServer.port)
-  return port_;
-}
-inline void RetGameServer::set_port(::google::protobuf::int32 value) {
-  set_has_port();
-  port_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.RetGameServer.port)
+inline void RetAccountOperation::set_accountid(::google::protobuf::int32 value) {
+  set_has_accountid();
+  accountid_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.accountid)
 }
 
 // -------------------------------------------------------------------
 
-// ReqGameServer
+// ReqLoginGameServer
 
-// required int32 serverID = 1;
-inline bool ReqGameServer::has_serverid() const {
+// required int32 accountid = 1;
+inline bool ReqLoginGameServer::has_accountid() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
-inline void ReqGameServer::set_has_serverid() {
+inline void ReqLoginGameServer::set_has_accountid() {
   _has_bits_[0] |= 0x00000001u;
 }
-inline void ReqGameServer::clear_has_serverid() {
+inline void ReqLoginGameServer::clear_has_accountid() {
   _has_bits_[0] &= ~0x00000001u;
 }
-inline void ReqGameServer::clear_serverid() {
-  serverid_ = 0;
-  clear_has_serverid();
+inline void ReqLoginGameServer::clear_accountid() {
+  accountid_ = 0;
+  clear_has_accountid();
 }
-inline ::google::protobuf::int32 ReqGameServer::serverid() const {
-  // @@protoc_insertion_point(field_get:Cmd.ReqGameServer.serverID)
-  return serverid_;
+inline ::google::protobuf::int32 ReqLoginGameServer::accountid() const {
+  // @@protoc_insertion_point(field_get:Cmd.ReqLoginGameServer.accountid)
+  return accountid_;
 }
-inline void ReqGameServer::set_serverid(::google::protobuf::int32 value) {
-  set_has_serverid();
-  serverid_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.ReqGameServer.serverID)
+inline void ReqLoginGameServer::set_accountid(::google::protobuf::int32 value) {
+  set_has_accountid();
+  accountid_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.ReqLoginGameServer.accountid)
 }
 
 #endif  // !PROTOBUF_INLINE_NOT_IN_HEADERS
-// -------------------------------------------------------------------
-
 // -------------------------------------------------------------------
 
 // -------------------------------------------------------------------

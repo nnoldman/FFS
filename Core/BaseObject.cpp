@@ -3,31 +3,24 @@
 #include "DBDefine.h"
 
 
-BaseObject::BaseObject() {
+BaseObject::BaseObject()
+    :mNetInterface(nullptr)
+    ,mDBInterface(nullptr) {
 }
 
 BaseObject::~BaseObject() {
     dSafeDelete(mDBInterface);
 }
-
-DBDefine* BaseObject::getDBInterface() const {
-    return mDBInterface;
-}
-
-void BaseObject::setField(const char* key, Value value) {
-
-}
-
 bool BaseObject::initialize() {
     this->createDefine();
     return true;
 }
 
-void BaseObject::setGuid(const char* guid) {
-    mGUID = guid;
+void BaseObject::setGlobalID(int globalID) {
+    mGlobalID = globalID;
 }
 
+void BaseObject::sendDBToClient(string data) {
 
-const char* BaseObject::guid() const {
-    return mGUID.c_str();
 }
+

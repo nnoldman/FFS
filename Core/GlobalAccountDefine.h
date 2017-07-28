@@ -1,29 +1,29 @@
 #pragma once
 #include "DBDefine.h"
 #include "CharBuffer.h"
-class CX_LIB AccountDefine :
+class CX_LIB GlobalAccountDefine :
     public DBDefine {
   public:
-    int id;
     CharBuffer<Default::NameSize> user;
     CharBuffer<Default::NameSize> password;
+    int accountid;
   public:
     virtual const char* table() override {
-        return "role";
+        return "global_account";
     }
 
     virtual const char* key() override {
-        return "id";
+        return "user";
     }
 
     virtual void deserialize() override {
-        stream() >> id;
+        stream() >> accountid;
         stream() >> user;
         stream() >> password;
     }
 
     virtual void serialize() override {
-        stream() << id;
+        stream() << accountid;
         stream() << user;
         stream() << password;
     }

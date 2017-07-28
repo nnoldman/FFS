@@ -47,7 +47,7 @@ void DataBase::create_table_if_not_exist(const char* name) {
 }
 
 bool DataBase::create_column_if_not_exist(const char* table, const char* key) {
-    auto res=mTables.find(table);
+    auto res = mTables.find(table);
     if (res != mTables.end()) {
         DBTable* sqltable = res->second;
         if (!sqltable->exist(key)) {
@@ -94,7 +94,7 @@ bool DataBase::queryRecord(string table, string key, const char* value, OUT DBDe
     ss << "SELECT COUNT(*) FROM " << table << " WHERE " << key << " = " << value;
     mExecuter->queryBegin(ss.str().c_str());
     std::vector<string> records;
-    auto ret= mExecuter->queryEnd(records);
+    auto ret = mExecuter->queryEnd(records);
     if (ret) {
         result->stream().set(records);
         result->deserialize();
@@ -115,8 +115,23 @@ bool DataBase::pull(Value keyvalue, OUT DBDefine* def) {
     return ret;
 }
 
-bool DataBase::commit(Value keyvalue, OUT DBDefine* ret) {
+bool DataBase::commit(Value keyvalue, OUT DBDefine* def) {
     return false;
+}
+
+bool DataBase::insert(Value keyvalue, OUT DBDefine* def) {
+    stringstream sm;
+    sm << "INSERT INTO " << def->table() << "(" << def->key() << ") VALUES (" << keyvalue.toString() << ");";
+    mExecuter->queryBegin(sm.str().c_str());
+    return mExecuter->queryEnd();
+}
+
+bool DataBase::insertAndQuery(Value keyvalue, OUT DBDefine* def) {
+    bool ret = insert(keyvalue, def);
+    if (ret) {
+        ret = pull(keyvalue, def);
+    }
+    return ret;
 }
 
 bool DataBase::insertDefaultByGUID(const char* table, const char* guid) {
@@ -135,7 +150,7 @@ bool DataBase::insertDefaultByGUID(const char* table, const char* guid) {
 
 DBTable* DataBase::getTable(const char* name) {
     auto p = mTables.find(name);
-    if(p==mTables.end())
+    if(p == mTables.end())
         return nullptr;
     return p->second;
 }
