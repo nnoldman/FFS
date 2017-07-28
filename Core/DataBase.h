@@ -17,7 +17,7 @@ class CX_LIB DataBase {
 
     void create_table_if_not_exist(const char* name);
 
-    bool create_column_if_not_exist(const char* table,const char* key);
+    bool create_column_if_not_exist(const char* table, const char* key);
 
     bool createTable(const char* name, const char* cmd);
 
@@ -25,12 +25,17 @@ class CX_LIB DataBase {
 
     bool queryKey(string table, string key, const char* value);
 
-    bool queryRecord(string table, string key, const char* value,OUT DBDefine* result);
+    bool queryRecord(string table, string key, const char* value, OUT DBDefine* result);
     bool queryRecord(string table, string key, const char* value, std::vector<string>& result);
     bool queryRecord(const char* cmd, std::vector<string>& result);
 
-    bool pull(Value keyvalue, OUT DBDefine* ret);
-    bool commit(Value keyvalue, OUT DBDefine* ret);
+    bool pull(Value keyvalue, OUT DBDefine* def);
+    bool commit(Value keyvalue, OUT DBDefine* def);
+    bool insert(Value keyvalue, OUT DBDefine* def);
+    /*
+     *	insert and record ,then execute query
+     */
+    bool insertAndQuery(Value keyvalue, OUT DBDefine* def);
 
     bool insertDefaultByGUID(const char* table, const char* guid);
 
@@ -56,7 +61,7 @@ class CX_LIB DataBase {
 
     //Poco::SharedPtr<Poco::Data::Session> _pSession;
 
-    map<string,DBTable*> mTables;
+    map<string, DBTable*> mTables;
 };
 
 

@@ -3,7 +3,7 @@
 #include "App.h"
 #include "Role.h"
 #include "Bundle.h"
-#include "AccountDefine.h"
+#include "GlobalAccountDefine.h"
 Account::Account()
     : mNetInterface(nullptr) {
 }
@@ -18,13 +18,13 @@ void Account::onEnterGate() {
     //this->call("enterWorld");
 }
 
-void Account::onRoleRqEnterWorld(string guid) {
+void Account::onRoleRqEnterWorld(int globalID) {
     mActiveRole = new Role();
     if (!mActiveRole->initialize()) {
         assert(0);
         return;
     }
-    mActiveRole->setGuid(guid.c_str());
+    mActiveRole->setGlobalID(globalID);
     mActiveRole->enterScene();
 }
 
@@ -48,7 +48,7 @@ void Account::enterWorld() {
 
 
 void Account::createDefine() {
-    mDBInterface = new AccountDefine();
+    mDBInterface = new GlobalAccountDefine();
 }
 
 bool Account::initialize() {

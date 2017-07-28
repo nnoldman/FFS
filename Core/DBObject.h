@@ -18,7 +18,5 @@ class CX_LIB DBObject :
 
     void requireGUID();
 
-    virtual const char* dbKey();
-
 };
 

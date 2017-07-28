@@ -15,6 +15,7 @@ class CX_LIB DBDefine {
     }
     bool pull(Value keyvalue);
     bool commit(Value keyvalue);
+    bool insertAndQuery(Value keyvalue);
   public:
     inline DBStream& stream() {
         return stream_;

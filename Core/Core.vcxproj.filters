@@ -48,13 +48,13 @@
     <ClInclude Include="DBExecuter.h" />
     <ClInclude Include="DBStream.h" />
     <ClInclude Include="Gate.h" />
-    <ClInclude Include="AccountDefine.h">
-      <Filter>CoreDBObject</Filter>
-    </ClInclude>
-    <ClInclude Include="RoleDefine.h">
-      <Filter>CoreDBObject</Filter>
-    </ClInclude>
     <ClInclude Include="DBDefine.h" />
+    <ClInclude Include="GlobalRoleDefine.h">
+      <Filter>CoreDBObject</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalAccountDefine.h">
+      <Filter>CoreDBObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

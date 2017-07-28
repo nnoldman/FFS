@@ -12,3 +12,7 @@ bool DBDefine::commit(Value keyvalue) {
     return App::DataBase.pull(keyvalue, this);
 }
 
+bool DBDefine::insertAndQuery(Value keyvalue) {
+    return App::DataBase.pull(keyvalue, this);
+}
+

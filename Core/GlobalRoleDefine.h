@@ -3,19 +3,20 @@
 #include "Default.h"
 #include "DBStream.h"
 #include "CharBuffer.h"
-class CX_LIB RoleDefine :
-    public DBDefine {
+class CX_LIB GlobalRoleDefine : public DBDefine {
+    CharBuffer<Default::NameSize> name;
     int id;
     int level;
     int vip;
-    CharBuffer<Default::NameSize> name;
 
     virtual const char* table() override {
-        return "role";
+        return "global_role";
     }
+
     virtual const char* key() override {
-        return "id";
+        return "name";
     }
+
     virtual void deserialize() override {
         stream() >> id;
         stream() >> level;

@@ -6,15 +6,21 @@ class CX_LIB BaseObject {
     BaseObject();
     virtual ~BaseObject();
     virtual bool initialize();
-    virtual void setGuid(const char* guid);
-    const char* guid() const;
+    virtual void setGlobalID(int globalID);
     virtual void createDefine() = 0;
     DBDefine* getDBInterface() const;
-    void setField(const char* key, Value value);
+    //void setField(const char* key, Value value);
+    inline int globalID()const;
   protected:
     DBDefine* mDBInterface;
   private:
-    string mGUID;
+    int mGlobalID;
 };
+inline int BaseObject::globalID() const {
+    return mGlobalID;
+}
+inline DBDefine* BaseObject::getDBInterface() const {
+    return mDBInterface;
+}
 #endif // BaseObject_h__
 

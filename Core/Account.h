@@ -3,10 +3,8 @@
 #include "DBDefine.h"
 #include "BaseObject.h"
 class Role;
-class CX_LIB Account
-    : public BaseObject {
+class CX_LIB Account : public BaseObject {
   public:
-
     Account();
     ~Account();
 
@@ -14,7 +12,7 @@ class CX_LIB Account
 
     void onEnterGate();
 
-    void onRoleRqEnterWorld(string guid);
+    void onRoleRqEnterWorld(int globalID);
 
     void sendDBToClient(string data);
 

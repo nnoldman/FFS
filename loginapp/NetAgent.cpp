@@ -3,7 +3,7 @@
 #include "Account.h"
 #include "Command.pb.h"
 #include "Cmd.pb.h"
-#include "AccountDefine.h"
+#include "GlobalAccountDefine.h"
 NetAgent::NetAgent() {
 }
 NetAgent::~NetAgent() {
@@ -15,17 +15,6 @@ void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
         Connection* connect = arg->connect;
 
         switch (pkg->opcode) {
-        case Cmd::CLIENT_COMMAND::RQGameServerInfo: {
-            auto rq = (Cmd::ReqGameServer*)pkg;
-            NetConfig* netconfig;
-            if (App::Config.center.centers.Get(rq->serverid(), netconfig)) {
-                Cmd::RetGameServer rt;
-                rt.set_ip(netconfig->ip.c_str());
-                rt.set_port(netconfig->port);
-                SendProtoBuffer(connect->getSocket(), 1, rt);
-            }
-            break;
-        }
         case Cmd::CLIENT_COMMAND::RQAccountOperation: {
             auto req = (Cmd::ReqAccountOperation*)pkg;
             if (req->action() == Cmd::AccountAction::AccountAction_Create) {
@@ -50,8 +39,7 @@ void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
 
 bool NetAgent::on_rqLoginAccount(const string& user, const string& password, Connection* con) {
     Account* gateAccount = new Account();
-    gateAccount->setGuid(user.c_str());
-    auto def = (AccountDefine*)gateAccount->getDBInterface();
+    auto def = (GlobalAccountDefine*)gateAccount->getDBInterface();
     if (def->pull(def->user.getString())) {
         if (def->password != password.c_str()) {
             Cmd::RetAccountOperation ret;
@@ -60,11 +48,13 @@ bool NetAgent::on_rqLoginAccount(const string& user, const string& password, Con
             dSafeDelete(gateAccount);
             return false;
         } else {
+            gateAccount->setGlobalID(def->accountid);
             Cmd::RetAccountOperation ret;
             ret.set_error(Cmd::AccountErrorCode::AccountErrorCode_LoginSucessed);
-            ret.set_userid(def->id);
+            ret.set_accountid(def->accountid);
             SendProtoBuffer(con->getSocket(), Cmd::SERVER_COMMAND::RTAccountOperation, ret);
-            App::Gate.onEnter(gateAccount);
+            //App::Gate.onEnter(gateAccount);
+            dSafeDelete(gateAccount);
         }
     } else {
         Cmd::RetAccountOperation ret;
@@ -78,8 +68,7 @@ bool NetAgent::on_rqLoginAccount(const string& user, const string& password, Con
 
 bool NetAgent::on_rqCreateAccount(const string& user, const string& password, Connection* con) {
     Account* gateAccount = new Account();
-    gateAccount->setGuid(user.c_str());
-    auto def = (AccountDefine*)gateAccount->getDBInterface();
+    auto def = (GlobalAccountDefine*)gateAccount->getDBInterface();
     if (def->pull(user.c_str())) {
         Cmd::RetAccountOperation ret;
         ret.set_error(Cmd::AccountErrorCode::AccountErrorCode_NameRepeated);
@@ -89,13 +78,17 @@ bool NetAgent::on_rqCreateAccount(const string& user, const string& password, Co
     } else {
         def->user = user.c_str();
         def->password = password.c_str();
-        def->commit(user.c_str());
+        auto queryRet = def->insertAndQuery(user.c_str());
+        assert(queryRet);
+        gateAccount->setGlobalID(def->accountid);
 
         Cmd::RetAccountOperation ret;
         ret.set_error(Cmd::AccountErrorCode::AccountErrorCode_CreateSucessed);
+        ret.set_accountid(def->accountid);
         SendProtoBuffer(con->getSocket(), Cmd::SERVER_COMMAND::RTAccountOperation, ret);
 
-        App::Gate.onEnter(gateAccount);
+        dSafeDelete(gateAccount);
+        //App::Gate.onEnter(gateAccount);
 
         return true;
     }
