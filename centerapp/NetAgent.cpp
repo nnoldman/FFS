@@ -19,7 +19,8 @@ void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
         Connection* connect = arg->connect;
 
         switch (pkg->opcode) {
-        case Cmd::SERVER_COMMAND::RTLoginGameServer: {
+        case Cmd::CLIENT_COMMAND::RQLoginGameServer: {
+            auto req = (Cmd::ReqLoginGameServer*)pkg;
         }
         break;
         default:

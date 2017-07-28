@@ -1,9 +1,9 @@
 #pragma once
-class Account;
+class DBObject;
 class CX_LIB Gate {
   public:
     Gate();
     ~Gate();
-    void onEnter(Account* account);
+    void onEnter(DBObject* account);
 };
 

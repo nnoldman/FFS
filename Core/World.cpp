@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "World.h"
 #include "App.h"
+#include "DBObject.h"
 
 
 World::World() {
@@ -17,7 +18,7 @@ bool World::initialize() {
     return true;
 }
 
-void World::reclaimAccount(Account* account) {
+void World::reclaimAccount(DBObject* account) {
     onAccountLeaveWorld.trigger();
 
     assert(account);
@@ -26,18 +27,16 @@ void World::reclaimAccount(Account* account) {
     dSafeDelete(account);
 }
 
-void World::onEnterWorld(Account* account) {
+void World::onEnterWorld(DBObject* account) {
     assert(mAccounts.find(account->globalID()) == mAccounts.end());
     mAccounts.insert(make_pair(account->globalID(), account));
-    account->onEnterGate();
     onAccountEnterWorld.trigger();
 }
 
 void World::sync(int account_guid, string cmd) {
     auto acc = mAccounts.find(account_guid);
     assert(acc != mAccounts.end());
-    Account* account = acc->second;
-    account->sendDBToClient(cmd);
+    acc->second->sendDBToClient(cmd);
 }
 
 void World::onCallBack(const Delegate& d, uEventArgs* e) {

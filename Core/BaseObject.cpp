@@ -3,7 +3,9 @@
 #include "DBDefine.h"
 
 
-BaseObject::BaseObject() {
+BaseObject::BaseObject()
+    :mNetInterface(nullptr)
+    ,mDBInterface(nullptr) {
 }
 
 BaseObject::~BaseObject() {
@@ -16,5 +18,9 @@ bool BaseObject::initialize() {
 
 void BaseObject::setGlobalID(int globalID) {
     mGlobalID = globalID;
+}
+
+void BaseObject::sendDBToClient(string data) {
+
 }
 

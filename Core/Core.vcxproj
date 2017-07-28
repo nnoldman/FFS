@@ -160,7 +160,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Account.h" />
     <ClInclude Include="App.h" />
     <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Config.h" />
@@ -187,7 +186,6 @@
     <ClInclude Include="World.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Account.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Config.cpp" />

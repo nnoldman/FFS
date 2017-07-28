@@ -19,6 +19,7 @@ namespace Cmd {
 void protobuf_ShutdownFile_Command_2eproto() {
   delete ReqAccountOperation::default_instance_;
   delete RetAccountOperation::default_instance_;
+  delete ReqLoginGameServer::default_instance_;
 }
 
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
@@ -36,8 +37,10 @@ void protobuf_AddDesc_Command_2eproto() {
 #endif
   ReqAccountOperation::default_instance_ = new ReqAccountOperation();
   RetAccountOperation::default_instance_ = new RetAccountOperation();
+  ReqLoginGameServer::default_instance_ = new ReqLoginGameServer();
   ReqAccountOperation::default_instance_->InitAsDefaultInstance();
   RetAccountOperation::default_instance_->InitAsDefaultInstance();
+  ReqLoginGameServer::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_Command_2eproto);
 }
 
@@ -985,6 +988,250 @@ void RetAccountOperation::clear_accountid() {
   set_has_accountid();
   accountid_ = value;
   // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.accountid)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+static ::std::string* MutableUnknownFieldsForReqLoginGameServer(
+    ReqLoginGameServer* ptr) {
+  return ptr->mutable_unknown_fields();
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int ReqLoginGameServer::kAccountidFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+ReqLoginGameServer::ReqLoginGameServer()
+  : ::google::protobuf::MessageLite(), _arena_ptr_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:Cmd.ReqLoginGameServer)
+}
+
+void ReqLoginGameServer::InitAsDefaultInstance() {
+}
+
+ReqLoginGameServer::ReqLoginGameServer(const ReqLoginGameServer& from)
+  : ::google::protobuf::MessageLite(),
+    _arena_ptr_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:Cmd.ReqLoginGameServer)
+}
+
+void ReqLoginGameServer::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  _unknown_fields_.UnsafeSetDefault(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  accountid_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+ReqLoginGameServer::~ReqLoginGameServer() {
+  // @@protoc_insertion_point(destructor:Cmd.ReqLoginGameServer)
+  SharedDtor();
+}
+
+void ReqLoginGameServer::SharedDtor() {
+  _unknown_fields_.DestroyNoArena(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+  }
+}
+
+void ReqLoginGameServer::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const ReqLoginGameServer& ReqLoginGameServer::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_Command_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_Command_2eproto();
+#endif
+  return *default_instance_;
+}
+
+ReqLoginGameServer* ReqLoginGameServer::default_instance_ = NULL;
+
+ReqLoginGameServer* ReqLoginGameServer::New(::google::protobuf::Arena* arena) const {
+  ReqLoginGameServer* n = new ReqLoginGameServer;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void ReqLoginGameServer::Clear() {
+// @@protoc_insertion_point(message_clear_start:Cmd.ReqLoginGameServer)
+  accountid_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  _unknown_fields_.ClearToEmptyNoArena(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool ReqLoginGameServer::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::LazyStringOutputStream unknown_fields_string(
+      ::google::protobuf::internal::NewPermanentCallback(
+          &MutableUnknownFieldsForReqLoginGameServer, this));
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string, false);
+  // @@protoc_insertion_point(parse_start:Cmd.ReqLoginGameServer)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required int32 accountid = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &accountid_)));
+          set_has_accountid();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Cmd.ReqLoginGameServer)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Cmd.ReqLoginGameServer)
+  return false;
+#undef DO_
+}
+
+void ReqLoginGameServer::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Cmd.ReqLoginGameServer)
+  // required int32 accountid = 1;
+  if (has_accountid()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->accountid(), output);
+  }
+
+  output->WriteRaw(unknown_fields().data(),
+                   static_cast<int>(unknown_fields().size()));
+  // @@protoc_insertion_point(serialize_end:Cmd.ReqLoginGameServer)
+}
+
+int ReqLoginGameServer::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:Cmd.ReqLoginGameServer)
+  int total_size = 0;
+
+  // required int32 accountid = 1;
+  if (has_accountid()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->accountid());
+  }
+  total_size += unknown_fields().size();
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void ReqLoginGameServer::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const ReqLoginGameServer*>(&from));
+}
+
+void ReqLoginGameServer::MergeFrom(const ReqLoginGameServer& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Cmd.ReqLoginGameServer)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_accountid()) {
+      set_accountid(from.accountid());
+    }
+  }
+  if (!from.unknown_fields().empty()) {
+    mutable_unknown_fields()->append(from.unknown_fields());
+  }
+}
+
+void ReqLoginGameServer::CopyFrom(const ReqLoginGameServer& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Cmd.ReqLoginGameServer)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool ReqLoginGameServer::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  return true;
+}
+
+void ReqLoginGameServer::Swap(ReqLoginGameServer* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void ReqLoginGameServer::InternalSwap(ReqLoginGameServer* other) {
+  std::swap(accountid_, other->accountid_);
+  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  _unknown_fields_.Swap(&other->_unknown_fields_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::std::string ReqLoginGameServer::GetTypeName() const {
+  return "Cmd.ReqLoginGameServer";
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// ReqLoginGameServer
+
+// required int32 accountid = 1;
+bool ReqLoginGameServer::has_accountid() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+void ReqLoginGameServer::set_has_accountid() {
+  _has_bits_[0] |= 0x00000001u;
+}
+void ReqLoginGameServer::clear_has_accountid() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+void ReqLoginGameServer::clear_accountid() {
+  accountid_ = 0;
+  clear_has_accountid();
+}
+ ::google::protobuf::int32 ReqLoginGameServer::accountid() const {
+  // @@protoc_insertion_point(field_get:Cmd.ReqLoginGameServer.accountid)
+  return accountid_;
+}
+ void ReqLoginGameServer::set_accountid(::google::protobuf::int32 value) {
+  set_has_accountid();
+  accountid_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.ReqLoginGameServer.accountid)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
