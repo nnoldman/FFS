@@ -5,7 +5,7 @@
 #include "Poco/Net/TCPServerConnectionFactory.h"
 #include "Poco/Net/TCPServerParams.h"
 #include "Poco/Net/StreamSocket.h"
-#include "PKG.h"
+#include "ProtocoBuffer.h"
 #include "Connection.h"
 #include "ConfigInfo.h"
 #include "Poco/Mutex.h"
@@ -17,7 +17,7 @@ class CX_LIB NetWork : CallbackObject {
     Delegate onConnect;
   public:
     struct MsgArgs : public uEventArgs {
-        PKG* pkg;
+        ProtocoBuffer* pkg;
         Connection* connect;
         MsgArgs() : pkg(nullptr), connect(nullptr) {
         }

@@ -24,9 +24,6 @@
     <ClInclude Include="NetAgent.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Command.pb.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Account.h">
       <Filter>头文件</Filter>
     </ClInclude>

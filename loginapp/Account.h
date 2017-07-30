@@ -14,15 +14,9 @@ class Account : public BaseObject {
 
     void onRoleRqEnterWorld(int globalID);
 
-    void sync(string data);
-
     void enterWorld();
 
     virtual void createDefine() override;
-
-  protected:
-
-    void createRole();
 
   protected:
 

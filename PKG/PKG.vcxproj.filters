@@ -24,9 +24,6 @@
     <ClInclude Include="targetver.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="PKG.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Bundle.h">
       <Filter>头文件</Filter>
     </ClInclude>
@@ -34,6 +31,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Cmd.pb.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ProtocoBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -44,13 +44,13 @@
     <ClCompile Include="Bundle.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="PKG.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Command.pb.cc">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="Cmd.pb.cc">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="ProtocoBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

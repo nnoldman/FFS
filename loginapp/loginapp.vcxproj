@@ -161,7 +161,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\include\Command.pb.h" />
     <ClInclude Include="Account.h" />
     <ClInclude Include="LoginApp.h" />
     <ClInclude Include="NetAgent.h" />

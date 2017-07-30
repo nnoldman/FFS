@@ -11,12 +11,13 @@ NetAgent::~NetAgent() {
 void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
     if (d == App::Net.onMessage) {
         NetWork::MsgArgs* arg = (NetWork::MsgArgs*)e;
-        PKG* pkg = arg->pkg;
+        ProtocoBuffer* pkg = arg->pkg;
         Connection* connect = arg->connect;
 
         switch (pkg->opcode) {
         case Cmd::CLIENT_COMMAND::RQAccountOperation: {
-            auto req = (Cmd::ReqAccountOperation*)pkg;
+            auto req = pkg->parse<Cmd::ReqAccountOperation>();
+
             if (req->action() == Cmd::AccountAction::AccountAction_Create) {
                 on_rqCreateAccount(req->user(), req->password(), connect);
             } else if (req->action() == Cmd::AccountAction::AccountAction_Rename) {
@@ -39,6 +40,7 @@ void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
 
 bool NetAgent::on_rqLoginAccount(const string& user, const string& password, Connection* con) {
     Account* gateAccount = new Account();
+    gateAccount->initialize();
     auto def = (GlobalAccountDefine*)gateAccount->getDBInterface();
     if (def->pull(def->user.getString())) {
         if (def->password != password.c_str()) {

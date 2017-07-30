@@ -5,16 +5,26 @@
 #include "App.h"
 #include "Poco\Net\NetException.h"
 
+const int kHeaderLength_ = 4;
 
 void Connection::run() {
     Poco::Net::StreamSocket& ss = socket();
     try {
-        Basic::Buffer buffer(512);
-        int n = ss.receiveBytes(buffer.getPointer(), buffer.capacity());
-        while (n > 0) {
-            App::Net.addMessage(buffer.getPointer(), n, this);
-            buffer.clear();
-            n = ss.receiveBytes(buffer.getPointer(), buffer.capacity());
+        int length = ss.receiveBytes(mBuffer.getPointer(), mBuffer.length());
+        if (length == 0) {
+            disconnect();
+        } else {
+            while (mBuffer.getPosition() < length) {
+                if (mHeader == 0) {
+                    mBuffer.readInt(mHeader);
+                    mTargetLength = mHeader;
+                } else {
+                    App::Net.addMessage((mBuffer.getPointer() + mBuffer.getPosition()), mTargetLength, this);
+                    mBuffer.forwardPosition(mTargetLength);
+                    mTargetLength = kHeaderLength_;
+                    mHeader = 0;
+                }
+            }
         }
     } catch (Poco::Net::ConnectionResetException& exc) {
         NetWork::ConnectArg arg;
@@ -24,7 +34,13 @@ void Connection::run() {
     }
 }
 
-Connection::Connection(const Poco::Net::StreamSocket& s) : TCPServerConnection(s) {
+void Connection::disconnect() {
+
+}
+
+Connection::Connection(const Poco::Net::StreamSocket& s) : TCPServerConnection(s)
+    , mBuffer(Default::ReceiveBufferSize)
+    , mTargetLength(kHeaderLength_) {
     this->socket().setBlocking(true);
 }
 
