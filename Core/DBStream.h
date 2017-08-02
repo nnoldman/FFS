@@ -49,7 +49,7 @@ inline DBStream& DBStream::operator >> (CharBuffer<N>& var) {
 
 template<int N>
 inline DBStream& DBStream::operator<<(CharBuffer<N>& var) {
-    string container = var.getString();
+    string container = var.c_str();
     contents_.push_back(container);
     return *this;
 }

@@ -1,13 +1,15 @@
 #ifndef World_h__
 #define World_h__
 class DBObject;
-class CX_LIB World : public CallbackObject {
+class Connection;
+
+class CX_LIB World {
   public:
     World();
     virtual ~World();
 
-    Delegate onAccountEnterWorld;
-    Delegate onAccountLeaveWorld;
+    Delegate1<void, DBObject*> onAccountEnterWorld;
+    Delegate1<void, DBObject*> onAccountLeaveWorld;
 
     bool initialize();
 
@@ -19,8 +21,7 @@ class CX_LIB World : public CallbackObject {
 
     void sync(int account_guid, string cmd);
 
-    virtual void onCallBack(const Delegate& d, uEventArgs* e) override;
-
+    virtual void onDisconnect(Connection* connection);
   private:
     Map<int, DBObject*> mAccounts;
 };

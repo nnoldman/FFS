@@ -27,9 +27,7 @@ void Connection::run() {
             }
         }
     } catch (Poco::Net::ConnectionResetException& exc) {
-        NetWork::ConnectArg arg;
-        arg.connect = this;
-        App::Net.onDisconnect.trigger(&arg);
+        App::Net.onDisconnect.invoke(this);
         std::cerr << "Disconnect by remote!: " << exc.displayText() << std::endl;
     }
 }
@@ -42,6 +40,7 @@ Connection::Connection(const Poco::Net::StreamSocket& s) : TCPServerConnection(s
     , mBuffer(Default::ReceiveBufferSize)
     , mTargetLength(kHeaderLength_) {
     this->socket().setBlocking(true);
+    App::Net.onConnect.invoke(this);
 }
 
 Connection::~Connection() {

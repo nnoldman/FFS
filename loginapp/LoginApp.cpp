@@ -1,26 +1,21 @@
 #include "stdafx.h"
 #include "LoginApp.h"
-#include "NetAgent.h"
+#include "LoginNetAgent.h"
 
 LoginApp::LoginApp(int narg, const char** args)
-	:App(narg, args)
-	,mNetAgent(nullptr)
-{
+    : App(narg, args)
+    , mNetAgent(nullptr) {
 
 }
 
-LoginApp::~LoginApp()
-{
-	dSafeDelete(mNetAgent);
+LoginApp::~LoginApp() {
+    dSafeDelete(mNetAgent);
 }
 
-bool LoginApp::initialize()
-{
-	if (!__super::initialize())
-		return false;
-	mNetAgent = new NetAgent();
-	Net.onMessage += mNetAgent;
-	Net.onDisconnect += mNetAgent;
-	Net.onConnect += mNetAgent;
-	return true;
+bool LoginApp::initialize() {
+    if (!__super::initialize())
+        return false;
+    mNetAgent = new LoginNetAgent();
+    mNetAgent->initialize();
+    return true;
 }

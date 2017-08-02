@@ -10,23 +10,12 @@
 #include "ConfigInfo.h"
 #include "Poco/Mutex.h"
 
-class CX_LIB NetWork : CallbackObject {
+class CX_LIB NetWork {
   public:
-    Delegate onMessage;
-    Delegate onDisconnect;
-    Delegate onConnect;
+    Delegate2<void, ProtocoBuffer*, Connection*> onMessage;
+    Delegate1<void, Connection*> onDisconnect;
+    Delegate1<void, Connection*> onConnect;
   public:
-    struct MsgArgs : public uEventArgs {
-        ProtocoBuffer* pkg;
-        Connection* connect;
-        MsgArgs() : pkg(nullptr), connect(nullptr) {
-        }
-    };
-    struct ConnectArg : uEventArgs {
-        Connection* connect;
-        ConnectArg() {
-        }
-    };
     struct Packet {
         u32 len;
         char* data;

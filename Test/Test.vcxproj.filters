@@ -27,6 +27,12 @@
     <ClInclude Include="test_shared_pointer.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="Delegate.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test_delegate.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -36,6 +42,9 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="test_shared_pointer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_delegate.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

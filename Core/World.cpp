@@ -2,6 +2,7 @@
 #include "World.h"
 #include "App.h"
 #include "DBObject.h"
+#include "Connection.h"
 
 
 World::World() {
@@ -9,17 +10,17 @@ World::World() {
 
 
 World::~World() {
-    App::Net.onDisconnect -= this;
+    App::Net.onDisconnect.remove(&World::onDisconnect, this);
     dSafeDeleteMap2(mAccounts);
 }
 
 bool World::initialize() {
-    App::Net.onDisconnect += this;
+    App::Net.onDisconnect.add(&World::onDisconnect, this);
     return true;
 }
 
 void World::reclaimAccount(DBObject* account) {
-    onAccountLeaveWorld.trigger();
+    onAccountLeaveWorld.invoke(account);
 
     assert(account);
     assert(mAccounts.find(account->globalID()) != mAccounts.end());
@@ -30,7 +31,7 @@ void World::reclaimAccount(DBObject* account) {
 void World::onEnterWorld(DBObject* account) {
     assert(mAccounts.find(account->globalID()) == mAccounts.end());
     mAccounts.insert(make_pair(account->globalID(), account));
-    onAccountEnterWorld.trigger();
+    onAccountEnterWorld.invoke(account);
 }
 
 void World::sync(int account_guid, string cmd) {
@@ -39,17 +40,13 @@ void World::sync(int account_guid, string cmd) {
     acc->second->sendDBToClient(cmd);
 }
 
-void World::onCallBack(const Delegate& d, uEventArgs* e) {
-    if (d == App::Net.onDisconnect) {
-        NetWork::ConnectArg* arg = (NetWork::ConnectArg*)e;
-
-        auto ibegin = mAccounts.begin();
-        auto iend = mAccounts.end();
-        for (; ibegin != iend; ++ibegin) {
-            if (ibegin->second->getNetInterface() == arg->connect) {
-                reclaimAccount(ibegin->second);
-                return;
-            }
+void World::onDisconnect(Connection* connection) {
+    auto ibegin = mAccounts.begin();
+    auto iend = mAccounts.end();
+    for (; ibegin != iend; ++ibegin) {
+        if (ibegin->second->getNetInterface() == connection) {
+            reclaimAccount(ibegin->second);
+            return;
         }
     }
 }

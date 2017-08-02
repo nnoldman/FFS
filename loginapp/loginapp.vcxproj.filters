@@ -21,10 +21,10 @@
     <ClInclude Include="stdafx.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="NetAgent.h">
+    <ClInclude Include="Account.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="Account.h">
+    <ClInclude Include="LoginNetAgent.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,10 +38,10 @@
     <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="NetAgent.cpp">
+    <ClCompile Include="Account.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="Account.cpp">
+    <ClCompile Include="LoginNetAgent.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

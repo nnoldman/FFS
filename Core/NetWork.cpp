@@ -45,10 +45,7 @@ void NetWork::prosess() {
         BundleReceiver bundle(pkt->con, pkt->data, pkt->len);
         if (bundle.valid()) {
             ProtocoBuffer* pkg = bundle.get();
-            NetWork::MsgArgs arg;
-            arg.pkg = pkg;
-            arg.connect = pkt->con;
-            App::Net.onMessage.trigger(&arg);
+            App::Net.onMessage.invoke(pkg, pkt->con);
         }
     }
     pktArray.destroy();

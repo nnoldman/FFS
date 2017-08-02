@@ -163,7 +163,7 @@
   <ItemGroup>
     <ClInclude Include="Account.h" />
     <ClInclude Include="LoginApp.h" />
-    <ClInclude Include="NetAgent.h" />
+    <ClInclude Include="LoginNetAgent.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
@@ -173,7 +173,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="NetAgent.cpp">
+    <ClCompile Include="LoginNetAgent.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>

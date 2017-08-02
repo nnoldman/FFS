@@ -9,10 +9,12 @@ bool DBDefine::pull(Value keyvalue) {
 }
 
 bool DBDefine::commit(Value keyvalue) {
-    return App::DataBase.pull(keyvalue, this);
+    return App::DataBase.commit(keyvalue, this);
 }
 
 bool DBDefine::insertAndQuery(Value keyvalue) {
-    return App::DataBase.pull(keyvalue, this);
+    if (App::DataBase.insert(keyvalue, this))
+        return pull(keyvalue);
+    return false;
 }
 
