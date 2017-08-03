@@ -6,7 +6,7 @@
 	@brief role of an account
 	@11/7/2015
 */
-class CX_LIB Role :
+class  Role :
     public BaseObject {
   public:
     Role();

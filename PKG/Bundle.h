@@ -9,7 +9,7 @@ static const u32 kHeaderLength = kIDLength + kIDSizeLength;
 
 class Connection;
 
-class CX_LIB BundleReceiver {
+class COREAPI BundleReceiver {
   public:
 
     BundleReceiver(Connection* ss, char* data, u16 len);
@@ -29,7 +29,7 @@ class CX_LIB BundleReceiver {
     u32 mLength;
 };
 
-class CX_LIB BundleSender {
+class COREAPI BundleSender {
   private:
     BundleSender();
   public:

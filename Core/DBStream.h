@@ -1,6 +1,6 @@
 #pragma once
 #include <list>
-class DBStream {
+class COREAPI DBStream {
   public:
     DBStream();
     ~DBStream();

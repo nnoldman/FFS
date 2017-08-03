@@ -1,7 +1,8 @@
 #pragma once
 #include "DBDefine.h"
 #include "CharBuffer.h"
-class CX_LIB GlobalAccountDefine :
+
+class GlobalAccountDefine :
     public DBDefine {
   public:
     CharBuffer<Default::NameSize> user;

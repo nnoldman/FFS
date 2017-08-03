@@ -101,6 +101,18 @@ bool App::InitScript() {
 
 }
 
+int App::Main(App* app) {
+    if (!app->initialize()) {
+        delete app;
+        return 1;
+    }
+    app->run();
+    app->finish();
+
+    delete app;
+    return 0;
+}
+
 Config App::Config;
 
 DataBase App::DataBase;

@@ -3,7 +3,8 @@
 #include "Default.h"
 #include "DBStream.h"
 #include "CharBuffer.h"
-class CX_LIB GlobalRoleDefine : public DBDefine {
+
+class  GlobalRoleDefine : public DBDefine {
     CharBuffer<Default::NameSize> name;
     int id;
     int level;

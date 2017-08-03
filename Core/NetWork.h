@@ -10,7 +10,7 @@
 #include "ConfigInfo.h"
 #include "Poco/Mutex.h"
 
-class CX_LIB NetWork {
+class COREAPI NetWork {
   public:
     Delegate2<void, ProtocoBuffer*, Connection*> onMessage;
     Delegate1<void, Connection*> onDisconnect;

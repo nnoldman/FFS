@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseObject.h"
-class CX_LIB DBObject :
+class COREAPI DBObject :
     public BaseObject {
   public:
     DBObject();

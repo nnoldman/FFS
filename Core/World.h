@@ -3,7 +3,7 @@
 class DBObject;
 class Connection;
 
-class CX_LIB World {
+class COREAPI World {
   public:
     World();
     virtual ~World();

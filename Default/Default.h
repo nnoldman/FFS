@@ -23,6 +23,6 @@ template<>
 inline bool DefaultValue() {
     return false;
 }
-enum {ReceiveBufferSize=1<<16,};
+enum { ReceiveBufferSize = 1 << 16, };
 }
 #endif // Default_h__

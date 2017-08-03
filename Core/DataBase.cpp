@@ -18,6 +18,7 @@ bool DataBase::initialize(const DBConfig& config) {
     if (!mExecuter->initialize(config))
         return false;
 
+    checkDefineToCreateTables.invoke(mExecuter);
 
     //Data::MySQL::Connector::registerConnector();
 

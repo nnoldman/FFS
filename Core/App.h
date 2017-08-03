@@ -5,7 +5,7 @@
 #include "World.h"
 #include "Gate.h"
 
-class CX_LIB App {
+class COREAPI App {
   public:
     enum APP_TYPE {
         APP_TYPE_LOGIN,
@@ -42,5 +42,6 @@ class CX_LIB App {
     APP_TYPE mType;
     int mServerID;
     CommandLine mCommandLine;
+  public:
+    static int Main(App* app);
 };
-

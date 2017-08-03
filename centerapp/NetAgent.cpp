@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "NetAgent.h"
-#include "GlobalAccountDefine.h"
 #include "Command.pb.h"
 #include "Cmd.pb.h"
 

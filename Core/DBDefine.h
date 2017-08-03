@@ -2,10 +2,14 @@
 class DataBase;
 #include "DBStream.h"
 #include "Value.h"
-class CX_LIB DBDefine {
+class COREAPI DBDefine {
   public:
+    virtual ~DBDefine() {}
     virtual const char* table() = 0;
     virtual const char* key() = 0;
+    virtual const char* key2() {
+        return nullptr;
+    }
 
     virtual void deserialize() = 0;
     virtual void serialize() = 0;
