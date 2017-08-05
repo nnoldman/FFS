@@ -8,7 +8,7 @@ class COREAPI Config {
 
     ~Config();
   public:
-    LoginConfig login;
+    AppConfiguratin login;
     CenterConfig center;
   public:
 

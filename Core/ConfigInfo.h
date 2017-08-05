@@ -7,6 +7,7 @@ struct NetConfig {
     u32 threadCount;
     NetConfig();
 };
+
 struct DBConfig {
     string dbName;
     string user;
@@ -21,14 +22,17 @@ struct DBConfig {
 
     }
 };
+
 struct ScriptConfig {
     bool open;
 };
-struct LoginConfig {
+
+struct AppConfiguratin {
     NetConfig net;
     DBConfig db;
     ScriptConfig script;
 };
+
 struct CenterConfig {
     DBConfig db;
     ScriptConfig script;

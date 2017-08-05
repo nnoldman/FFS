@@ -8,17 +8,17 @@
 LoginNetAgent::LoginNetAgent() {
 }
 LoginNetAgent::~LoginNetAgent() {
-    App::Net.onMessage.remove(&::LoginNetAgent::OnMessage, this);
+    App::Net.onMessage.remove(&::LoginNetAgent::onMessage, this);
     App::Net.onDisconnect.remove(&::LoginNetAgent::onDisconnect, this);
 }
 
 bool LoginNetAgent::initialize() {
-    App::Net.onMessage.add(&::LoginNetAgent::OnMessage, this);
+    App::Net.onMessage.add(&::LoginNetAgent::onMessage, this);
     App::Net.onDisconnect.add(&::LoginNetAgent::onDisconnect, this);
     return true;
 }
 
-void LoginNetAgent::OnMessage(ProtocoBuffer* pb, Connection* connect) {
+void LoginNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect) {
     switch (pb->opcode) {
     case Cmd::CLIENT_COMMAND::RQAccountOperation: {
         auto req = pb->parse<Cmd::ReqAccountOperation>();

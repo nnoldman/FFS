@@ -19,3 +19,16 @@ bool LoginApp::initialize() {
     mNetAgent->initialize();
     return true;
 }
+
+const NetConfig& LoginApp::getNetConfig() {
+    return Config.login.net;
+}
+
+const DBConfig& LoginApp::getDataBaseConfig() {
+    return Config.login.db;
+}
+
+bool LoginApp::parseCommandLine() {
+    return true;
+}
+

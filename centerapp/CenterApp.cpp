@@ -19,3 +19,17 @@ bool CenterApp::initialize() {
     mNetAgent->initialize();
     return true;
 }
+
+const NetConfig& CenterApp::getNetConfig() {
+    throw std::exception("The method or operation is not implemented.");
+}
+
+const DBConfig& CenterApp::getDataBaseConfig() {
+    throw std::exception("The method or operation is not implemented.");
+}
+
+bool CenterApp::parseCommandLine() {
+    auto commandline = this->getCommandLine();
+    commandline.get("serverID", mServerID);
+    return mServerID > 0;
+}

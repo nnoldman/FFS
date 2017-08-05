@@ -7,13 +7,7 @@
 
 class COREAPI App {
   public:
-    enum APP_TYPE {
-        APP_TYPE_LOGIN,
-        APP_TYPE_CENTER,
-        APP_TYPE_BASE,
-    };
-  public:
-	static Config Config;
+    static Config Config;
     static DataBase DataBase;
     static NetWork	Net;
     static World World;
@@ -23,6 +17,9 @@ class COREAPI App {
     virtual ~App();
 
     virtual bool initialize();
+    virtual	const NetConfig& getNetConfig() = 0;
+    virtual	const DBConfig& getDataBaseConfig() = 0;
+    virtual	bool parseCommandLine() = 0;
 
     void run();
 
@@ -30,17 +27,9 @@ class COREAPI App {
 
     void archive();
 
-  protected:
-
-    bool InitNet();
-
-    bool InitDataBase();
-
-    bool InitScript();
-
+  public:
+    CommandLine& getCommandLine();
   private:
-    APP_TYPE mType;
-    int mServerID;
     CommandLine mCommandLine;
   public:
     static int Main(App* app);
