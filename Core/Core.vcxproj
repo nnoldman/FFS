@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_LIBARRY;_USING_V110_SDK71_;CHECK_EMBEDDED_DIFFERENCES;EMBEDDED_LIBRARY</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\Default;..\Common;..\;.\;..\PKG;.\MySql\include;.\MySql\include\mysql;..\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\Default;..\Common;..\;..\PKG;.\include\MySql\include\mysql;..\include\MySql\include;..\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>

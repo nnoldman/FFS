@@ -5,8 +5,6 @@ class CenterApp :
   public:
     CenterApp(int narg, const char** args);
     ~CenterApp();
-    virtual bool initialize();
-
     virtual const NetConfig& getNetConfig() override;
 
     virtual const DBConfig& getDataBaseConfig() override;
@@ -17,5 +15,17 @@ class CenterApp :
     int mServerID;
   private:
     NetAgent* mNetAgent;
+  protected:
+    virtual void archive() override;
+
+
+    virtual bool onInitializeEnd() override;
+
+
+    virtual bool onInitializeNet() override;
+
+
+    virtual const vector<const DBTableDefine *> getTableDefines() override;
+
 };
 

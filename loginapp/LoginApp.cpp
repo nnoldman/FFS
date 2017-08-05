@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "LoginApp.h"
 #include "LoginNetAgent.h"
+#include "DBTableDefine.h"
+#include "GlobalRoleDefine.h"
+#include "GlobalAccountDefine.h"
 
 LoginApp::LoginApp(int narg, const char** args)
     : App(narg, args)
@@ -10,14 +13,6 @@ LoginApp::LoginApp(int narg, const char** args)
 
 LoginApp::~LoginApp() {
     dSafeDelete(mNetAgent);
-}
-
-bool LoginApp::initialize() {
-    if (!__super::initialize())
-        return false;
-    mNetAgent = new LoginNetAgent();
-    mNetAgent->initialize();
-    return true;
 }
 
 const NetConfig& LoginApp::getNetConfig() {
@@ -31,4 +26,34 @@ const DBConfig& LoginApp::getDataBaseConfig() {
 bool LoginApp::parseCommandLine() {
     return true;
 }
+
+void LoginApp::archive() {
+}
+
+bool LoginApp::onInitializeEnd() {
+    return true;
+}
+
+bool LoginApp::onInitializeNet() {
+    mNetAgent = new LoginNetAgent();
+    if (!mNetAgent->initialize())
+        return false;
+    return true;
+}
+
+const vector<const DBTableDefine*> LoginApp::getTableDefines() {
+    static const vector<const DBTableDefine*> ret{
+        &GlobalAccountDefine::Define,
+        &GlobalRoleDefine::Define,
+    };
+    return ret;
+}
+
+//DBTableDefine[] LoginApp::getTableDefines() {
+//    static DBTableDefine tableDefines[] = {
+//        GlobalRoleDefine::Define,
+//        GlobalAccountDefine::Define,
+//    };
+//    return tableDefines;
+//}
 

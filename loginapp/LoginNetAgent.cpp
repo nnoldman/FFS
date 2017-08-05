@@ -90,11 +90,11 @@ bool LoginNetAgent::on_rqCreateAccount(const string& user, const string& passwor
         def->password = password.c_str();
         auto queryRet = def->insertAndQuery(user.c_str());
         assert(queryRet);
-        gateAccount->setGlobalID(def->accountid);
+        gateAccount->setGlobalID(def->id);
 
         Cmd::RetAccountOperation ret;
         ret.set_error(Cmd::AccountErrorCode::AccountErrorCode_CreateSucessed);
-        ret.set_accountid(def->accountid);
+        ret.set_accountid(def->id);
         SendProtoBuffer(con->getSocket(), Cmd::SERVER_COMMAND::RTAccountOperation, ret);
 
         dSafeDelete(gateAccount);
@@ -113,10 +113,10 @@ bool LoginNetAgent::on_rqRenameAccount(const string & user, const string & passw
 
 void LoginNetAgent::onLoginSucess(Account* account, Connection* con) {
     auto def = (GlobalAccountDefine*)account->getDBInterface();
-    account->setGlobalID(def->accountid);
+    account->setGlobalID(def->id);
     Cmd::RetAccountOperation ret;
     ret.set_error(Cmd::AccountErrorCode::AccountErrorCode_LoginSucessed);
-    ret.set_accountid(def->accountid);
+    ret.set_accountid(def->id);
     SendProtoBuffer(con->getSocket(), Cmd::SERVER_COMMAND::RTAccountOperation, ret);
     dSafeDelete(account);
 }

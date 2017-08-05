@@ -12,14 +12,6 @@ CenterApp::~CenterApp() {
     dSafeDelete(mNetAgent);
 }
 
-bool CenterApp::initialize() {
-    if (!__super::initialize())
-        return false;
-    mNetAgent = new NetAgent();
-    mNetAgent->initialize();
-    return true;
-}
-
 const NetConfig& CenterApp::getNetConfig() {
     throw std::exception("The method or operation is not implemented.");
 }
@@ -32,4 +24,22 @@ bool CenterApp::parseCommandLine() {
     auto commandline = this->getCommandLine();
     commandline.get("serverID", mServerID);
     return mServerID > 0;
+}
+
+void CenterApp::archive() {
+    throw std::exception("The method or operation is not implemented.");
+}
+
+bool CenterApp::onInitializeEnd() {
+    throw std::exception("The method or operation is not implemented.");
+}
+
+bool CenterApp::onInitializeNet() {
+    mNetAgent = new NetAgent();
+    mNetAgent->initialize();
+    return true;
+}
+
+const vector<const DBTableDefine *> CenterApp::getTableDefines() {
+    throw std::exception("The method or operation is not implemented.");
 }
