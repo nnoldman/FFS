@@ -9,6 +9,9 @@
 #define zeroArray(arr) memset(arr,0,sizeof(arr))
 #define zeroThis(p) memset(p,0,sizeof(*p))
 
+
+#pragma warning(disable:4200)
+
 struct ProtocoBuffer {
     u32 length;
     u32 opcode;

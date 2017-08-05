@@ -13,7 +13,7 @@ class COREAPI App {
         APP_TYPE_BASE,
     };
   public:
-    static Config Config;
+	static Config Config;
     static DataBase DataBase;
     static NetWork	Net;
     static World World;

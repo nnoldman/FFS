@@ -1,4 +1,6 @@
-#pragma once
+#ifndef Config_h__
+#define Config_h__
+
 #include "ConfigInfo.h"
 class COREAPI Config {
   public:
@@ -13,3 +15,4 @@ class COREAPI Config {
     bool initialize(const char* file);
 };
 
+#endif // Config_h__

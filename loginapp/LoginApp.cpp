@@ -2,10 +2,6 @@
 #include "LoginApp.h"
 #include "LoginNetAgent.h"
 
-App* CrateApp(int narg, const char** args) {
-    return new LoginApp(narg, args);
-}
-
 LoginApp::LoginApp(int narg, const char** args)
     : App(narg, args)
     , mNetAgent(nullptr) {

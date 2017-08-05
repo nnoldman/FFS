@@ -113,7 +113,7 @@ int App::Main(App* app) {
     return 0;
 }
 
-Config App::Config;
+ Config App::Config;
 
 DataBase App::DataBase;
 

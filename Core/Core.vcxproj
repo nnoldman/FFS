@@ -29,7 +29,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
@@ -89,7 +89,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_WIN32;CHECK_EMBEDDED_DIFFERENCES;EMBEDDED_LIBRARY;HOST_WIN32</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_LIBARRY;_USING_V110_SDK71_;CHECK_EMBEDDED_DIFFERENCES;EMBEDDED_LIBRARY</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Default;..\Common;..\;.\;..\PKG;.\MySql\include;.\MySql\include\mysql;..\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
