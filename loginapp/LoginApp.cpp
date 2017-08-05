@@ -49,11 +49,3 @@ const vector<const DBTableDefine*> LoginApp::getTableDefines() {
     return ret;
 }
 
-//DBTableDefine[] LoginApp::getTableDefines() {
-//    static DBTableDefine tableDefines[] = {
-//        GlobalRoleDefine::Define,
-//        GlobalAccountDefine::Define,
-//    };
-//    return tableDefines;
-//}
-

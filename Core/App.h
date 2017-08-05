@@ -19,7 +19,7 @@ class COREAPI App {
     App(int narg, const char** args);
     virtual ~App();
   public:
-    bool initialize();
+    virtual bool initialize() final;
     void quit();
     bool isQuiting() const;
     CommandLine& getCommandLine();

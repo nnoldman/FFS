@@ -11,14 +11,11 @@ class LoginApp :
   private:
     LoginNetAgent* mNetAgent;
   protected:
-
     virtual void archive() override;
-
 
     virtual bool onInitializeEnd() override;
 
     virtual bool onInitializeNet() override;
-
 
     virtual const vector<const DBTableDefine*> getTableDefines() override;
 
