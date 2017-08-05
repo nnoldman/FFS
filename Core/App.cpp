@@ -22,7 +22,7 @@ bool App::initialize() {
         return false;
 
     if (!Net.initialize(getNetConfig())) {
-        return onInitializeNet();
+        return false;
     }
 
     if (!onInitializeNet())
@@ -51,7 +51,24 @@ bool App::initializeDataBase() {
         auto ret = this->getTableDefines();
         for (auto def : ret) {
             if (!this->DataBase.hasTable(def->tableName.c_str())) {
-                stringstream cmd;
+                stringstream cmd(1024);
+                cmd << "create table ";
+                cmd << def->tableName.c_str();
+                for (auto column : def->columns) {
+                    cmd << column.name<<" ";
+                    cmd << "type";
+                    if (column.length > 0)
+                        cmd << "(" << column.length << ")";
+                    if (!column.canNull)
+                        cmd << "not null";
+                    if (column.autoIncrement)
+                        cmd << "auto_increment";
+                    cmd << ",";
+                }
+                cmd << "primary key (" << def->primaryKey1 << ")";
+                if(def->primaryKey2.length()>0)
+                    cmd << "primary key (" << def->primaryKey2 << ")";
+
                 if (!this->DataBase.createTable(def->tableName.c_str(), cmd.str().c_str())) {
                     return false;
                 }

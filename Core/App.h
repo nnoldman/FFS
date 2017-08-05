@@ -34,7 +34,7 @@ class COREAPI App {
     virtual const vector<const DBTableDefine*> getTableDefines() = 0;
   private:
     void run();
-    bool initializeDataBase();
+    virtual bool initializeDataBase()final;
   private:
     CommandLine mCommandLine;
     bool mQuiting;

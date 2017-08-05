@@ -3,7 +3,7 @@
 //ID   INT              NOT NULL,
 //SALARY   DECIMAL(18, 2) DEFAULT 5000.00,
 //PRIMARY KEY(ID)
-struct DBCloumn {
+struct DBColumn {
     const char* name = nullptr;
     enum_field_types type = enum_field_types::MYSQL_TYPE_DECIMAL;
     u16 length = 0;
@@ -16,7 +16,7 @@ struct DBTableDefine {
     string tableName;
     string primaryKey1;
     string primaryKey2;
-    vector<DBCloumn> columns;
+    vector<DBColumn> columns;
 
     DBTableDefine(const DBTableDefine& def) {
         this->tableName = def.tableName;
@@ -25,7 +25,7 @@ struct DBTableDefine {
         this->columns = def.columns;
     }
 
-    DBTableDefine(const char* name,const char* key1, const char* key2, const initializer_list<DBCloumn>& array) {
+    DBTableDefine(const char* name,const char* key1, const char* key2, const initializer_list<DBColumn>& array) {
         tableName = name;
         primaryKey1 = key1;
         if (key2 != nullptr)
