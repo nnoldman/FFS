@@ -2,7 +2,7 @@
 #include "Poco\Net\TCPServerConnection.h"
 #include "ProtocoBuffer.h"
 #include "uString.h"
-class Connection : public Poco::Net::TCPServerConnection {
+class COREAPI Connection : public Poco::Net::TCPServerConnection {
   public:
     Connection(const Poco::Net::StreamSocket& s);
 

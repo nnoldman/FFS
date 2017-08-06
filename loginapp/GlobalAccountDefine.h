@@ -35,8 +35,8 @@ class GlobalAccountDefine :
 };
 
 __declspec(selectany) const DBTableDefine GlobalAccountDefine::Define {
-    "global_account","user","id", {
-        { "id",enum_field_types::MYSQL_TYPE_DECIMAL,0,true,false },
+    "global_account","id","user", {
+        { "id",enum_field_types::MYSQL_TYPE_LONG,0,true,false },
         { "user",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
         { "password",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
     },

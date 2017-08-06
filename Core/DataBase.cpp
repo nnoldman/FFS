@@ -18,6 +18,10 @@ bool DataBase::initialize(const DBConfig& config) {
     if (!mExecuter->initialize(config))
         return false;
 
+    mExecuter->use(config.dbName.c_str());
+
+    reGetTables();
+
     checkDefineToCreateTables.invoke(mExecuter);
 
     //Data::MySQL::Connector::registerConnector();
@@ -36,7 +40,6 @@ bool DataBase::initialize(const DBConfig& config) {
     //		return false;
     //}
 
-    reGetTables();
 
     return true;
 }
@@ -61,8 +64,7 @@ bool DataBase::create_column_if_not_exist(const char* table, const char* key) {
 
 bool DataBase::createTable(const char* name, const char* cmd) {
     stringstream cmdstring;
-    cmdstring << "CREATE TABLE " << name << " " << cmd;
-    mExecuter->queryBegin(cmdstring.str().c_str());
+    mExecuter->queryBegin(cmd);
     reGetTables();
     return hasTable(name);
 }
@@ -105,7 +107,7 @@ bool DataBase::queryRecord(string table, string key, const char* value, OUT DBDe
 
 bool DataBase::pull(Value keyvalue, OUT DBDefine* def) {
     stringstream ss;
-    ss << "SELECT COUNT(*) FROM " << def->table() << " WHERE " << def->key() << " = " << keyvalue.toString();
+    ss << "SELECT * FROM " << def->table() << " WHERE " << def->key() << " = " << keyvalue.toString();
     mExecuter->queryBegin(ss.str().c_str());
     std::vector<string> records;
     auto ret = mExecuter->queryEnd(records);
@@ -122,6 +124,7 @@ bool DataBase::commit(Value keyvalue, OUT DBDefine* def) {
 
 bool DataBase::insert(Value keyvalue, OUT DBDefine* def) {
     stringstream sm;
+    def->serialize();
     sm << "INSERT INTO " << def->table() << "(" << def->key() << ") VALUES (" << keyvalue.toString() << ");";
     mExecuter->queryBegin(sm.str().c_str());
     return mExecuter->queryEnd();
@@ -192,14 +195,13 @@ void DataBase::reGetTables() {
     sm << "show tables;";
     mExecuter->queryBegin(sm.str().c_str());
 
-    std::vector<shared_ptr<stringVector>> tableNames;
-
+    stringVector tableNames;
     if (!mExecuter->queryEnd(tableNames)) {
         //assert(0);
     }
     for (auto record : tableNames) {
         DBTable* table = new DBTable();
-        table->name = record->at(0);
+        table->name = record;
         table->refreshRecordCount();
         mTables.insert(make_pair(table->name, table));
     }

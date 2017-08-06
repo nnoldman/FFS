@@ -4,7 +4,6 @@
 #include "Command.pb.h"
 #include "Cmd.pb.h"
 #include "GlobalAccountDefine.h"
-#include "App.h"
 LoginNetAgent::LoginNetAgent() {
 }
 LoginNetAgent::~LoginNetAgent() {

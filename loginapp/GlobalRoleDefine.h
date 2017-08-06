@@ -39,12 +39,12 @@ class GlobalRoleDefine : public DBDefine {
 };
 
 __declspec(selectany) const DBTableDefine GlobalRoleDefine::Define = {
-    "global_role","name","id",
+    "global_role","id","name",
     {
+        { "id",enum_field_types::MYSQL_TYPE_LONG,0,true,false },
         { "name",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
-        { "id",enum_field_types::MYSQL_TYPE_DECIMAL,0,true,false },
-        { "level",enum_field_types::MYSQL_TYPE_DECIMAL,0,true,false },
-        { "vip",enum_field_types::MYSQL_TYPE_DECIMAL,0,true,false },
+        { "level",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
+        { "vip",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
     },
 };
 

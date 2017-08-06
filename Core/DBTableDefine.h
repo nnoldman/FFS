@@ -34,6 +34,9 @@ struct DBTableDefine {
             columns.push_back(iter);
         }
     }
+
+    bool generateCreateTableString(stringstream& cmd) const;
+
     ~DBTableDefine() {
     }
 };

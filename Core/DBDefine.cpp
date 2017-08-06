@@ -11,7 +11,7 @@ bool DBDefine::pull(Value keyvalue) {
 bool DBDefine::commit(Value keyvalue) {
     return App::DataBase.commit(keyvalue, this);
 }
-
+//delete from global_account where user = '456';
 bool DBDefine::insertAndQuery(Value keyvalue) {
     if (App::DataBase.insert(keyvalue, this))
         return pull(keyvalue);

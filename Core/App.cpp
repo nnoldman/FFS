@@ -1,6 +1,16 @@
 #include "stdafx.h"
 #include "App.h"
 
+Config App::Config;
+
+DataBase App::DataBase;
+
+NetWork App::Net;
+
+World App::World;
+
+Gate App::Gate;
+
 App::App(int narg, const char** args)
     :mCommandLine(narg, args)
     ,mQuiting(false) {
@@ -51,26 +61,12 @@ bool App::initializeDataBase() {
         auto ret = this->getTableDefines();
         for (auto def : ret) {
             if (!this->DataBase.hasTable(def->tableName.c_str())) {
-                stringstream cmd(1024);
-                cmd << "create table ";
-                cmd << def->tableName.c_str();
-                for (auto column : def->columns) {
-                    cmd << column.name<<" ";
-                    cmd << "type";
-                    if (column.length > 0)
-                        cmd << "(" << column.length << ")";
-                    if (!column.canNull)
-                        cmd << "not null";
-                    if (column.autoIncrement)
-                        cmd << "auto_increment";
-                    cmd << ",";
-                }
-                cmd << "primary key (" << def->primaryKey1 << ")";
-                if(def->primaryKey2.length()>0)
-                    cmd << "primary key (" << def->primaryKey2 << ")";
-
-                if (!this->DataBase.createTable(def->tableName.c_str(), cmd.str().c_str())) {
-                    return false;
+                stringstream cmd;
+                if (def->generateCreateTableString(cmd)) {
+                    if (!this->DataBase.createTable(def->tableName.c_str(), cmd.str().c_str())) {
+                        printf_s("Create Table %s Failed!", def->tableName.c_str());
+                        return false;
+                    }
                 }
             }
         }
@@ -110,12 +106,4 @@ int App::Main(App* app) {
     return 0;
 }
 
-Config App::Config;
 
-DataBase App::DataBase;
-
-NetWork App::Net;
-
-World App::World;
-
-Gate App::Gate;
