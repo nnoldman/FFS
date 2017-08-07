@@ -89,7 +89,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_LIBARRY;_USING_V110_SDK71_;CHECK_EMBEDDED_DIFFERENCES;EMBEDDED_LIBRARY</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_USING_V110_SDK71_;CHECK_EMBEDDED_DIFFERENCES;EMBEDDED_LIBRARY;_LIBRARY</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>..\Default;..\Common;..\;..\PKG;.\include\MySql\include\mysql;..\include\MySql\include;..\include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4200;4005</DisableSpecificWarnings>
