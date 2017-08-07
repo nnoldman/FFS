@@ -23,4 +23,6 @@ using namespace Poco::Net;
 #include "Default.h"
 #include "uString.h"
 using namespace Basic;
+typedef std::vector<std::string> stringVector;
+typedef std::vector<stringVector> stringVectorVector;
 

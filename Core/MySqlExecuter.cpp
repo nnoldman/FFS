@@ -35,26 +35,19 @@ void MySQLExecuter::queryBegin(const char* cmd) const {
 
 
 bool MySQLExecuter::queryEnd() {
-    MYSQL_RES* ress = mysql_store_result(mConnection);
-
-    if (ress) {
-        MYSQL_ROW row = mysql_fetch_row(ress);
-
-        if (row)
-            return true;
-    }
-
-    return false;
+    return  mysql_affected_rows(mConnection) > 0;
 }
 
 
 bool MySQLExecuter::queryEnd(stringVector& result) {
-    MYSQL_RES* ress = mysql_store_result(mConnection);
-    if (ress) {
-        for (auto i = 0; i < ress->row_count; ++i) {
-            MYSQL_ROW row = mysql_fetch_row(ress);
-            if (row) {
-                result.push_back(row[0]);
+    MYSQL_RES* records = mysql_store_result(mConnection);
+    if (records) {
+        auto columns = mysql_num_fields(records);
+        assert(records->row_count <= 1);
+        MYSQL_ROW row = mysql_fetch_row(records);
+        if (row) {
+            for (int j = columns - 1; j >=0; --j) {
+                result.push_back(row[j]);
             }
         }
         return result.size() > 0;
@@ -66,23 +59,21 @@ bool MySQLExecuter::queryEnd(stringVector& result) {
 }
 
 
-bool MySQLExecuter::queryEnd(std::vector<shared_ptr<stringVector>>& result) {
-    MYSQL_RES* ress = mysql_store_result(mConnection);
+bool MySQLExecuter::queryEnd(stringVectorVector& result) {
+    MYSQL_RES* records = mysql_store_result(mConnection);
 
-    if (ress) {
-        for (size_t r = 0; r < ress->row_count; ++r) {
-            shared_ptr<stringVector> vec(new stringVector());
-            result.push_back(vec);
-
-            MYSQL_ROW row = mysql_fetch_row(ress);
-
+    if (records) {
+        auto columns = mysql_num_fields(records);
+        for (auto i = 0; i < records->row_count; ++i) {
+            MYSQL_ROW row = mysql_fetch_row(records);
             if (row) {
-                for (size_t i = 0; i < ress->field_count; ++i) {
-                    vec->push_back(row[i]);
+                stringVector record;
+                for (auto j = 0; j < columns; ++j) {
+                    record.push_back(row[j]);
                 }
+                result.push_back(record);
             }
         }
-
         return result.size() > 0;
     }
 
@@ -101,7 +92,7 @@ unsigned long MySQLExecuter::count() {
 
 void MySQLExecuter::use(const char* dataBaseName) const {
     stringstream cmd;
-    cmd << "use " << dataBaseName << ";";
+    cmd << "use database " << dataBaseName << ";";
     queryBegin(cmd.str().c_str());
 }
 

@@ -123,11 +123,12 @@ bool DataBase::commit(Value keyvalue, OUT DBDefine* def) {
 }
 
 bool DataBase::insert(Value keyvalue, OUT DBDefine* def) {
-    stringstream sm;
+    stringstream ss;
+    stringstream ssvalue;
     def->serialize();
-    def->getValues(sm);
-    sm << "INSERT INTO " << def->table()<<" VALUES (" << sm.str().c_str() << ");";
-    mExecuter->queryBegin(sm.str().c_str());
+    def->getValues(ssvalue);
+    ss << "INSERT INTO " << def->table()<<" VALUES (" << ssvalue.str().c_str() << ");";
+    mExecuter->queryBegin(ss.str().c_str());
     return mExecuter->queryEnd();
 }
 
@@ -196,13 +197,13 @@ void DataBase::reGetTables() {
     sm << "show tables;";
     mExecuter->queryBegin(sm.str().c_str());
 
-    stringVector tableNames;
+    stringVectorVector tableNames;
     if (!mExecuter->queryEnd(tableNames)) {
         //assert(0);
     }
     for (auto record : tableNames) {
         DBTable* table = new DBTable();
-        table->name = record;
+        table->name = record[0];
         table->refreshRecordCount();
         mTables.insert(make_pair(table->name, table));
     }
