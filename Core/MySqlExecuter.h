@@ -23,7 +23,7 @@ class MySQLExecuter:public DBExecuter {
     /*
     	return all eligible records.
     */
-    bool queryEnd(std::vector<shared_ptr<stringVector>>& result);
+    bool queryEnd(stringVectorVector& result);
 
     bool queryEnd();
 
