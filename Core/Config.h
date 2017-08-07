@@ -1,16 +1,18 @@
-#pragma once
+#ifndef Config_h__
+#define Config_h__
+
 #include "ConfigInfo.h"
-class CX_LIB Config
-{
-public:
-	Config();
+class COREAPI Config {
+  public:
+    Config();
 
-	~Config();
-public:
-	LoginConfig login;
-	CenterConfig center;
-public:
+    ~Config();
+  public:
+    AppConfiguratin login;
+    CenterConfig center;
+  public:
 
-	bool initialize(const char* file);
+    bool initialize(const char* file);
 };
 
+#endif // Config_h__

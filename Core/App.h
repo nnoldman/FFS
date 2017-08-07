@@ -1,17 +1,14 @@
-#pragma once
+#ifndef App_h__
+#define App_h__
+
 #include "Config.h"
 #include "NetWork.h"
 #include "DataBase.h"
 #include "World.h"
 #include "Gate.h"
+#include "DBTableDefine.h"
 
-class CX_LIB App {
-  public:
-    enum APP_TYPE {
-        APP_TYPE_LOGIN,
-        APP_TYPE_CENTER,
-        APP_TYPE_BASE,
-    };
+class COREAPI App {
   public:
     static Config Config;
     static DataBase DataBase;
@@ -21,26 +18,27 @@ class CX_LIB App {
   public:
     App(int narg, const char** args);
     virtual ~App();
-
-    virtual bool initialize();
-
-    void run();
-
-    void finish();
-
-    void archive();
-
+  public:
+    virtual bool initialize() final;
+    void quit();
+    bool isQuiting() const;
+    CommandLine& getCommandLine();
   protected:
-
-    bool InitNet();
-
-    bool InitDataBase();
-
-    bool InitScript();
-
+    virtual void archive() = 0;
+    virtual void onQuit();
+    virtual	const NetConfig& getNetConfig() = 0;
+    virtual	const DBConfig& getDataBaseConfig() = 0;
+    virtual	bool parseCommandLine() = 0;
+    virtual	bool onInitializeEnd() = 0;
+    virtual	bool onInitializeNet() = 0;
+    virtual const vector<const DBTableDefine*> getTableDefines() = 0;
   private:
-    APP_TYPE mType;
-    int mServerID;
+    void run();
+    virtual bool initializeDataBase()final;
+  private:
     CommandLine mCommandLine;
+    bool mQuiting;
+  public:
+    static int Main(App* app);
 };
-
+#endif // App_h__

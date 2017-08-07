@@ -21,13 +21,19 @@
     <ClInclude Include="stdafx.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="NetAgent.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Command.pb.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="Account.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginNetAgent.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalAccountDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalRoleDefine.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Role.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,13 +44,16 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="NetAgent.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="Account.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginNetAgent.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Role.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,8 +4,8 @@
 
 
 BaseObject::BaseObject()
-    :mNetInterface(nullptr)
-    ,mDBInterface(nullptr) {
+    : mNetInterface(nullptr)
+    , mDBInterface(nullptr) {
 }
 
 BaseObject::~BaseObject() {

@@ -1,13 +1,14 @@
 #ifndef ConfigInfo_h__
 #define ConfigInfo_h__
-struct NetConfig {
+struct COREAPI NetConfig {
     string ip;
     string name;
     u32 port;
     u32 threadCount;
     NetConfig();
 };
-struct DBConfig {
+
+struct COREAPI DBConfig {
     string dbName;
     string user;
     string password;
@@ -21,15 +22,18 @@ struct DBConfig {
 
     }
 };
-struct ScriptConfig {
+
+struct COREAPI ScriptConfig {
     bool open;
 };
-struct LoginConfig {
+
+struct COREAPI AppConfiguratin {
     NetConfig net;
     DBConfig db;
     ScriptConfig script;
 };
-struct CenterConfig {
+
+struct COREAPI CenterConfig {
     DBConfig db;
     ScriptConfig script;
     Map<int, NetConfig*> centers;

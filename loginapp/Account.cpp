@@ -11,8 +11,6 @@ Account::Account() {
 Account::~Account() {
 }
 
-
-
 void Account::onEnterGate() {
     //this->call("enterWorld");
 }

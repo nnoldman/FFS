@@ -13,7 +13,7 @@ class MySQLExecuter:public DBExecuter {
 
     bool initialize(const DBConfig& config);
 
-    void queryBegin(const char* cmd);
+    void queryBegin(const char* cmd) const;
 
     /*
     	Only return first record or nothing.
@@ -28,6 +28,9 @@ class MySQLExecuter:public DBExecuter {
     bool queryEnd();
 
     virtual unsigned long count() override;
+
+
+    virtual void use(const char* dataBaseName) const override;
 
   private:
 

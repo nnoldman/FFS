@@ -1,12 +1,15 @@
 #pragma once
 #include "Poco\Net\StreamSocket.h"
-#include "PKG.h"
+#include "ProtocoBuffer.h"
 #include "google\protobuf\message_lite.h"
-static const u32 HEADER_LENGTH = sizeof(u32);
+
+static const u32 kIDLength = sizeof(u32);
+static const u32 kIDSizeLength = sizeof(u32);
+static const u32 kHeaderLength = kIDLength + kIDSizeLength;
 
 class Connection;
 
-class CX_LIB BundleReceiver {
+class COREAPI BundleReceiver {
   public:
 
     BundleReceiver(Connection* ss, char* data, u16 len);
@@ -15,7 +18,7 @@ class CX_LIB BundleReceiver {
 
     bool valid() const;
 
-    PKG* get() const;
+    ProtocoBuffer* get() const;
 
   private:
 
@@ -26,7 +29,7 @@ class CX_LIB BundleReceiver {
     u32 mLength;
 };
 
-class CX_LIB BundleSender {
+class COREAPI BundleSender {
   private:
     BundleSender();
   public:
@@ -35,7 +38,7 @@ class CX_LIB BundleSender {
         return sender;
     }
     void setConnection(Poco::Net::StreamSocket& ss);
-    void send(PKG* pkg, int len);
+    void send(ProtocoBuffer* pkg, int len);
     void sendFlatbuffer(u32 opcode, u32 length, char* data);
     void sendProtoBuffer(u32 opcode, google::protobuf::MessageLite* message);
   private:

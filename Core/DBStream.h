@@ -1,6 +1,6 @@
 #pragma once
 #include <list>
-class DBStream {
+class COREAPI DBStream {
   public:
     DBStream();
     ~DBStream();
@@ -35,6 +35,10 @@ class DBStream {
     template<int N>
     inline DBStream& operator >> (CharBuffer<N>& var);
     void set(vector<string>& values);
+
+    const vector<string>& getContents() const {
+        return contents_;
+    }
   private:
     std::vector<string> contents_;
 };
@@ -49,7 +53,7 @@ inline DBStream& DBStream::operator >> (CharBuffer<N>& var) {
 
 template<int N>
 inline DBStream& DBStream::operator<<(CharBuffer<N>& var) {
-    string container = var.getString();
+    string container = var.c_str();
     contents_.push_back(container);
     return *this;
 }

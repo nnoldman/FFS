@@ -26,7 +26,7 @@ bool MySQLExecuter::initialize(const DBConfig& config) {
 }
 
 
-void MySQLExecuter::queryBegin(const char* cmd) {
+void MySQLExecuter::queryBegin(const char* cmd) const {
     assert(cmd);
     int res = mysql_real_query(mConnection, cmd, static_cast<unsigned long>(strlen(cmd)));
     printf("QUERY=>%s\n", cmd);
@@ -51,13 +51,10 @@ bool MySQLExecuter::queryEnd() {
 bool MySQLExecuter::queryEnd(stringVector& result) {
     MYSQL_RES* ress = mysql_store_result(mConnection);
     if (ress) {
-        assert(ress->row_count <= 1);
-
-        MYSQL_ROW row = mysql_fetch_row(ress);
-
-        if (row) {
-            for (size_t i = 0; i < ress->field_count; ++i) {
-                result.push_back(row[i]);
+        for (auto i = 0; i < ress->row_count; ++i) {
+            MYSQL_ROW row = mysql_fetch_row(ress);
+            if (row) {
+                result.push_back(row[0]);
             }
         }
         return result.size() > 0;
@@ -94,9 +91,17 @@ bool MySQLExecuter::queryEnd(std::vector<shared_ptr<stringVector>>& result) {
 
 unsigned long MySQLExecuter::count() {
     MYSQL_RES* ress = mysql_store_result(mConnection);
+    if (ress == nullptr)
+        return 0;
     MYSQL_ROW row = mysql_fetch_row(ress);
     if (ress)
         return ::atoi(row[0]);
     return 0;
+}
+
+void MySQLExecuter::use(const char* dataBaseName) const {
+    stringstream cmd;
+    cmd << "use " << dataBaseName << ";";
+    queryBegin(cmd.str().c_str());
 }
 

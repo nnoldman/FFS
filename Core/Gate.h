@@ -1,6 +1,6 @@
 #pragma once
 class DBObject;
-class CX_LIB Gate {
+class COREAPI Gate {
   public:
     Gate();
     ~Gate();

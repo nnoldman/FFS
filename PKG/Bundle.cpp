@@ -14,45 +14,43 @@ BundleReceiver::~BundleReceiver() {
 
 bool BundleReceiver::valid() const {
     u16 len = *((u16*)mBuffer);
-    return len == mLength;
+    return len + kHeaderLength == mLength;
 }
 
-PKG* BundleReceiver::get() const {
-    //char* data = new char[mLength - HEADER_LENGTH];
-    //dMemoryCopy(data, mBuffer + HEADER_LENGTH, mLength - HEADER_LENGTH);
-    return (PKG*)(mBuffer + HEADER_LENGTH);
+ProtocoBuffer* BundleReceiver::get() const {
+    return (ProtocoBuffer*)(mBuffer);
 }
 
 BundleSender::BundleSender()
-    : mBuffer(1 << 16) {
+    : mBuffer(Default::ReceiveBufferSize) {
 }
 
 void BundleSender::setConnection(Poco::Net::StreamSocket& ss) {
     mSocket = &ss;
 }
 
-void BundleSender::send(PKG* pkg, int len) {
+void BundleSender::send(ProtocoBuffer* pkg, int len) {
     mBuffer.clear();
-    mLength = HEADER_LENGTH + len;
-    dMemoryCopy(mBuffer.getPointer(), &mLength, HEADER_LENGTH);
-    dMemoryCopy(mBuffer.getPointer() + HEADER_LENGTH, pkg, len);
+    mLength = kIDLength + len;
+    dMemoryCopy(mBuffer.getPointer(), &mLength, kIDLength);
+    dMemoryCopy(mBuffer.getPointer() + kIDLength, pkg, len);
     mSocket->sendBytes(mBuffer.getPointer(), mLength);
 }
 
 void BundleSender::sendFlatbuffer(u32 opcode, u32 length, char* data) {
     mBuffer.clear();
-    mLength = HEADER_LENGTH + length;
-    dMemoryCopy(mBuffer.getPointer(), &mLength, HEADER_LENGTH);
-    dMemoryCopy(mBuffer.getPointer() + HEADER_LENGTH, data, length);
+    mLength = kIDLength + length;
+    dMemoryCopy(mBuffer.getPointer(), &mLength, kIDLength);
+    dMemoryCopy(mBuffer.getPointer() + kIDLength, data, length);
     mSocket->sendBytes(mBuffer.getPointer(), mLength);
 }
 
 void BundleSender::sendProtoBuffer(u32 opcode, google::protobuf::MessageLite* message) {
     mBuffer.clear();
     u32 len = message->ByteSize();
-    mLength = HEADER_LENGTH + len;
-    dMemoryCopy(mBuffer.getPointer(), &mLength, HEADER_LENGTH);
-    message->SerializeToArray((void*)(mBuffer.getPointer() + HEADER_LENGTH), len);
+    mLength = kIDLength + len;
+    dMemoryCopy(mBuffer.getPointer(), &mLength, kIDLength);
+    message->SerializeToArray((void*)(mBuffer.getPointer() + kIDLength), len);
     mSocket->sendBytes(mBuffer.getPointer(), mLength);
 }
 

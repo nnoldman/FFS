@@ -36,6 +36,7 @@ void NetWork::prosess() {
         Packet* pkt = mDataArray[i];
         pktArray.push_back(pkt);
     }
+
     mDataArray.clear();
     mLock.unlock();
 
@@ -43,11 +44,8 @@ void NetWork::prosess() {
         Packet* pkt = pktArray[i];
         BundleReceiver bundle(pkt->con, pkt->data, pkt->len);
         if (bundle.valid()) {
-            PKG* pkg = bundle.get();
-            NetWork::MsgArgs arg;
-            arg.pkg = pkg;
-            arg.connect = pkt->con;
-            App::Net.onMessage.trigger(&arg);
+            ProtocoBuffer* pkg = bundle.get();
+            App::Net.onMessage.invoke(pkg, pkt->con);
         }
     }
     pktArray.destroy();

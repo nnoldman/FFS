@@ -1,7 +1,5 @@
 #include "stdafx.h"
 #include "NetAgent.h"
-#include "Account.h"
-#include "GlobalAccountDefine.h"
 #include "Command.pb.h"
 #include "Cmd.pb.h"
 
@@ -10,26 +8,22 @@ NetAgent::NetAgent() {
 
 
 NetAgent::~NetAgent() {
+    App::Net.onMessage.remove(&::NetAgent::OnMessage, this);
+    App::Net.onDisconnect.remove(&::NetAgent::onDisconnect, this);
 }
 
-void NetAgent::onCallBack(const Delegate& d, uEventArgs* e) {
-    if (d == App::Net.onMessage) {
-        NetWork::MsgArgs* arg = (NetWork::MsgArgs*)e;
-        PKG* pkg = arg->pkg;
-        Connection* connect = arg->connect;
+bool NetAgent::initialize() {
+    App::Net.onMessage.add(&::NetAgent::OnMessage, this);
+    App::Net.onDisconnect.add(&::NetAgent::onDisconnect, this);
+    return true;
+}
 
-        switch (pkg->opcode) {
-        case Cmd::CLIENT_COMMAND::RQLoginGameServer: {
-            auto req = (Cmd::ReqLoginGameServer*)pkg;
-        }
-        break;
-        default:
-            break;
-        }
-    } else if (d == App::Net.onDisconnect) {
-        NetWork::ConnectArg* arg = (NetWork::ConnectArg*)e;
-        mClients.erase(arg->connect);
-    }
+void NetAgent::onDisconnect(Connection* connection) {
+    mClients.erase(connection);
+}
+
+void NetAgent::OnMessage(ProtocoBuffer* pb, Connection* connection) {
+
 }
 
 bool NetAgent::on_rqCreateAccount(const string& user, const string& password, Connection* con) {
@@ -42,7 +36,6 @@ bool NetAgent::on_rqLoginAccount(string user, string psw, Connection* con) {
 }
 
 void NetAgent::onLoginSucess(Account* account) {
-    App::Gate.onEnter(account);
 }
 
 const char* NetAgent::YW_DB = "yourworld";

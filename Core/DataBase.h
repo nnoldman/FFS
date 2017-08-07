@@ -6,10 +6,12 @@
 
 class DBDefine;
 
-class CX_LIB DataBase {
+class COREAPI DataBase {
   public:
     DataBase();
     ~DataBase();
+
+    Delegate1<bool, DBExecuter*> checkDefineToCreateTables;
 
     bool initialize(const DBConfig& config);
 

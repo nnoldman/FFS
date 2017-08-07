@@ -5,28 +5,17 @@
 #include "Poco/Net/TCPServerConnectionFactory.h"
 #include "Poco/Net/TCPServerParams.h"
 #include "Poco/Net/StreamSocket.h"
-#include "PKG.h"
+#include "ProtocoBuffer.h"
 #include "Connection.h"
 #include "ConfigInfo.h"
 #include "Poco/Mutex.h"
 
-class CX_LIB NetWork : CallbackObject {
+class COREAPI NetWork {
   public:
-    Delegate onMessage;
-    Delegate onDisconnect;
-    Delegate onConnect;
+    Delegate2<void, ProtocoBuffer*, Connection*> onMessage;
+    Delegate1<void, Connection*> onDisconnect;
+    Delegate1<void, Connection*> onConnect;
   public:
-    struct MsgArgs : public uEventArgs {
-        PKG* pkg;
-        Connection* connect;
-        MsgArgs() : pkg(nullptr), connect(nullptr) {
-        }
-    };
-    struct ConnectArg : uEventArgs {
-        Connection* connect;
-        ConnectArg() {
-        }
-    };
     struct Packet {
         u32 len;
         char* data;

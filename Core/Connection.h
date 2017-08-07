@@ -1,8 +1,8 @@
 #pragma once
 #include "Poco\Net\TCPServerConnection.h"
-#include "PKG.h"
+#include "ProtocoBuffer.h"
 #include "uString.h"
-class Connection : public Poco::Net::TCPServerConnection {
+class COREAPI Connection : public Poco::Net::TCPServerConnection {
   public:
     Connection(const Poco::Net::StreamSocket& s);
 
@@ -13,10 +13,14 @@ class Connection : public Poco::Net::TCPServerConnection {
     inline Poco::Net::StreamSocket& getSocket();
 
   private:
-
-    Array<PKG*> mPKGList;
+    void disconnect();
+  private:
+    Array<ProtocoBuffer*> mPKGList;
 
     Basic::uString mAddress;
+    Basic::Buffer mBuffer;
+    int mTargetLength;
+    int mHeader = 0;
 };
 inline Poco::Net::StreamSocket& Connection::getSocket() {
     return socket();

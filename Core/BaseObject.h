@@ -2,7 +2,7 @@
 #ifndef BaseObject_h__
 #define BaseObject_h__
 class DBDefine;
-class CX_LIB BaseObject {
+class COREAPI BaseObject {
   public:
     BaseObject();
     virtual ~BaseObject();

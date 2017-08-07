@@ -80,3 +80,8 @@
 /bin/Debug/Core.exp
 /bin/Debug/Core.lib
 /bin/Debug/game.loginapp.exe
+/Test/Debug
+/bin/Debug/*.exp
+/bin/Debug/game.centerapp.lib
+/bin/Debug/game.loginapp.lib
+/bin/Debug/*.tmp
