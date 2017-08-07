@@ -125,6 +125,7 @@ bool DataBase::commit(Value keyvalue, OUT DBDefine* def) {
 bool DataBase::insert(Value keyvalue, OUT DBDefine* def) {
     stringstream sm;
     def->serialize();
+    def->getValues(sm);
     sm << "INSERT INTO " << def->table() << "(" << def->key() << ") VALUES (" << keyvalue.toString() << ");";
     mExecuter->queryBegin(sm.str().c_str());
     return mExecuter->queryEnd();

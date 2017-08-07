@@ -20,6 +20,7 @@ class COREAPI DBDefine {
     bool pull(Value keyvalue);
     bool commit(Value keyvalue);
     bool insertAndQuery(Value keyvalue);
+    bool getValues(stringstream& ss);
   public:
     inline DBStream& stream() {
         return stream_;

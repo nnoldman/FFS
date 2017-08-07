@@ -18,3 +18,13 @@ bool DBDefine::insertAndQuery(Value keyvalue) {
     return false;
 }
 
+bool DBDefine::getValues(stringstream& ss) {
+    for (auto i = 0; i < stream_.getContents().size(); ++i) {
+        auto content = stream_.getContents()[i];
+        ss << content;
+        if (i != stream_.getContents().size() - 1)
+            ss << ",";
+    }
+    return true;
+}
+

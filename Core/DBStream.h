@@ -35,6 +35,10 @@ class COREAPI DBStream {
     template<int N>
     inline DBStream& operator >> (CharBuffer<N>& var);
     void set(vector<string>& values);
+
+    const vector<string>& getContents() const {
+        return contents_;
+    }
   private:
     std::vector<string> contents_;
 };
