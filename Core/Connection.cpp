@@ -10,7 +10,7 @@ const int kHeaderLength_ = 4;
 void Connection::run() {
     Poco::Net::StreamSocket& ss = socket();
     try {
-        int length = ss.receiveBytes(mBuffer.getPointer(), mBuffer.length());
+        int length = ss.receiveBytes(mBuffer.getBuffer(), mBuffer.length());
         if (length == 0) {
             disconnect();
         } else {
@@ -19,7 +19,7 @@ void Connection::run() {
                     mBuffer.readInt(mHeader);
                     mTargetLength = mHeader;
                 } else {
-                    App::Net.addMessage((mBuffer.getPointer() + mBuffer.getPosition()), mTargetLength, this);
+                    App::Net.addMessage(mBuffer.currentPointer(), mTargetLength, this);
                     mBuffer.forwardPosition(mTargetLength);
                     mTargetLength = kHeaderLength_;
                     mHeader = 0;
