@@ -116,6 +116,7 @@ void LoginNetAgent::onLoginSucess(Account* account, Connection* con) {
     Cmd::RetAccountOperation ret;
     ret.set_error(Cmd::AccountErrorCode::AccountErrorCode_LoginSucessed);
     ret.set_accountid(def->id);
+    ret.set_password(def->password.c_str());
     SendProtoBuffer(con->getSocket(), Cmd::SERVER_COMMAND::RTAccountOperation, ret);
     dSafeDelete(account);
 }

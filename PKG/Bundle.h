@@ -3,9 +3,9 @@
 #include "ProtocoBuffer.h"
 #include "google\protobuf\message_lite.h"
 
-static const u32 kIDLength = sizeof(u32);
-static const u32 kIDSizeLength = sizeof(u32);
-static const u32 kHeaderLength = kIDLength + kIDSizeLength;
+static const u32 kSizeLength = sizeof(u32);
+static const u32 kOpCodeLength = sizeof(u32);
+static const u32 kHeaderLength = kSizeLength + kOpCodeLength;
 
 class Connection;
 
