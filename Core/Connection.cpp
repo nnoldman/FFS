@@ -10,22 +10,25 @@ const int kHeaderLength_ = 4;
 void Connection::run() {
     Poco::Net::StreamSocket& ss = socket();
     try {
-        int length = ss.receiveBytes(mBuffer.getBuffer(), mBuffer.length());
-        if (length == 0) {
-            disconnect();
-        } else {
-            while (mBuffer.getPosition() < length) {
-                if (mHeader == 0) {
-                    mBuffer.readInt(mHeader);
-                    mTargetLength = mHeader;
-                } else {
-                    App::Net.addMessage(mBuffer.currentPointer(), mTargetLength, this);
-                    mBuffer.forwardPosition(mTargetLength);
-                    mTargetLength = kHeaderLength_;
-                    mHeader = 0;
+        while (true) {
+            int length = ss.receiveBytes(mBuffer.getBuffer(), mBuffer.length());
+            if (length == 0) {
+            } else {
+                while (mBuffer.getPosition() < length) {
+                    if (mHeader == 0) {
+                        mBuffer.readInt(mHeader);
+                        mTargetLength = mHeader;
+                    } else {
+                        App::Net.addMessage(mBuffer.currentPointer(), mTargetLength, this);
+                        mBuffer.forwardPosition(mTargetLength);
+                        mTargetLength = kHeaderLength_;
+                        mHeader = 0;
+                    }
                 }
             }
+            Platform::sleep(5);
         }
+
     } catch (Poco::Net::ConnectionResetException& exc) {
         App::Net.onDisconnect.invoke(this);
         std::cerr << "Disconnect by remote!: " << exc.displayText() << std::endl;
