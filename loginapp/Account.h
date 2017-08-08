@@ -3,8 +3,9 @@
 #include "DBDefine.h"
 #include "BaseObject.h"
 class Role;
-class Account : public BaseObject {
-  public:
+class Account : public BaseObject
+{
+public:
     Account();
     ~Account();
 
@@ -18,7 +19,7 @@ class Account : public BaseObject {
 
     virtual void createDefine() override;
 
-  protected:
+protected:
 
     Role* mActiveRole;
 

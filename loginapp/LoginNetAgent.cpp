@@ -4,31 +4,44 @@
 #include "Command.pb.h"
 #include "Cmd.pb.h"
 #include "GlobalAccountDefine.h"
-LoginNetAgent::LoginNetAgent() {
+LoginNetAgent::LoginNetAgent()
+{
 }
-LoginNetAgent::~LoginNetAgent() {
+LoginNetAgent::~LoginNetAgent()
+{
     App::Net.onMessage.remove(&::LoginNetAgent::onMessage, this);
     App::Net.onDisconnect.remove(&::LoginNetAgent::onDisconnect, this);
 }
 
-bool LoginNetAgent::initialize() {
+bool LoginNetAgent::initialize()
+{
     App::Net.onMessage.add(&::LoginNetAgent::onMessage, this);
     App::Net.onDisconnect.add(&::LoginNetAgent::onDisconnect, this);
     return true;
 }
 
-void LoginNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect) {
-    switch (pb->opcode) {
-    case Cmd::CLIENT_COMMAND::RQAccountOperation: {
+void LoginNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect)
+{
+    switch (pb->opcode)
+    {
+    case Cmd::CLIENT_COMMAND::RQAccountOperation:
+    {
         auto req = pb->parse<Cmd::ReqAccountOperation>();
 
-        if (req->action() == Cmd::AccountAction::AccountAction_Create) {
+        if (req->action() == Cmd::AccountAction::AccountAction_Create)
+        {
             on_rqCreateAccount(req->user(), req->password(), connect);
-        } else if (req->action() == Cmd::AccountAction::AccountAction_Rename) {
+        }
+        else if (req->action() == Cmd::AccountAction::AccountAction_Rename)
+        {
             on_rqRenameAccount(req->user(), req->password(), connect);
-        } else if (req->action() == Cmd::AccountAction::AccountAction_Delete) {
+        }
+        else if (req->action() == Cmd::AccountAction::AccountAction_Delete)
+        {
             on_rqDeleteAccount(req->user(), req->password(), connect);
-        } else if (req->action() == Cmd::AccountAction::AccountAction_Login) {
+        }
+        else if (req->action() == Cmd::AccountAction::AccountAction_Login)
+        {
             on_rqLoginAccount(req->user(), req->password(), connect);
         }
     }
@@ -38,33 +51,46 @@ void LoginNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect) {
     }
 }
 
-void LoginNetAgent::onDisconnect(Connection* connection) {
+void LoginNetAgent::onDisconnect(Connection* connection)
+{
     mClients.erase(connection);
 }
 
-bool LoginNetAgent::on_rqLoginAccount(const string& user, const string& password, Connection* con) {
+bool LoginNetAgent::on_rqLoginAccount(const string& user, const string& password, Connection* con)
+{
     Account* gateAccount = new Account();
     gateAccount->initialize();
+    gateAccount->setConnection(con);
     auto def = (GlobalAccountDefine*)gateAccount->getDBInterface();
     def->user = user.c_str();
 
-    if (def->pull(def->user.c_str())) {
-        if (def->password != password.c_str()) {
+    if (def->pull(def->user.c_str()))
+    {
+        if (def->password != password.c_str())
+        {
             Cmd::RetAccountOperation ret;
             ret.set_error(Cmd::AccountErrorCode::AccountErrorCode_PasswordError);
             SendProtoBuffer(con->getSocket(), Cmd::SERVER_COMMAND::RTAccountOperation, ret);
             dSafeDelete(gateAccount);
             return false;
-        } else {
+        }
+        else
+        {
             onLoginSucess(gateAccount, con);
         }
-    } else {
-        if (App::Config.login.db.autoCreateAccount) {
+    }
+    else
+    {
+        if (App::Config.login.db.autoCreateAccount)
+        {
             def->password = password.c_str();
-            if (def->insertAndQuery(def->user.c_str())) {
+            if (def->insertAndQuery(def->user.c_str()))
+            {
                 onLoginSucess(gateAccount, con);
             }
-        } else {
+        }
+        else
+        {
             Cmd::RetAccountOperation ret;
             ret.set_error(Cmd::AccountErrorCode::AccountErrorCode_UserCantFind);
             SendProtoBuffer(con->getSocket(), Cmd::SERVER_COMMAND::RTAccountOperation, ret);
@@ -75,16 +101,21 @@ bool LoginNetAgent::on_rqLoginAccount(const string& user, const string& password
     return true;
 }
 
-bool LoginNetAgent::on_rqCreateAccount(const string& user, const string& password, Connection* con) {
+bool LoginNetAgent::on_rqCreateAccount(const string& user, const string& password, Connection* con)
+{
     Account* gateAccount = new Account();
+    gateAccount->setConnection(con);
     auto def = (GlobalAccountDefine*)gateAccount->getDBInterface();
-    if (def->pull(user.c_str())) {
+    if (def->pull(user.c_str()))
+    {
         Cmd::RetAccountOperation ret;
         ret.set_error(Cmd::AccountErrorCode::AccountErrorCode_NameRepeated);
         SendProtoBuffer(con->getSocket(), Cmd::SERVER_COMMAND::RTAccountOperation, ret);
         dSafeDelete(gateAccount);
         return false;
-    } else {
+    }
+    else
+    {
         def->user = user.c_str();
         def->password = password.c_str();
         auto queryRet = def->insertAndQuery(user.c_str());
@@ -102,15 +133,18 @@ bool LoginNetAgent::on_rqCreateAccount(const string& user, const string& passwor
         return true;
     }
 }
-bool LoginNetAgent::on_rqDeleteAccount(const string & user, const string & password, Connection * con) {
+bool LoginNetAgent::on_rqDeleteAccount(const string & user, const string & password, Connection * con)
+{
     return false;
 }
 
-bool LoginNetAgent::on_rqRenameAccount(const string & user, const string & password, Connection * con) {
+bool LoginNetAgent::on_rqRenameAccount(const string & user, const string & password, Connection * con)
+{
     return false;
 }
 
-void LoginNetAgent::onLoginSucess(Account* account, Connection* con) {
+void LoginNetAgent::onLoginSucess(Account* account, Connection* con)
+{
     auto def = (GlobalAccountDefine*)account->getDBInterface();
     account->setGlobalID(def->id);
     Cmd::RetAccountOperation ret;
@@ -121,7 +155,8 @@ void LoginNetAgent::onLoginSucess(Account* account, Connection* con) {
     dSafeDelete(account);
 }
 
-bool LoginNetAgent::createAccount(string user, string psd, Connection * con) {
+bool LoginNetAgent::createAccount(string user, string psd, Connection * con)
+{
     return false;
 }
 

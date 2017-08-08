@@ -10,6 +10,10 @@ BaseObject::BaseObject()
 
 BaseObject::~BaseObject() {
     dSafeDelete(mDBInterface);
+    if (mNetInterface) {
+        mNetInterface->disconnect();
+        mNetInterface = nullptr;
+    }
 }
 bool BaseObject::initialize() {
     this->createDefine();

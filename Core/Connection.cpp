@@ -7,44 +7,73 @@
 
 const int kHeaderLength_ = 4;
 
-void Connection::run() {
+void Connection::run()
+{
     Poco::Net::StreamSocket& ss = socket();
-    try {
-        int length = ss.receiveBytes(mBuffer.getBuffer(), mBuffer.length());
-        if (length == 0) {
-            disconnect();
-        } else {
-            while (mBuffer.getPosition() < length) {
-                if (mHeader == 0) {
-                    mBuffer.readInt(mHeader);
-                    mTargetLength = mHeader;
-                } else {
-                    App::Net.addMessage(mBuffer.currentPointer(), mTargetLength, this);
-                    mBuffer.forwardPosition(mTargetLength);
-                    mTargetLength = kHeaderLength_;
-                    mHeader = 0;
+    try
+    {
+        buffer_.clear();
+        while (!closed_)
+        {
+            if (ss.available() > 0)
+            {
+                int length = ss.receiveBytes(buffer_.getBuffer(), buffer_.length());
+                if (length > 0)
+                {
+                    while (buffer_.getPosition() < length)
+                    {
+                        if (header_ == 0)
+                        {
+                            buffer_.readInt(header_);
+                            targetLength_ = header_;
+                        }
+                        else
+                        {
+                            App::Net.addMessage(buffer_.currentPointer(), targetLength_, this);
+                            buffer_.forwardPosition(targetLength_);
+                            targetLength_ = kHeaderLength_;
+                            header_ = 0;
+                        }
+                    }
+                    //length = ss.receiveBytes(buffer_.getBuffer(), buffer_.length());
                 }
             }
+            else
+            {
+                Platform::sleep(5);
+            }
         }
-    } catch (Poco::Net::ConnectionResetException& exc) {
+    }
+    catch (Poco::Net::NetException& exc)
+    {
         App::Net.onDisconnect.invoke(this);
         std::cerr << "Disconnect by remote!: " << exc.displayText() << std::endl;
     }
+    catch (std::exception& exc)
+    {
+        std::cerr << "Disconnect by remote!: " << exc.what() << std::endl;
+        App::Net.onDisconnect.invoke(this);
+    }
 }
 
-void Connection::disconnect() {
-
+void Connection::disconnect()
+{
+    printf("~disconnect()\n");
+    this->closed_ = true;
+    this->socket().shutdown();
 }
 
 Connection::Connection(const Poco::Net::StreamSocket& s) : TCPServerConnection(s)
-    , mBuffer(Default::ReceiveBufferSize)
-    , mTargetLength(kHeaderLength_) {
+    , buffer_(Default::ReceiveBufferSize)
+    , targetLength_(kHeaderLength_)
+{
     this->socket().setBlocking(true);
     App::Net.onConnect.invoke(this);
 }
 
-Connection::~Connection() {
-    this->socket().close();
+Connection::~Connection()
+{
+    printf("~Connection()\n");
 }
 
 

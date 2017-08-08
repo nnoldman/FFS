@@ -85,3 +85,6 @@
 /bin/Debug/game.centerapp.lib
 /bin/Debug/game.loginapp.lib
 /bin/Debug/*.tmp
+/bin/Debug/Microsoft.DTfW.DHL.manifest
+/bin/Debug/dbghelp.dll
+/bin/Debug/vld_x64.dll

@@ -4,20 +4,26 @@
 #include "Role.h"
 #include "Bundle.h"
 #include "GlobalAccountDefine.h"
-Account::Account() {
+Account::Account()
+{
 }
 
 
-Account::~Account() {
+Account::~Account()
+{
+    printf("~Account()\n");
 }
 
-void Account::onEnterGate() {
+void Account::onEnterGate()
+{
     //this->call("enterWorld");
 }
 
-void Account::onRoleRqEnterWorld(int globalID) {
+void Account::onRoleRqEnterWorld(int globalID)
+{
     mActiveRole = new Role();
-    if (!mActiveRole->initialize()) {
+    if (!mActiveRole->initialize())
+    {
         assert(0);
         return;
     }
@@ -25,16 +31,19 @@ void Account::onRoleRqEnterWorld(int globalID) {
     mActiveRole->enterScene();
 }
 
-void Account::enterWorld() {
+void Account::enterWorld()
+{
 }
 
 
 
-void Account::createDefine() {
+void Account::createDefine()
+{
     mDBInterface = new GlobalAccountDefine();
 }
 
-bool Account::initialize() {
+bool Account::initialize()
+{
     if (!__super::initialize())
         return false;
     return true;
