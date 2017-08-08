@@ -2,8 +2,9 @@
 #include "Poco\Net\TCPServerConnection.h"
 #include "ProtocoBuffer.h"
 #include "uString.h"
-class COREAPI Connection : public Poco::Net::TCPServerConnection {
-  public:
+class COREAPI Connection : public Poco::Net::TCPServerConnection
+{
+public:
     Connection(const Poco::Net::StreamSocket& s);
 
     ~Connection();
@@ -12,16 +13,14 @@ class COREAPI Connection : public Poco::Net::TCPServerConnection {
 
     inline Poco::Net::StreamSocket& getSocket();
 
-  private:
     void disconnect();
-  private:
-    Array<ProtocoBuffer*> mPKGList;
-
-    Basic::uString mAddress;
-    Basic::Buffer mBuffer;
-    int mTargetLength;
-    int mHeader = 0;
+private:
+    Basic::Buffer buffer_;
+    int targetLength_;
+    int header_ = 0;
+    bool closed_;
 };
-inline Poco::Net::StreamSocket& Connection::getSocket() {
+inline Poco::Net::StreamSocket& Connection::getSocket()
+{
     return socket();
 }
