@@ -88,3 +88,6 @@
 /bin/Debug/Microsoft.DTfW.DHL.manifest
 /bin/Debug/dbghelp.dll
 /bin/Debug/vld_x64.dll
+/Test/memory_leak_report.txt
+/Test/x64/Debug
+/bin/Debug/COUT
