@@ -1,4 +1,0 @@
-QUERY=>use database ff;
-QUERY=>show tables;
-QUERY=>SELECT COUNT(*) FROM global_account;
-QUERY=>SELECT COUNT(*) FROM global_role;

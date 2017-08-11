@@ -557,6 +557,7 @@ static ::std::string* MutableUnknownFieldsForRetAccountOperation(
 const int RetAccountOperation::kErrorFieldNumber;
 const int RetAccountOperation::kPasswordFieldNumber;
 const int RetAccountOperation::kAccountidFieldNumber;
+const int RetAccountOperation::kLateServeridsFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 RetAccountOperation::RetAccountOperation()
@@ -656,6 +657,7 @@ void RetAccountOperation::Clear() {
 #undef ZR_HELPER_
 #undef ZR_
 
+  late_serverids_.Clear();
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   _unknown_fields_.ClearToEmptyNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -720,6 +722,25 @@ bool RetAccountOperation::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
+        if (input->ExpectTag(32)) goto parse_late_serverids;
+        break;
+      }
+
+      // repeated int32 late_serverids = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_late_serverids:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadRepeatedPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 1, 32, input, this->mutable_late_serverids())));
+        } else if (tag == 34) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPackedPrimitiveNoInline<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, this->mutable_late_serverids())));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_late_serverids;
         if (input->ExpectAtEnd()) goto success;
         break;
       }
@@ -764,6 +785,12 @@ void RetAccountOperation::SerializeWithCachedSizes(
   // required int32 accountid = 3;
   if (has_accountid()) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(3, this->accountid(), output);
+  }
+
+  // repeated int32 late_serverids = 4;
+  for (int i = 0; i < this->late_serverids_size(); i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(
+      4, this->late_serverids(i), output);
   }
 
   output->WriteRaw(unknown_fields().data(),
@@ -819,6 +846,16 @@ int RetAccountOperation::ByteSize() const {
   } else {
     total_size += RequiredFieldsByteSizeFallback();
   }
+  // repeated int32 late_serverids = 4;
+  {
+    int data_size = 0;
+    for (int i = 0; i < this->late_serverids_size(); i++) {
+      data_size += ::google::protobuf::internal::WireFormatLite::
+        Int32Size(this->late_serverids(i));
+    }
+    total_size += 1 * this->late_serverids_size() + data_size;
+  }
+
   total_size += unknown_fields().size();
 
   GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
@@ -837,6 +874,7 @@ void RetAccountOperation::MergeFrom(const RetAccountOperation& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) {
     ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
   }
+  late_serverids_.MergeFrom(from.late_serverids_);
   if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
     if (from.has_error()) {
       set_error(from.error());
@@ -875,6 +913,7 @@ void RetAccountOperation::InternalSwap(RetAccountOperation* other) {
   std::swap(error_, other->error_);
   password_.Swap(&other->password_);
   std::swap(accountid_, other->accountid_);
+  late_serverids_.UnsafeArenaSwap(&other->late_serverids_);
   std::swap(_has_bits_[0], other->_has_bits_[0]);
   _unknown_fields_.Swap(&other->_unknown_fields_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -988,6 +1027,36 @@ void RetAccountOperation::clear_accountid() {
   set_has_accountid();
   accountid_ = value;
   // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.accountid)
+}
+
+// repeated int32 late_serverids = 4;
+int RetAccountOperation::late_serverids_size() const {
+  return late_serverids_.size();
+}
+void RetAccountOperation::clear_late_serverids() {
+  late_serverids_.Clear();
+}
+ ::google::protobuf::int32 RetAccountOperation::late_serverids(int index) const {
+  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.late_serverids)
+  return late_serverids_.Get(index);
+}
+ void RetAccountOperation::set_late_serverids(int index, ::google::protobuf::int32 value) {
+  late_serverids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.late_serverids)
+}
+ void RetAccountOperation::add_late_serverids(::google::protobuf::int32 value) {
+  late_serverids_.Add(value);
+  // @@protoc_insertion_point(field_add:Cmd.RetAccountOperation.late_serverids)
+}
+ const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+RetAccountOperation::late_serverids() const {
+  // @@protoc_insertion_point(field_list:Cmd.RetAccountOperation.late_serverids)
+  return late_serverids_;
+}
+ ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+RetAccountOperation::mutable_late_serverids() {
+  // @@protoc_insertion_point(field_mutable_list:Cmd.RetAccountOperation.late_serverids)
+  return &late_serverids_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

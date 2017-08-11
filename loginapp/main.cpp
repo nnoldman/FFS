@@ -14,11 +14,15 @@ BOOL WINAPI onControl(DWORD CtrlType)
 
 int main(int argc, const char** argv)
 {
-    //freopen("game.loginapp.txt", "w", stdout);
-    freopen("COUT", "w", stdout);
-    SetConsoleCtrlHandler(onControl, TRUE);
-    LoginApp app(argc, argv);
-    auto ret = App::Main(&app);
+    int ret = 0;
+    {
+        freopen("game.loginapp.txt", "w", stdout);
+        //freopen("COUT", "w", stdout);
+        SetConsoleCtrlHandler(onControl, TRUE);
+        LoginApp app(argc, argv);
+        ret = App::Main(&app);
+    }
+
     return ret;
 }
 

@@ -304,6 +304,18 @@ class RetAccountOperation : public ::google::protobuf::MessageLite /* @@protoc_i
   ::google::protobuf::int32 accountid() const;
   void set_accountid(::google::protobuf::int32 value);
 
+  // repeated int32 late_serverids = 4;
+  int late_serverids_size() const;
+  void clear_late_serverids();
+  static const int kLateServeridsFieldNumber = 4;
+  ::google::protobuf::int32 late_serverids(int index) const;
+  void set_late_serverids(int index, ::google::protobuf::int32 value);
+  void add_late_serverids(::google::protobuf::int32 value);
+  const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+      late_serverids() const;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+      mutable_late_serverids();
+
   // @@protoc_insertion_point(class_scope:Cmd.RetAccountOperation)
  private:
   inline void set_has_error();
@@ -324,6 +336,7 @@ class RetAccountOperation : public ::google::protobuf::MessageLite /* @@protoc_i
   ::google::protobuf::internal::ArenaStringPtr password_;
   int error_;
   ::google::protobuf::int32 accountid_;
+  ::google::protobuf::RepeatedField< ::google::protobuf::int32 > late_serverids_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_Command_2eproto_impl();
   #else
@@ -686,6 +699,36 @@ inline void RetAccountOperation::set_accountid(::google::protobuf::int32 value) 
   set_has_accountid();
   accountid_ = value;
   // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.accountid)
+}
+
+// repeated int32 late_serverids = 4;
+inline int RetAccountOperation::late_serverids_size() const {
+  return late_serverids_.size();
+}
+inline void RetAccountOperation::clear_late_serverids() {
+  late_serverids_.Clear();
+}
+inline ::google::protobuf::int32 RetAccountOperation::late_serverids(int index) const {
+  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.late_serverids)
+  return late_serverids_.Get(index);
+}
+inline void RetAccountOperation::set_late_serverids(int index, ::google::protobuf::int32 value) {
+  late_serverids_.Set(index, value);
+  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.late_serverids)
+}
+inline void RetAccountOperation::add_late_serverids(::google::protobuf::int32 value) {
+  late_serverids_.Add(value);
+  // @@protoc_insertion_point(field_add:Cmd.RetAccountOperation.late_serverids)
+}
+inline const ::google::protobuf::RepeatedField< ::google::protobuf::int32 >&
+RetAccountOperation::late_serverids() const {
+  // @@protoc_insertion_point(field_list:Cmd.RetAccountOperation.late_serverids)
+  return late_serverids_;
+}
+inline ::google::protobuf::RepeatedField< ::google::protobuf::int32 >*
+RetAccountOperation::mutable_late_serverids() {
+  // @@protoc_insertion_point(field_mutable_list:Cmd.RetAccountOperation.late_serverids)
+  return &late_serverids_;
 }
 
 // -------------------------------------------------------------------
