@@ -49,12 +49,12 @@ bool LoginApp::onInitializeNet()
     return true;
 }
 
-const vector<const DBTableDefine*> LoginApp::getTableDefines()
+const vector<const DBTableDefine*>& LoginApp::getTableDefines() const
 {
     static const vector<const DBTableDefine*> ret
     {
-        &GlobalAccountDefine::Define,
-        &GlobalRoleDefine::Define,
+        &GlobalAccountDefine::GetDefine(),
+        &GlobalRoleDefine::GetDefine(),
     };
     return ret;
 }

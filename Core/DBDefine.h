@@ -2,6 +2,7 @@
 class DataBase;
 #include "DBStream.h"
 #include "Value.h"
+#include "ServerID.h"
 class COREAPI DBDefine
 {
 public:
@@ -41,6 +42,8 @@ public:
     {
         return stream_;
     }
+protected:
+
 private:
     DBStream stream_;
 };

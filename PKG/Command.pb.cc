@@ -20,6 +20,8 @@ void protobuf_ShutdownFile_Command_2eproto() {
   delete ReqAccountOperation::default_instance_;
   delete RetAccountOperation::default_instance_;
   delete ReqLoginGameServer::default_instance_;
+  delete GameRole::default_instance_;
+  delete RetLoginGameServer::default_instance_;
 }
 
 #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
@@ -38,9 +40,13 @@ void protobuf_AddDesc_Command_2eproto() {
   ReqAccountOperation::default_instance_ = new ReqAccountOperation();
   RetAccountOperation::default_instance_ = new RetAccountOperation();
   ReqLoginGameServer::default_instance_ = new ReqLoginGameServer();
+  GameRole::default_instance_ = new GameRole();
+  RetLoginGameServer::default_instance_ = new RetLoginGameServer();
   ReqAccountOperation::default_instance_->InitAsDefaultInstance();
   RetAccountOperation::default_instance_->InitAsDefaultInstance();
   ReqLoginGameServer::default_instance_->InitAsDefaultInstance();
+  GameRole::default_instance_->InitAsDefaultInstance();
+  RetLoginGameServer::default_instance_->InitAsDefaultInstance();
   ::google::protobuf::internal::OnShutdown(&protobuf_ShutdownFile_Command_2eproto);
 }
 
@@ -79,6 +85,17 @@ bool AccountErrorCode_IsValid(int value) {
     case 3:
     case 4:
     case 5:
+      return true;
+    default:
+      return false;
+  }
+}
+
+bool LoginGameServerErrorCode_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
       return true;
     default:
       return false;
@@ -1070,6 +1087,8 @@ static ::std::string* MutableUnknownFieldsForReqLoginGameServer(
 
 #if !defined(_MSC_VER) || _MSC_VER >= 1900
 const int ReqLoginGameServer::kAccountidFieldNumber;
+const int ReqLoginGameServer::kTimeFieldNumber;
+const int ReqLoginGameServer::kTokenFieldNumber;
 #endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
 
 ReqLoginGameServer::ReqLoginGameServer()
@@ -1095,6 +1114,8 @@ void ReqLoginGameServer::SharedCtor() {
   _unknown_fields_.UnsafeSetDefault(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
   accountid_ = 0;
+  time_ = 0;
+  token_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
 }
 
@@ -1106,6 +1127,7 @@ ReqLoginGameServer::~ReqLoginGameServer() {
 void ReqLoginGameServer::SharedDtor() {
   _unknown_fields_.DestroyNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  token_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   if (this != &default_instance()) {
   #else
@@ -1140,7 +1162,32 @@ ReqLoginGameServer* ReqLoginGameServer::New(::google::protobuf::Arena* arena) co
 
 void ReqLoginGameServer::Clear() {
 // @@protoc_insertion_point(message_clear_start:Cmd.ReqLoginGameServer)
-  accountid_ = 0;
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(ReqLoginGameServer, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<ReqLoginGameServer*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  if (_has_bits_[0 / 32] & 7u) {
+    ZR_(accountid_, time_);
+    if (has_token()) {
+      token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    }
+  }
+
+#undef ZR_HELPER_
+#undef ZR_
+
   ::memset(_has_bits_, 0, sizeof(_has_bits_));
   _unknown_fields_.ClearToEmptyNoArena(
       &::google::protobuf::internal::GetEmptyStringAlreadyInited());
@@ -1168,6 +1215,34 @@ bool ReqLoginGameServer::MergePartialFromCodedStream(
                    ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
                  input, &accountid_)));
           set_has_accountid();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_time;
+        break;
+      }
+
+      // required int32 time = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_time:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &time_)));
+          set_has_time();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_token;
+        break;
+      }
+
+      // required string token = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_token:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_token()));
         } else {
           goto handle_unusual;
         }
@@ -1205,20 +1280,71 @@ void ReqLoginGameServer::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->accountid(), output);
   }
 
+  // required int32 time = 2;
+  if (has_time()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->time(), output);
+  }
+
+  // required string token = 3;
+  if (has_token()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->token(), output);
+  }
+
   output->WriteRaw(unknown_fields().data(),
                    static_cast<int>(unknown_fields().size()));
   // @@protoc_insertion_point(serialize_end:Cmd.ReqLoginGameServer)
 }
 
+int ReqLoginGameServer::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:Cmd.ReqLoginGameServer)
+  int total_size = 0;
+
+  if (has_accountid()) {
+    // required int32 accountid = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->accountid());
+  }
+
+  if (has_time()) {
+    // required int32 time = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->time());
+  }
+
+  if (has_token()) {
+    // required string token = 3;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->token());
+  }
+
+  return total_size;
+}
 int ReqLoginGameServer::ByteSize() const {
 // @@protoc_insertion_point(message_byte_size_start:Cmd.ReqLoginGameServer)
   int total_size = 0;
 
-  // required int32 accountid = 1;
-  if (has_accountid()) {
+  if (((_has_bits_[0] & 0x00000007) ^ 0x00000007) == 0) {  // All required fields are present.
+    // required int32 accountid = 1;
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::Int32Size(
         this->accountid());
+
+    // required int32 time = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->time());
+
+    // required string token = 3;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->token());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
   }
   total_size += unknown_fields().size();
 
@@ -1242,6 +1368,13 @@ void ReqLoginGameServer::MergeFrom(const ReqLoginGameServer& from) {
     if (from.has_accountid()) {
       set_accountid(from.accountid());
     }
+    if (from.has_time()) {
+      set_time(from.time());
+    }
+    if (from.has_token()) {
+      set_has_token();
+      token_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.token_);
+    }
   }
   if (!from.unknown_fields().empty()) {
     mutable_unknown_fields()->append(from.unknown_fields());
@@ -1256,7 +1389,7 @@ void ReqLoginGameServer::CopyFrom(const ReqLoginGameServer& from) {
 }
 
 bool ReqLoginGameServer::IsInitialized() const {
-  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+  if ((_has_bits_[0] & 0x00000007) != 0x00000007) return false;
 
   return true;
 }
@@ -1267,6 +1400,8 @@ void ReqLoginGameServer::Swap(ReqLoginGameServer* other) {
 }
 void ReqLoginGameServer::InternalSwap(ReqLoginGameServer* other) {
   std::swap(accountid_, other->accountid_);
+  std::swap(time_, other->time_);
+  token_.Swap(&other->token_);
   std::swap(_has_bits_[0], other->_has_bits_[0]);
   _unknown_fields_.Swap(&other->_unknown_fields_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -1301,6 +1436,1028 @@ void ReqLoginGameServer::clear_accountid() {
   set_has_accountid();
   accountid_ = value;
   // @@protoc_insertion_point(field_set:Cmd.ReqLoginGameServer.accountid)
+}
+
+// required int32 time = 2;
+bool ReqLoginGameServer::has_time() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+void ReqLoginGameServer::set_has_time() {
+  _has_bits_[0] |= 0x00000002u;
+}
+void ReqLoginGameServer::clear_has_time() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+void ReqLoginGameServer::clear_time() {
+  time_ = 0;
+  clear_has_time();
+}
+ ::google::protobuf::int32 ReqLoginGameServer::time() const {
+  // @@protoc_insertion_point(field_get:Cmd.ReqLoginGameServer.time)
+  return time_;
+}
+ void ReqLoginGameServer::set_time(::google::protobuf::int32 value) {
+  set_has_time();
+  time_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.ReqLoginGameServer.time)
+}
+
+// required string token = 3;
+bool ReqLoginGameServer::has_token() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+void ReqLoginGameServer::set_has_token() {
+  _has_bits_[0] |= 0x00000004u;
+}
+void ReqLoginGameServer::clear_has_token() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+void ReqLoginGameServer::clear_token() {
+  token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_token();
+}
+ const ::std::string& ReqLoginGameServer::token() const {
+  // @@protoc_insertion_point(field_get:Cmd.ReqLoginGameServer.token)
+  return token_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void ReqLoginGameServer::set_token(const ::std::string& value) {
+  set_has_token();
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Cmd.ReqLoginGameServer.token)
+}
+ void ReqLoginGameServer::set_token(const char* value) {
+  set_has_token();
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Cmd.ReqLoginGameServer.token)
+}
+ void ReqLoginGameServer::set_token(const char* value, size_t size) {
+  set_has_token();
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Cmd.ReqLoginGameServer.token)
+}
+ ::std::string* ReqLoginGameServer::mutable_token() {
+  set_has_token();
+  // @@protoc_insertion_point(field_mutable:Cmd.ReqLoginGameServer.token)
+  return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* ReqLoginGameServer::release_token() {
+  // @@protoc_insertion_point(field_release:Cmd.ReqLoginGameServer.token)
+  clear_has_token();
+  return token_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void ReqLoginGameServer::set_allocated_token(::std::string* token) {
+  if (token != NULL) {
+    set_has_token();
+  } else {
+    clear_has_token();
+  }
+  token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
+  // @@protoc_insertion_point(field_set_allocated:Cmd.ReqLoginGameServer.token)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+static ::std::string* MutableUnknownFieldsForGameRole(
+    GameRole* ptr) {
+  return ptr->mutable_unknown_fields();
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int GameRole::kIdFieldNumber;
+const int GameRole::kLevelFieldNumber;
+const int GameRole::kNameFieldNumber;
+const int GameRole::kSexFieldNumber;
+const int GameRole::kJobFieldNumber;
+const int GameRole::kVipFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+GameRole::GameRole()
+  : ::google::protobuf::MessageLite(), _arena_ptr_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:Cmd.GameRole)
+}
+
+void GameRole::InitAsDefaultInstance() {
+}
+
+GameRole::GameRole(const GameRole& from)
+  : ::google::protobuf::MessageLite(),
+    _arena_ptr_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:Cmd.GameRole)
+}
+
+void GameRole::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  _unknown_fields_.UnsafeSetDefault(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  id_ = 0;
+  level_ = 0;
+  name_.UnsafeSetDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  sex_ = 0;
+  job_ = 0;
+  vip_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+GameRole::~GameRole() {
+  // @@protoc_insertion_point(destructor:Cmd.GameRole)
+  SharedDtor();
+}
+
+void GameRole::SharedDtor() {
+  _unknown_fields_.DestroyNoArena(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  name_.DestroyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+  }
+}
+
+void GameRole::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const GameRole& GameRole::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_Command_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_Command_2eproto();
+#endif
+  return *default_instance_;
+}
+
+GameRole* GameRole::default_instance_ = NULL;
+
+GameRole* GameRole::New(::google::protobuf::Arena* arena) const {
+  GameRole* n = new GameRole;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void GameRole::Clear() {
+// @@protoc_insertion_point(message_clear_start:Cmd.GameRole)
+#if defined(__clang__)
+#define ZR_HELPER_(f) \
+  _Pragma("clang diagnostic push") \
+  _Pragma("clang diagnostic ignored \"-Winvalid-offsetof\"") \
+  __builtin_offsetof(GameRole, f) \
+  _Pragma("clang diagnostic pop")
+#else
+#define ZR_HELPER_(f) reinterpret_cast<char*>(\
+  &reinterpret_cast<GameRole*>(16)->f)
+#endif
+
+#define ZR_(first, last) do {\
+  ::memset(&first, 0,\
+           ZR_HELPER_(last) - ZR_HELPER_(first) + sizeof(last));\
+} while (0)
+
+  if (_has_bits_[0 / 32] & 63u) {
+    ZR_(id_, level_);
+    ZR_(sex_, vip_);
+    if (has_name()) {
+      name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+    }
+  }
+
+#undef ZR_HELPER_
+#undef ZR_
+
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  _unknown_fields_.ClearToEmptyNoArena(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool GameRole::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::LazyStringOutputStream unknown_fields_string(
+      ::google::protobuf::internal::NewPermanentCallback(
+          &MutableUnknownFieldsForGameRole, this));
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string, false);
+  // @@protoc_insertion_point(parse_start:Cmd.GameRole)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required int32 id = 1;
+      case 1: {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &id_)));
+          set_has_id();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(16)) goto parse_level;
+        break;
+      }
+
+      // required int32 level = 2;
+      case 2: {
+        if (tag == 16) {
+         parse_level:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &level_)));
+          set_has_level();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(26)) goto parse_name;
+        break;
+      }
+
+      // required string name = 3;
+      case 3: {
+        if (tag == 26) {
+         parse_name:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadString(
+                input, this->mutable_name()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(32)) goto parse_sex;
+        break;
+      }
+
+      // required int32 sex = 4;
+      case 4: {
+        if (tag == 32) {
+         parse_sex:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &sex_)));
+          set_has_sex();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(40)) goto parse_job;
+        break;
+      }
+
+      // required int32 job = 5;
+      case 5: {
+        if (tag == 40) {
+         parse_job:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &job_)));
+          set_has_job();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(48)) goto parse_vip;
+        break;
+      }
+
+      // required int32 vip = 6;
+      case 6: {
+        if (tag == 48) {
+         parse_vip:
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &vip_)));
+          set_has_vip();
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Cmd.GameRole)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Cmd.GameRole)
+  return false;
+#undef DO_
+}
+
+void GameRole::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Cmd.GameRole)
+  // required int32 id = 1;
+  if (has_id()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->id(), output);
+  }
+
+  // required int32 level = 2;
+  if (has_level()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(2, this->level(), output);
+  }
+
+  // required string name = 3;
+  if (has_name()) {
+    ::google::protobuf::internal::WireFormatLite::WriteStringMaybeAliased(
+      3, this->name(), output);
+  }
+
+  // required int32 sex = 4;
+  if (has_sex()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(4, this->sex(), output);
+  }
+
+  // required int32 job = 5;
+  if (has_job()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(5, this->job(), output);
+  }
+
+  // required int32 vip = 6;
+  if (has_vip()) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(6, this->vip(), output);
+  }
+
+  output->WriteRaw(unknown_fields().data(),
+                   static_cast<int>(unknown_fields().size()));
+  // @@protoc_insertion_point(serialize_end:Cmd.GameRole)
+}
+
+int GameRole::RequiredFieldsByteSizeFallback() const {
+// @@protoc_insertion_point(required_fields_byte_size_fallback_start:Cmd.GameRole)
+  int total_size = 0;
+
+  if (has_id()) {
+    // required int32 id = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->id());
+  }
+
+  if (has_level()) {
+    // required int32 level = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->level());
+  }
+
+  if (has_name()) {
+    // required string name = 3;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+  }
+
+  if (has_sex()) {
+    // required int32 sex = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sex());
+  }
+
+  if (has_job()) {
+    // required int32 job = 5;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->job());
+  }
+
+  if (has_vip()) {
+    // required int32 vip = 6;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->vip());
+  }
+
+  return total_size;
+}
+int GameRole::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:Cmd.GameRole)
+  int total_size = 0;
+
+  if (((_has_bits_[0] & 0x0000003f) ^ 0x0000003f) == 0) {  // All required fields are present.
+    // required int32 id = 1;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->id());
+
+    // required int32 level = 2;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->level());
+
+    // required string name = 3;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::StringSize(
+        this->name());
+
+    // required int32 sex = 4;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->sex());
+
+    // required int32 job = 5;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->job());
+
+    // required int32 vip = 6;
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->vip());
+
+  } else {
+    total_size += RequiredFieldsByteSizeFallback();
+  }
+  total_size += unknown_fields().size();
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void GameRole::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const GameRole*>(&from));
+}
+
+void GameRole::MergeFrom(const GameRole& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Cmd.GameRole)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_id()) {
+      set_id(from.id());
+    }
+    if (from.has_level()) {
+      set_level(from.level());
+    }
+    if (from.has_name()) {
+      set_has_name();
+      name_.AssignWithDefault(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), from.name_);
+    }
+    if (from.has_sex()) {
+      set_sex(from.sex());
+    }
+    if (from.has_job()) {
+      set_job(from.job());
+    }
+    if (from.has_vip()) {
+      set_vip(from.vip());
+    }
+  }
+  if (!from.unknown_fields().empty()) {
+    mutable_unknown_fields()->append(from.unknown_fields());
+  }
+}
+
+void GameRole::CopyFrom(const GameRole& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Cmd.GameRole)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool GameRole::IsInitialized() const {
+  if ((_has_bits_[0] & 0x0000003f) != 0x0000003f) return false;
+
+  return true;
+}
+
+void GameRole::Swap(GameRole* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void GameRole::InternalSwap(GameRole* other) {
+  std::swap(id_, other->id_);
+  std::swap(level_, other->level_);
+  name_.Swap(&other->name_);
+  std::swap(sex_, other->sex_);
+  std::swap(job_, other->job_);
+  std::swap(vip_, other->vip_);
+  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  _unknown_fields_.Swap(&other->_unknown_fields_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::std::string GameRole::GetTypeName() const {
+  return "Cmd.GameRole";
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// GameRole
+
+// required int32 id = 1;
+bool GameRole::has_id() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+void GameRole::set_has_id() {
+  _has_bits_[0] |= 0x00000001u;
+}
+void GameRole::clear_has_id() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+void GameRole::clear_id() {
+  id_ = 0;
+  clear_has_id();
+}
+ ::google::protobuf::int32 GameRole::id() const {
+  // @@protoc_insertion_point(field_get:Cmd.GameRole.id)
+  return id_;
+}
+ void GameRole::set_id(::google::protobuf::int32 value) {
+  set_has_id();
+  id_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.GameRole.id)
+}
+
+// required int32 level = 2;
+bool GameRole::has_level() const {
+  return (_has_bits_[0] & 0x00000002u) != 0;
+}
+void GameRole::set_has_level() {
+  _has_bits_[0] |= 0x00000002u;
+}
+void GameRole::clear_has_level() {
+  _has_bits_[0] &= ~0x00000002u;
+}
+void GameRole::clear_level() {
+  level_ = 0;
+  clear_has_level();
+}
+ ::google::protobuf::int32 GameRole::level() const {
+  // @@protoc_insertion_point(field_get:Cmd.GameRole.level)
+  return level_;
+}
+ void GameRole::set_level(::google::protobuf::int32 value) {
+  set_has_level();
+  level_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.GameRole.level)
+}
+
+// required string name = 3;
+bool GameRole::has_name() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+void GameRole::set_has_name() {
+  _has_bits_[0] |= 0x00000004u;
+}
+void GameRole::clear_has_name() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+void GameRole::clear_name() {
+  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_name();
+}
+ const ::std::string& GameRole::name() const {
+  // @@protoc_insertion_point(field_get:Cmd.GameRole.name)
+  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void GameRole::set_name(const ::std::string& value) {
+  set_has_name();
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Cmd.GameRole.name)
+}
+ void GameRole::set_name(const char* value) {
+  set_has_name();
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Cmd.GameRole.name)
+}
+ void GameRole::set_name(const char* value, size_t size) {
+  set_has_name();
+  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Cmd.GameRole.name)
+}
+ ::std::string* GameRole::mutable_name() {
+  set_has_name();
+  // @@protoc_insertion_point(field_mutable:Cmd.GameRole.name)
+  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ ::std::string* GameRole::release_name() {
+  // @@protoc_insertion_point(field_release:Cmd.GameRole.name)
+  clear_has_name();
+  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+ void GameRole::set_allocated_name(::std::string* name) {
+  if (name != NULL) {
+    set_has_name();
+  } else {
+    clear_has_name();
+  }
+  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
+  // @@protoc_insertion_point(field_set_allocated:Cmd.GameRole.name)
+}
+
+// required int32 sex = 4;
+bool GameRole::has_sex() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+void GameRole::set_has_sex() {
+  _has_bits_[0] |= 0x00000008u;
+}
+void GameRole::clear_has_sex() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+void GameRole::clear_sex() {
+  sex_ = 0;
+  clear_has_sex();
+}
+ ::google::protobuf::int32 GameRole::sex() const {
+  // @@protoc_insertion_point(field_get:Cmd.GameRole.sex)
+  return sex_;
+}
+ void GameRole::set_sex(::google::protobuf::int32 value) {
+  set_has_sex();
+  sex_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.GameRole.sex)
+}
+
+// required int32 job = 5;
+bool GameRole::has_job() const {
+  return (_has_bits_[0] & 0x00000010u) != 0;
+}
+void GameRole::set_has_job() {
+  _has_bits_[0] |= 0x00000010u;
+}
+void GameRole::clear_has_job() {
+  _has_bits_[0] &= ~0x00000010u;
+}
+void GameRole::clear_job() {
+  job_ = 0;
+  clear_has_job();
+}
+ ::google::protobuf::int32 GameRole::job() const {
+  // @@protoc_insertion_point(field_get:Cmd.GameRole.job)
+  return job_;
+}
+ void GameRole::set_job(::google::protobuf::int32 value) {
+  set_has_job();
+  job_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.GameRole.job)
+}
+
+// required int32 vip = 6;
+bool GameRole::has_vip() const {
+  return (_has_bits_[0] & 0x00000020u) != 0;
+}
+void GameRole::set_has_vip() {
+  _has_bits_[0] |= 0x00000020u;
+}
+void GameRole::clear_has_vip() {
+  _has_bits_[0] &= ~0x00000020u;
+}
+void GameRole::clear_vip() {
+  vip_ = 0;
+  clear_has_vip();
+}
+ ::google::protobuf::int32 GameRole::vip() const {
+  // @@protoc_insertion_point(field_get:Cmd.GameRole.vip)
+  return vip_;
+}
+ void GameRole::set_vip(::google::protobuf::int32 value) {
+  set_has_vip();
+  vip_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.GameRole.vip)
+}
+
+#endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
+
+// ===================================================================
+
+static ::std::string* MutableUnknownFieldsForRetLoginGameServer(
+    RetLoginGameServer* ptr) {
+  return ptr->mutable_unknown_fields();
+}
+
+#if !defined(_MSC_VER) || _MSC_VER >= 1900
+const int RetLoginGameServer::kErrorFieldNumber;
+const int RetLoginGameServer::kRolesFieldNumber;
+#endif  // !defined(_MSC_VER) || _MSC_VER >= 1900
+
+RetLoginGameServer::RetLoginGameServer()
+  : ::google::protobuf::MessageLite(), _arena_ptr_(NULL) {
+  SharedCtor();
+  // @@protoc_insertion_point(constructor:Cmd.RetLoginGameServer)
+}
+
+void RetLoginGameServer::InitAsDefaultInstance() {
+}
+
+RetLoginGameServer::RetLoginGameServer(const RetLoginGameServer& from)
+  : ::google::protobuf::MessageLite(),
+    _arena_ptr_(NULL) {
+  SharedCtor();
+  MergeFrom(from);
+  // @@protoc_insertion_point(copy_constructor:Cmd.RetLoginGameServer)
+}
+
+void RetLoginGameServer::SharedCtor() {
+  ::google::protobuf::internal::GetEmptyString();
+  _cached_size_ = 0;
+  _unknown_fields_.UnsafeSetDefault(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  error_ = 0;
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+}
+
+RetLoginGameServer::~RetLoginGameServer() {
+  // @@protoc_insertion_point(destructor:Cmd.RetLoginGameServer)
+  SharedDtor();
+}
+
+void RetLoginGameServer::SharedDtor() {
+  _unknown_fields_.DestroyNoArena(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  if (this != &default_instance()) {
+  #else
+  if (this != default_instance_) {
+  #endif
+  }
+}
+
+void RetLoginGameServer::SetCachedSize(int size) const {
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+}
+const RetLoginGameServer& RetLoginGameServer::default_instance() {
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  protobuf_AddDesc_Command_2eproto();
+#else
+  if (default_instance_ == NULL) protobuf_AddDesc_Command_2eproto();
+#endif
+  return *default_instance_;
+}
+
+RetLoginGameServer* RetLoginGameServer::default_instance_ = NULL;
+
+RetLoginGameServer* RetLoginGameServer::New(::google::protobuf::Arena* arena) const {
+  RetLoginGameServer* n = new RetLoginGameServer;
+  if (arena != NULL) {
+    arena->Own(n);
+  }
+  return n;
+}
+
+void RetLoginGameServer::Clear() {
+// @@protoc_insertion_point(message_clear_start:Cmd.RetLoginGameServer)
+  error_ = 0;
+  roles_.Clear();
+  ::memset(_has_bits_, 0, sizeof(_has_bits_));
+  _unknown_fields_.ClearToEmptyNoArena(
+      &::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+
+bool RetLoginGameServer::MergePartialFromCodedStream(
+    ::google::protobuf::io::CodedInputStream* input) {
+#define DO_(EXPRESSION) if (!GOOGLE_PREDICT_TRUE(EXPRESSION)) goto failure
+  ::google::protobuf::uint32 tag;
+  ::google::protobuf::io::LazyStringOutputStream unknown_fields_string(
+      ::google::protobuf::internal::NewPermanentCallback(
+          &MutableUnknownFieldsForRetLoginGameServer, this));
+  ::google::protobuf::io::CodedOutputStream unknown_fields_stream(
+      &unknown_fields_string, false);
+  // @@protoc_insertion_point(parse_start:Cmd.RetLoginGameServer)
+  for (;;) {
+    ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
+    tag = p.first;
+    if (!p.second) goto handle_unusual;
+    switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
+      // required .Cmd.LoginGameServerErrorCode error = 1;
+      case 1: {
+        if (tag == 8) {
+          int value;
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
+                 input, &value)));
+          if (::Cmd::LoginGameServerErrorCode_IsValid(value)) {
+            set_error(static_cast< ::Cmd::LoginGameServerErrorCode >(value));
+          } else {
+            unknown_fields_stream.WriteVarint32(8);
+            unknown_fields_stream.WriteVarint32(value);
+          }
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_roles;
+        break;
+      }
+
+      // repeated .Cmd.GameRole roles = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_roles:
+          DO_(input->IncrementRecursionDepth());
+         parse_loop_roles:
+          DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
+                input, add_roles()));
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_loop_roles;
+        input->UnsafeDecrementRecursionDepth();
+        if (input->ExpectAtEnd()) goto success;
+        break;
+      }
+
+      default: {
+      handle_unusual:
+        if (tag == 0 ||
+            ::google::protobuf::internal::WireFormatLite::GetTagWireType(tag) ==
+            ::google::protobuf::internal::WireFormatLite::WIRETYPE_END_GROUP) {
+          goto success;
+        }
+        DO_(::google::protobuf::internal::WireFormatLite::SkipField(
+            input, tag, &unknown_fields_stream));
+        break;
+      }
+    }
+  }
+success:
+  // @@protoc_insertion_point(parse_success:Cmd.RetLoginGameServer)
+  return true;
+failure:
+  // @@protoc_insertion_point(parse_failure:Cmd.RetLoginGameServer)
+  return false;
+#undef DO_
+}
+
+void RetLoginGameServer::SerializeWithCachedSizes(
+    ::google::protobuf::io::CodedOutputStream* output) const {
+  // @@protoc_insertion_point(serialize_start:Cmd.RetLoginGameServer)
+  // required .Cmd.LoginGameServerErrorCode error = 1;
+  if (has_error()) {
+    ::google::protobuf::internal::WireFormatLite::WriteEnum(
+      1, this->error(), output);
+  }
+
+  // repeated .Cmd.GameRole roles = 2;
+  for (unsigned int i = 0, n = this->roles_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessage(
+      2, this->roles(i), output);
+  }
+
+  output->WriteRaw(unknown_fields().data(),
+                   static_cast<int>(unknown_fields().size()));
+  // @@protoc_insertion_point(serialize_end:Cmd.RetLoginGameServer)
+}
+
+int RetLoginGameServer::ByteSize() const {
+// @@protoc_insertion_point(message_byte_size_start:Cmd.RetLoginGameServer)
+  int total_size = 0;
+
+  // required .Cmd.LoginGameServerErrorCode error = 1;
+  if (has_error()) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::EnumSize(this->error());
+  }
+  // repeated .Cmd.GameRole roles = 2;
+  total_size += 1 * this->roles_size();
+  for (int i = 0; i < this->roles_size(); i++) {
+    total_size +=
+      ::google::protobuf::internal::WireFormatLite::MessageSizeNoVirtual(
+        this->roles(i));
+  }
+
+  total_size += unknown_fields().size();
+
+  GOOGLE_SAFE_CONCURRENT_WRITES_BEGIN();
+  _cached_size_ = total_size;
+  GOOGLE_SAFE_CONCURRENT_WRITES_END();
+  return total_size;
+}
+
+void RetLoginGameServer::CheckTypeAndMergeFrom(
+    const ::google::protobuf::MessageLite& from) {
+  MergeFrom(*::google::protobuf::down_cast<const RetLoginGameServer*>(&from));
+}
+
+void RetLoginGameServer::MergeFrom(const RetLoginGameServer& from) {
+// @@protoc_insertion_point(class_specific_merge_from_start:Cmd.RetLoginGameServer)
+  if (GOOGLE_PREDICT_FALSE(&from == this)) {
+    ::google::protobuf::internal::MergeFromFail(__FILE__, __LINE__);
+  }
+  roles_.MergeFrom(from.roles_);
+  if (from._has_bits_[0 / 32] & (0xffu << (0 % 32))) {
+    if (from.has_error()) {
+      set_error(from.error());
+    }
+  }
+  if (!from.unknown_fields().empty()) {
+    mutable_unknown_fields()->append(from.unknown_fields());
+  }
+}
+
+void RetLoginGameServer::CopyFrom(const RetLoginGameServer& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:Cmd.RetLoginGameServer)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+bool RetLoginGameServer::IsInitialized() const {
+  if ((_has_bits_[0] & 0x00000001) != 0x00000001) return false;
+
+  if (!::google::protobuf::internal::AllAreInitialized(this->roles())) return false;
+  return true;
+}
+
+void RetLoginGameServer::Swap(RetLoginGameServer* other) {
+  if (other == this) return;
+  InternalSwap(other);
+}
+void RetLoginGameServer::InternalSwap(RetLoginGameServer* other) {
+  std::swap(error_, other->error_);
+  roles_.UnsafeArenaSwap(&other->roles_);
+  std::swap(_has_bits_[0], other->_has_bits_[0]);
+  _unknown_fields_.Swap(&other->_unknown_fields_);
+  std::swap(_cached_size_, other->_cached_size_);
+}
+
+::std::string RetLoginGameServer::GetTypeName() const {
+  return "Cmd.RetLoginGameServer";
+}
+
+#if PROTOBUF_INLINE_NOT_IN_HEADERS
+// RetLoginGameServer
+
+// required .Cmd.LoginGameServerErrorCode error = 1;
+bool RetLoginGameServer::has_error() const {
+  return (_has_bits_[0] & 0x00000001u) != 0;
+}
+void RetLoginGameServer::set_has_error() {
+  _has_bits_[0] |= 0x00000001u;
+}
+void RetLoginGameServer::clear_has_error() {
+  _has_bits_[0] &= ~0x00000001u;
+}
+void RetLoginGameServer::clear_error() {
+  error_ = 0;
+  clear_has_error();
+}
+ ::Cmd::LoginGameServerErrorCode RetLoginGameServer::error() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetLoginGameServer.error)
+  return static_cast< ::Cmd::LoginGameServerErrorCode >(error_);
+}
+ void RetLoginGameServer::set_error(::Cmd::LoginGameServerErrorCode value) {
+  assert(::Cmd::LoginGameServerErrorCode_IsValid(value));
+  set_has_error();
+  error_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.RetLoginGameServer.error)
+}
+
+// repeated .Cmd.GameRole roles = 2;
+int RetLoginGameServer::roles_size() const {
+  return roles_.size();
+}
+void RetLoginGameServer::clear_roles() {
+  roles_.Clear();
+}
+const ::Cmd::GameRole& RetLoginGameServer::roles(int index) const {
+  // @@protoc_insertion_point(field_get:Cmd.RetLoginGameServer.roles)
+  return roles_.Get(index);
+}
+::Cmd::GameRole* RetLoginGameServer::mutable_roles(int index) {
+  // @@protoc_insertion_point(field_mutable:Cmd.RetLoginGameServer.roles)
+  return roles_.Mutable(index);
+}
+::Cmd::GameRole* RetLoginGameServer::add_roles() {
+  // @@protoc_insertion_point(field_add:Cmd.RetLoginGameServer.roles)
+  return roles_.Add();
+}
+::google::protobuf::RepeatedPtrField< ::Cmd::GameRole >*
+RetLoginGameServer::mutable_roles() {
+  // @@protoc_insertion_point(field_mutable_list:Cmd.RetLoginGameServer.roles)
+  return &roles_;
+}
+const ::google::protobuf::RepeatedPtrField< ::Cmd::GameRole >&
+RetLoginGameServer::roles() const {
+  // @@protoc_insertion_point(field_list:Cmd.RetLoginGameServer.roles)
+  return roles_;
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS

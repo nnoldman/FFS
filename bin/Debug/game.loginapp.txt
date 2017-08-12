@@ -1,0 +1,6 @@
+QUERY=>use database ff;
+QUERY=>show tables;
+QUERY=>SELECT COUNT(*) FROM game_role;
+QUERY=>SELECT COUNT(*) FROM game_user;
+QUERY=>SELECT COUNT(*) FROM global_account;
+QUERY=>SELECT COUNT(*) FROM global_role;

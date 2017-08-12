@@ -33,7 +33,7 @@ protected:
     virtual	bool parseCommandLine() = 0;
     virtual	bool onInitializeEnd() = 0;
     virtual	bool onInitializeNet() = 0;
-    virtual const vector<const DBTableDefine*> getTableDefines() = 0;
+    virtual const vector<const DBTableDefine*>& getTableDefines() const= 0;
 private:
     void run();
     virtual bool initializeDataBase()final;

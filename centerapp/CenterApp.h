@@ -1,8 +1,9 @@
 #pragma once
 class NetAgent;
 class CenterApp :
-    public App {
-  public:
+    public App
+{
+public:
     CenterApp(int narg, const char** args);
     ~CenterApp();
     virtual const NetConfig& getNetConfig() override;
@@ -11,11 +12,11 @@ class CenterApp :
 
     virtual bool parseCommandLine() override;
 
-  private:
+private:
     int mServerID;
-  private:
+private:
     NetAgent* mNetAgent;
-  protected:
+protected:
     virtual void archive() override;
 
 
@@ -24,8 +25,6 @@ class CenterApp :
 
     virtual bool onInitializeNet() override;
 
-
-    virtual const vector<const DBTableDefine *> getTableDefines() override;
-
+    virtual const vector<const DBTableDefine*>& getTableDefines() const override;
 };
 

@@ -77,14 +77,14 @@ bool App::initializeDataBase()
         auto ret = this->getTableDefines();
         for (auto def : ret)
         {
-            if (!this->DataBase.hasTable(def->tableName.c_str()))
+            if (!this->DataBase.hasTable(def->tableName()))
             {
                 stringstream cmd;
                 if (def->generateCreateTableString(cmd))
                 {
-                    if (!this->DataBase.createTable(def->tableName.c_str(), cmd.str().c_str()))
+                    if (!this->DataBase.createTable(def->tableName(), cmd.str().c_str()))
                     {
-                        printf_s("Create Table %s Failed!", def->tableName.c_str());
+                        printf_s("Create Table %s Failed!", def->tableName());
                         return false;
                     }
                 }

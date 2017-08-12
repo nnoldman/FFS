@@ -8,7 +8,20 @@
 class GlobalRoleDefine : public DBDefine
 {
 public:
-    static const DBTableDefine Define;
+    static const DBTableDefine& GetDefine()
+    {
+        static const DBTableDefine TheTable =
+        {
+            "global_role",true,"id","name",
+            {
+                { "id",enum_field_types::MYSQL_TYPE_LONG,0,true,false },
+                { "name",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
+                { "level",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
+                { "vip",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
+            },
+        };
+        return TheTable;
+    }
 public:
     CharBuffer<Default::NameSize> name;
     int id;
@@ -17,12 +30,12 @@ public:
 
     virtual const char* table() override
     {
-        return Define.tableName.c_str();
+        return GetDefine().tableName();
     }
 
     virtual const char* key() override
     {
-        return Define.primaryKey2.c_str();
+        return GetDefine().key2();
     }
 
     virtual void deserializeMe() override
@@ -41,16 +54,5 @@ public:
         stream() << vip;
     }
 
-};
-
-__declspec(selectany) const DBTableDefine GlobalRoleDefine::Define =
-{
-    "global_role","id","name",
-    {
-        { "id",enum_field_types::MYSQL_TYPE_LONG,0,true,false },
-        { "name",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
-        { "level",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
-        { "vip",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
-    },
 };
 

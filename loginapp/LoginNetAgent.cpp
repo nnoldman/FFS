@@ -163,5 +163,3 @@ bool LoginNetAgent::createAccount(string user, string psd, Connection* con)
     return false;
 }
 
-Map<Connection*, int> LoginNetAgent::mClients;
-

@@ -7,7 +7,22 @@ class GlobalAccountDefine :
     public DBDefine
 {
 public:
-    static const DBTableDefine Define;
+    static const DBTableDefine& GetDefine()
+    {
+        static const DBTableDefine TheTable
+        {
+            "global_account",true,"id","user",
+            {
+                { "id",enum_field_types::MYSQL_TYPE_LONG,0,true,false },
+                { "user",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
+                { "password",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
+                { "late_serverid1",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
+                { "late_serverid2",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
+                { "late_serverid3",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
+            },
+        };
+        return TheTable;
+    }
 public:
     CharBuffer<Default::NameSize> user;
     CharBuffer<Default::NameSize> password;
@@ -18,12 +33,12 @@ public:
 public:
     virtual const char* table() override
     {
-        return Define.tableName.c_str();
+        return GetDefine().tableName();
     }
 
     virtual const char* key() override
     {
-        return Define.primaryKey2.c_str();
+        return GetDefine().key2();
     }
 
     virtual void deserializeMe() override
@@ -45,18 +60,5 @@ public:
         stream() << late_serverid2;
         stream() << late_serverid3;
     }
-};
-
-__declspec(selectany) const DBTableDefine GlobalAccountDefine::Define
-{
-    "global_account","id","user",
-    {
-        { "id",enum_field_types::MYSQL_TYPE_LONG,0,true,false },
-        { "user",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
-        { "password",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
-        { "late_serverid1",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
-        { "late_serverid2",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
-        { "late_serverid3",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
-    },
 };
 

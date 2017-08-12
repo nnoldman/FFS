@@ -52,6 +52,7 @@ bool CLIENT_COMMAND_IsValid(int value) {
   switch(value) {
     case 100:
     case 300:
+    case 400:
       return true;
     default:
       return false;
@@ -62,6 +63,7 @@ bool SERVER_COMMAND_IsValid(int value) {
   switch(value) {
     case 100:
     case 300:
+    case 400:
       return true;
     default:
       return false;
