@@ -2,6 +2,7 @@
 #include "NetAgent.h"
 #include "Command.pb.h"
 #include "Cmd.pb.h"
+#include "md5.h"
 
 NetAgent::NetAgent()
 {
@@ -33,6 +34,27 @@ void NetAgent::OnMessage(ProtocoBuffer* pb, Connection* connect)
     case Cmd::CLIENT_COMMAND::RQLoginGame:
         {
             auto req = pb->parse<Cmd::ReqLoginGameServer>();
+            stringstream ss;
+            ss << req->accountid();
+            ss << req->time();
+            ss << Default::Token::kLoginKey;
+            MD5 md5(ss.str());
+
+            Cmd::RetLoginGameServer ret;
+
+            if (md5.toStr() != req->token())
+            {
+                ret.set_error(Cmd::LoginGameServerErrorCode::Invalid);
+            }
+            else if (req->time() + 600 < std::time(nullptr))
+            {
+                ret.set_error(Cmd::LoginGameServerErrorCode::Overdue);
+            }
+            else
+            {
+                ret.set_error(Cmd::LoginGameServerErrorCode::Sucess);
+            }
+            SendProtoBuffer(connect->getSocket(), Cmd::RTLoginGame, ret);
         }
         break;
     default:

@@ -45,6 +45,7 @@
       <Filter>DB</Filter>
     </ClCompile>
     <ClCompile Include="ServerID.cpp" />
+    <ClCompile Include="Encrypt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -92,6 +93,7 @@
       <Filter>DB</Filter>
     </ClInclude>
     <ClInclude Include="ServerID.h" />
+    <ClInclude Include="Encrypt.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

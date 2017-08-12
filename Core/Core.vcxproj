@@ -173,6 +173,7 @@
     <ClInclude Include="DBQuery.h" />
     <ClInclude Include="DBReturn.h" />
     <ClInclude Include="DBStream.h" />
+    <ClInclude Include="Encrypt.h" />
     <ClInclude Include="Gate.h" />
     <ClInclude Include="MySqlExecuter.h" />
     <ClInclude Include="NetWork.h" />
@@ -198,6 +199,7 @@
     <ClCompile Include="DBReturn.cpp" />
     <ClCompile Include="DBStream.cpp" />
     <ClCompile Include="DBTableDefine.cpp" />
+    <ClCompile Include="Encrypt.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="MySqlExecuter.cpp" />
     <ClCompile Include="NetWork.cpp" />
