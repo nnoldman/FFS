@@ -177,6 +177,7 @@
     <ClInclude Include="MySqlExecuter.h" />
     <ClInclude Include="NetWork.h" />
     <ClInclude Include="DBExecuter.h" />
+    <ClInclude Include="ServerID.h" />
     <ClInclude Include="SQLHelper.h" />
     <ClInclude Include="DBTable.h" />
     <ClInclude Include="stdafx.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="MySqlExecuter.cpp" />
     <ClCompile Include="NetWork.cpp" />
     <ClCompile Include="DBExecuter.cpp" />
+    <ClCompile Include="ServerID.cpp" />
     <ClCompile Include="SQLHelper.cpp" />
     <ClCompile Include="DBTable.cpp" />
     <ClCompile Include="stdafx.cpp">

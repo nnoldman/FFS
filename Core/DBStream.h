@@ -1,7 +1,8 @@
 #pragma once
 #include <list>
-class COREAPI DBStream {
-  public:
+class COREAPI DBStream
+{
+public:
     DBStream();
     ~DBStream();
     DBStream& operator << (u8 var);
@@ -36,25 +37,39 @@ class COREAPI DBStream {
     inline DBStream& operator >> (CharBuffer<N>& var);
     void set(vector<string>& values);
 
-    const vector<string>& getContents() const {
+    const vector<string>& getContents() const
+    {
         return contents_;
     }
-  private:
+    void moveToEnd()
+    {
+        this->position_ = this->contents_.size() - 1;
+    }
+    void clear()
+    {
+        this->contents_.clear();
+    }
+private:
     std::vector<string> contents_;
+    int position_;
 };
 
 template<int N>
-inline DBStream& DBStream::operator >> (CharBuffer<N>& var) {
-    string container = contents_.back();
+inline DBStream& DBStream::operator >> (CharBuffer<N>& var)
+{
+    string container = contents_[position_];
     var.setString(container.c_str());
     contents_.pop_back();
+    position_--;
     return *this;
 }
 
 template<int N>
-inline DBStream& DBStream::operator<<(CharBuffer<N>& var) {
+inline DBStream& DBStream::operator<<(CharBuffer<N>& var)
+{
     string container = var.c_str();
     contents_.push_back(container);
+    position_++;
     return *this;
 }
 

@@ -12,28 +12,34 @@
 
 #pragma warning(disable:4200)
 
-struct ProtocoBuffer {
+struct ProtocoBuffer
+{
     u32 length;
     u32 opcode;
     char data[0];
-    ProtocoBuffer() {
+    ProtocoBuffer()
+    {
     }
 
     template<typename T>
-    T* parse(bool errorIfEmpty = true) {
+    auto_ptr<T> parse(bool errorIfEmpty = true)
+    {
         if (data == nullptr)
-            return nullptr;
+            return auto_ptr<T>(nullptr);
         T* ret = new T();
-        if (ret->ParsePartialFromArray(data, length)) {
-            return ret;
-        } else  {
-            delete ret;
-            if (errorIfEmpty) {
+        if (ret->ParsePartialFromArray(data, length))
+        {
+            return auto_ptr<T>(ret);
+        }
+        else
+        {
+            if (errorIfEmpty)
+            {
                 assert(false);
                 std::cerr << "ProtocolBuffer Parse Error" << std::endl;
             }
         }
-        return nullptr;
+        return auto_ptr<T>(nullptr);
     }
 };
 

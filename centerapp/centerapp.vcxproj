@@ -164,6 +164,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CenterApp.h" />
+    <ClInclude Include="GameRoleDefine.h" />
+    <ClInclude Include="GameUserDefine.h" />
     <ClInclude Include="NetAgent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="vld.h" />

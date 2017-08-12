@@ -25,27 +25,27 @@ void LoginNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect)
     switch (pb->opcode)
     {
     case Cmd::CLIENT_COMMAND::RQAccountOperation:
-    {
-        auto req = pb->parse<Cmd::ReqAccountOperation>();
+        {
+            auto req = pb->parse<Cmd::ReqAccountOperation>();
 
-        if (req->action() == Cmd::AccountAction::AccountAction_Create)
-        {
-            on_rqCreateAccount(req->user(), req->password(), connect);
+            if (req->action() == Cmd::AccountAction::AccountAction_Create)
+            {
+                on_rqCreateAccount(req->user(), req->password(), connect);
+            }
+            else if (req->action() == Cmd::AccountAction::AccountAction_Rename)
+            {
+                on_rqRenameAccount(req->user(), req->password(), connect);
+            }
+            else if (req->action() == Cmd::AccountAction::AccountAction_Delete)
+            {
+                on_rqDeleteAccount(req->user(), req->password(), connect);
+            }
+            else if (req->action() == Cmd::AccountAction::AccountAction_Login)
+            {
+                on_rqLoginAccount(req->user(), req->password(), connect);
+            }
         }
-        else if (req->action() == Cmd::AccountAction::AccountAction_Rename)
-        {
-            on_rqRenameAccount(req->user(), req->password(), connect);
-        }
-        else if (req->action() == Cmd::AccountAction::AccountAction_Delete)
-        {
-            on_rqDeleteAccount(req->user(), req->password(), connect);
-        }
-        else if (req->action() == Cmd::AccountAction::AccountAction_Login)
-        {
-            on_rqLoginAccount(req->user(), req->password(), connect);
-        }
-    }
-    break;
+        break;
     default:
         break;
     }
@@ -133,12 +133,12 @@ bool LoginNetAgent::on_rqCreateAccount(const string& user, const string& passwor
         return true;
     }
 }
-bool LoginNetAgent::on_rqDeleteAccount(const string & user, const string & password, Connection * con)
+bool LoginNetAgent::on_rqDeleteAccount(const string& user, const string& password, Connection* con)
 {
     return false;
 }
 
-bool LoginNetAgent::on_rqRenameAccount(const string & user, const string & password, Connection * con)
+bool LoginNetAgent::on_rqRenameAccount(const string& user, const string& password, Connection* con)
 {
     return false;
 }
@@ -151,14 +151,15 @@ void LoginNetAgent::onLoginSucess(Account* account, Connection* con)
     ret.set_error(Cmd::AccountErrorCode::AccountErrorCode_LoginSucessed);
     ret.set_accountid(def->id);
     ret.set_password(def->password.c_str());
+    ret.add_late_serverids(def->late_serverid1);
+    ret.add_late_serverids(def->late_serverid2);
+    ret.add_late_serverids(def->late_serverid3);
     SendProtoBuffer(con->getSocket(), Cmd::SERVER_COMMAND::RTAccountOperation, ret);
     dSafeDelete(account);
 }
 
-bool LoginNetAgent::createAccount(string user, string psd, Connection * con)
+bool LoginNetAgent::createAccount(string user, string psd, Connection* con)
 {
     return false;
 }
-
-Map<Connection*, int> LoginNetAgent::mClients;
 

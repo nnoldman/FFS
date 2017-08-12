@@ -7,44 +7,54 @@
 
 LoginApp::LoginApp(int narg, const char** args)
     : App(narg, args)
-    , mNetAgent(nullptr) {
+    , mNetAgent(nullptr)
+{
 
 }
 
-LoginApp::~LoginApp() {
+LoginApp::~LoginApp()
+{
     dSafeDelete(mNetAgent);
 }
 
-const NetConfig& LoginApp::getNetConfig() {
+const NetConfig& LoginApp::getNetConfig()
+{
     return Config.login.net;
 }
 
-const DBConfig& LoginApp::getDataBaseConfig() {
+const DBConfig& LoginApp::getDataBaseConfig()
+{
     return Config.login.db;
 }
 
-bool LoginApp::parseCommandLine() {
+bool LoginApp::parseCommandLine()
+{
     return true;
 }
 
-void LoginApp::archive() {
+void LoginApp::archive()
+{
 }
 
-bool LoginApp::onInitializeEnd() {
+bool LoginApp::onInitializeEnd()
+{
     return true;
 }
 
-bool LoginApp::onInitializeNet() {
+bool LoginApp::onInitializeNet()
+{
     mNetAgent = new LoginNetAgent();
     if (!mNetAgent->initialize())
         return false;
     return true;
 }
 
-const vector<const DBTableDefine*> LoginApp::getTableDefines() {
-    static const vector<const DBTableDefine*> ret{
-        &GlobalAccountDefine::Define,
-        &GlobalRoleDefine::Define,
+const vector<const DBTableDefine*>& LoginApp::getTableDefines() const
+{
+    static const vector<const DBTableDefine*> ret
+    {
+        &GlobalAccountDefine::GetDefine(),
+        &GlobalRoleDefine::GetDefine(),
     };
     return ret;
 }

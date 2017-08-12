@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "App.h"
 
+App* App::Instance = nullptr;
+
 Config App::Config;
 
 DataBase App::DataBase;
@@ -13,16 +15,23 @@ Gate App::Gate;
 
 App::App(int narg, const char** args)
     :mCommandLine(narg, args)
-    ,mQuiting(false) {
-
+    ,mQuiting(false)
+{
+    Instance = this;
 }
 
-App::~App() {
+App::~App()
+{
+    Instance = nullptr;
+    OutputDebugStringA("~App");
 }
 
-bool App::initialize() {
-    if (mCommandLine.arg_count()) {
-        if (!parseCommandLine()) {
+bool App::initialize()
+{
+    if (mCommandLine.arg_count())
+    {
+        if (!parseCommandLine())
+        {
             throw new std::logic_error("parseCommandLine Error");
             return false;
         }
@@ -31,7 +40,8 @@ bool App::initialize() {
     if (!Config.initialize("..\\..\\config.xml"))
         return false;
 
-    if (!Net.initialize(getNetConfig())) {
+    if (!Net.initialize(getNetConfig()))
+    {
         return false;
     }
 
@@ -47,24 +57,34 @@ bool App::initialize() {
     return this->onInitializeEnd();
 }
 
-void App::run() {
-    while (!mQuiting) {
+void App::run()
+{
+    while (!mQuiting)
+    {
         Net.prosess();
         Platform::sleep(5);
     }
 }
 
-bool App::initializeDataBase() {
-    if (!DataBase.initialize(getDataBaseConfig())) {
+bool App::initializeDataBase()
+{
+    if (!DataBase.initialize(getDataBaseConfig()))
+    {
         return false;
-    } else {
+    }
+    else
+    {
         auto ret = this->getTableDefines();
-        for (auto def : ret) {
-            if (!this->DataBase.hasTable(def->tableName.c_str())) {
+        for (auto def : ret)
+        {
+            if (!this->DataBase.hasTable(def->tableName()))
+            {
                 stringstream cmd;
-                if (def->generateCreateTableString(cmd)) {
-                    if (!this->DataBase.createTable(def->tableName.c_str(), cmd.str().c_str())) {
-                        printf_s("Create Table %s Failed!", def->tableName.c_str());
+                if (def->generateCreateTableString(cmd))
+                {
+                    if (!this->DataBase.createTable(def->tableName(), cmd.str().c_str()))
+                    {
+                        printf_s("Create Table %s Failed!", def->tableName());
                         return false;
                     }
                 }
@@ -74,35 +94,37 @@ bool App::initializeDataBase() {
     return true;
 }
 
-void App::onQuit() {
+void App::onQuit()
+{
     archive();
 }
 
-void App::archive() {
+void App::archive()
+{
 
 }
 
-void App::quit() {
+void App::quit()
+{
     mQuiting = true;
 }
 
-bool App::isQuiting() const {
+bool App::isQuiting() const
+{
     return mQuiting;
 }
 
-Basic::CommandLine& App::getCommandLine()  {
+Basic::CommandLine& App::getCommandLine()
+{
     return mCommandLine;
 }
 
-int App::Main(App* app) {
-    if (!app->initialize()) {
-        delete app;
+int App::Main(App* app)
+{
+    if (!app->initialize())
         return 1;
-    }
     app->run();
     app->onQuit();
-
-    delete app;
     return 0;
 }
 

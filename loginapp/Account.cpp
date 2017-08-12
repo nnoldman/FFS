@@ -22,8 +22,7 @@ void Account::onEnterGate()
 void Account::onRoleRqEnterWorld(int globalID)
 {
     mActiveRole = new Role();
-    if (!mActiveRole->initialize())
-    {
+    if (!mActiveRole->initialize()) {
         assert(0);
         return;
     }

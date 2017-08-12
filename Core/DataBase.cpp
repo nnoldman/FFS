@@ -3,18 +3,21 @@
 #include "DBTable.h"
 #include "MySqlExecuter.h"
 #include "DBDefine.h"
-DataBase::DataBase() {
+DataBase::DataBase()
+{
     mExecuter = new MySQLExecuter();
 }
 
 
-DataBase::~DataBase() {
+DataBase::~DataBase()
+{
     delete mExecuter;
     dSafeDeleteMap2(mTables);
 }
 
 
-bool DataBase::initialize(const DBConfig& config) {
+bool DataBase::initialize(const DBConfig& config)
+{
     if (!mExecuter->initialize(config))
         return false;
 
@@ -44,17 +47,22 @@ bool DataBase::initialize(const DBConfig& config) {
     return true;
 }
 
-void DataBase::finish() {
+void DataBase::finish()
+{
 }
 
-void DataBase::create_table_if_not_exist(const char* name) {
+void DataBase::create_table_if_not_exist(const char* name)
+{
 }
 
-bool DataBase::create_column_if_not_exist(const char* table, const char* key) {
+bool DataBase::create_column_if_not_exist(const char* table, const char* key)
+{
     auto res = mTables.find(table);
-    if (res != mTables.end()) {
+    if (res != mTables.end())
+    {
         DBTable* sqltable = res->second;
-        if (!sqltable->exist(key)) {
+        if (!sqltable->exist(key))
+        {
             return sqltable->insertCol(key);
         }
     }
@@ -62,67 +70,78 @@ bool DataBase::create_column_if_not_exist(const char* table, const char* key) {
 }
 
 
-bool DataBase::createTable(const char* name, const char* cmd) {
+bool DataBase::createTable(const char* name, const char* cmd)
+{
     stringstream cmdstring;
     mExecuter->queryBegin(cmd);
     reGetTables();
     return hasTable(name);
 }
 
-bool DataBase::hasTable(const char* name) {
+bool DataBase::hasTable(const char* name)
+{
     return mTables.find(name) != mTables.end();
 }
 
-bool DataBase::queryKey(string table, string key, const char* value) {
+bool DataBase::queryKey(string table, string key, const char* value)
+{
     stringstream ss;
     ss << "SELECT COUNT(*) FROM " << table << " WHERE " << key << " = " << value;
     mExecuter->queryBegin(ss.str().c_str());
     return mExecuter->queryEnd();
 }
 
-bool DataBase::queryRecord(const char* cmd, std::vector<string>& result) {
+bool DataBase::queryRecord(const char* cmd, std::vector<string>& result)
+{
     mExecuter->queryBegin(cmd);
     return mExecuter->queryEnd(result);
 }
 
-bool DataBase::queryRecord(string table, string key, const char* value, std::vector<string>& result) {
+bool DataBase::queryRecord(string table, string key, const char* value, std::vector<string>& result)
+{
     stringstream ss;
     ss << "SELECT COUNT(*) FROM " << table << " WHERE " << key << " = " << value;
     mExecuter->queryBegin(ss.str().c_str());
     return mExecuter->queryEnd(result);
 }
 
-bool DataBase::queryRecord(string table, string key, const char* value, OUT DBDefine* result) {
+bool DataBase::queryRecord(string table, string key, const char* value, OUT DBDefine* result)
+{
     stringstream ss;
     ss << "SELECT COUNT(*) FROM " << table << " WHERE " << key << " = " << value;
     mExecuter->queryBegin(ss.str().c_str());
     std::vector<string> records;
     auto ret = mExecuter->queryEnd(records);
-    if (ret) {
+    if (ret)
+    {
         result->stream().set(records);
         result->deserialize();
     }
     return ret;
 }
 
-bool DataBase::pull(Value keyvalue, OUT DBDefine* def) {
+bool DataBase::pull(Value keyvalue, OUT DBDefine* def)
+{
     stringstream ss;
     ss << "SELECT * FROM " << def->table() << " WHERE " << def->key() << " = " << keyvalue.toString();
     mExecuter->queryBegin(ss.str().c_str());
     std::vector<string> records;
     auto ret = mExecuter->queryEnd(records);
-    if (ret) {
+    if (ret)
+    {
         def->set(records);
         def->deserialize();
     }
     return ret;
 }
 
-bool DataBase::commit(Value keyvalue, OUT DBDefine* def) {
+bool DataBase::commit(Value keyvalue, OUT DBDefine* def)
+{
     return false;
 }
 
-bool DataBase::insert(Value keyvalue, OUT DBDefine* def) {
+bool DataBase::insert(Value keyvalue, OUT DBDefine* def)
+{
     stringstream ss;
     stringstream ssvalue;
     def->serialize();
@@ -132,15 +151,18 @@ bool DataBase::insert(Value keyvalue, OUT DBDefine* def) {
     return mExecuter->queryEnd();
 }
 
-bool DataBase::insertAndQuery(Value keyvalue, OUT DBDefine* def) {
+bool DataBase::insertAndQuery(Value keyvalue, OUT DBDefine* def)
+{
     bool ret = insert(keyvalue, def);
-    if (ret) {
+    if (ret)
+    {
         ret = pull(keyvalue, def);
     }
     return ret;
 }
 
-bool DataBase::insertDefaultByGUID(const char* table, const char* guid) {
+bool DataBase::insertDefaultByGUID(const char* table, const char* guid)
+{
     assert(table);
     assert(guid);
     assert(strlen(table));
@@ -154,14 +176,16 @@ bool DataBase::insertDefaultByGUID(const char* table, const char* guid) {
 
 
 
-DBTable* DataBase::getTable(const char* name) {
+DBTable* DataBase::getTable(const char* name)
+{
     auto p = mTables.find(name);
-    if(p == mTables.end())
+    if (p == mTables.end())
         return nullptr;
     return p->second;
 }
 
-bool DataBase::createDB() {
+bool DataBase::createDB()
+{
     /*if (!connectNoDB)
     	return false;
 
@@ -177,7 +201,8 @@ bool DataBase::createDB() {
     return true;
 }
 
-void DataBase::generateConnectString() {
+void DataBase::generateConnectString()
+{
     /*std::stringstream ss;
     ss << "host=" << mConfig.host
     	<< ";port=" << mConfig.port
@@ -190,7 +215,8 @@ void DataBase::generateConnectString() {
     //_dbConnString = ss.str();
 }
 
-void DataBase::reGetTables() {
+void DataBase::reGetTables()
+{
     dSafeDeleteMap2(mTables);
 
     stringstream sm;
@@ -198,10 +224,12 @@ void DataBase::reGetTables() {
     mExecuter->queryBegin(sm.str().c_str());
 
     stringVectorVector tableNames;
-    if (!mExecuter->queryEnd(tableNames)) {
+    if (!mExecuter->queryEnd(tableNames))
+    {
         //assert(0);
     }
-    for (auto record : tableNames) {
+    for (auto record : tableNames)
+    {
         DBTable* table = new DBTable();
         table->name = record[0];
         table->refreshRecordCount();
@@ -209,7 +237,8 @@ void DataBase::reGetTables() {
     }
 }
 
-bool DataBase::connectNoDB() {
+bool DataBase::connectNoDB()
+{
     /*try
     {
     	Session session(MySQL::Connector::KEY, _dbConnString);
@@ -236,7 +265,8 @@ bool DataBase::connectNoDB() {
 //	std::cout << "Host Info: " << MySQL::Utility::hostInfo(session) << std::endl;
 //}
 
-void DataBase::bareboneMySQLTest(const char* host, const char* user, const char* pwd, const char* db, int port, const char* tableCreateString) {
+void DataBase::bareboneMySQLTest(const char* host, const char* user, const char* pwd, const char* db, int port, const char* tableCreateString)
+{
     //bareboneMySQLTest(mConfig.host.c_str(), mConfig.user.c_str(), mConfig.password.c_str(), mConfig.dbName.c_str()
     //	, mConfig.port, "create table account;");
 

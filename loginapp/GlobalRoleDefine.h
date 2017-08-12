@@ -5,46 +5,54 @@
 #include "CharBuffer.h"
 #include "DBTableDefine.h"
 
-class GlobalRoleDefine : public DBDefine {
-  public:
-    static const DBTableDefine Define;
-  public:
+class GlobalRoleDefine : public DBDefine
+{
+public:
+    static const DBTableDefine& GetDefine()
+    {
+        static const DBTableDefine TheTable =
+        {
+            "global_role",true,"id","name",
+            {
+                { "id",enum_field_types::MYSQL_TYPE_LONG,0,true,false },
+                { "name",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
+                { "level",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
+                { "vip",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
+            },
+        };
+        return TheTable;
+    }
+public:
     CharBuffer<Default::NameSize> name;
     int id;
     int level;
     int vip;
 
-    virtual const char* table() override {
-        return Define.tableName.c_str();
+    virtual const char* table() override
+    {
+        return GetDefine().tableName();
     }
 
-    virtual const char* key() override {
-        return Define.primaryKey1.c_str();
+    virtual const char* key() override
+    {
+        return GetDefine().key2();
     }
 
-    virtual void deserialize() override {
+    virtual void deserializeMe() override
+    {
         stream() >> id;
         stream() >> level;
         stream() >> name;
         stream() >> vip;
     }
 
-    virtual void serialize() override {
+    virtual void serializeMe() override
+    {
         stream() << id;
         stream() << level;
         stream() << name;
         stream() << vip;
     }
 
-};
-
-__declspec(selectany) const DBTableDefine GlobalRoleDefine::Define = {
-    "global_role","id","name",
-    {
-        { "id",enum_field_types::MYSQL_TYPE_LONG,0,true,false },
-        { "name",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
-        { "level",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
-        { "vip",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
-    },
 };
 

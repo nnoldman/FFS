@@ -3,18 +3,22 @@
 #include "GlobalRoleDefine.h"
 
 
-Role::Role() {
+Role::Role()
+{
 }
 
 
-Role::~Role() {
+Role::~Role()
+{
 }
 
-void Role::enterScene() {
+void Role::enterScene()
+{
     //this->call("enterScene", nullptr);
 }
 
-void Role::createDefine() {
+void Role::createDefine()
+{
     mDBInterface = new GlobalRoleDefine();
 }
 

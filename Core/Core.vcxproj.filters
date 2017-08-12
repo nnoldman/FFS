@@ -44,6 +44,7 @@
     <ClCompile Include="MySqlExecuter.cpp">
       <Filter>DB</Filter>
     </ClCompile>
+    <ClCompile Include="ServerID.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
@@ -90,6 +91,7 @@
     <ClInclude Include="MySqlExecuter.h">
       <Filter>DB</Filter>
     </ClInclude>
+    <ClInclude Include="ServerID.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
