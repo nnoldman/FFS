@@ -26,9 +26,7 @@ public:
     {
         return GetDefine().tableName();
     }
-
 public:
-    int id;
     CharBuffer<Default::NameSize> name;
     int vip;
     int level;

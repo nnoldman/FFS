@@ -1,10 +1,10 @@
 #pragma once
 class Account;
-class NetAgent
+class CenterNetAgent
 {
 public:
-    NetAgent();
-    ~NetAgent();
+    CenterNetAgent();
+    ~CenterNetAgent();
 
     bool initialize();
 protected:

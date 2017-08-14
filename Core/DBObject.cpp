@@ -1,40 +1,49 @@
 #include "stdafx.h"
 #include "DBObject.h"
-#include "App.h"
+#include "DBDefine.h"
 
 
-DBObject::DBObject() {
+DBObject::DBObject()
+    : netInterface_(nullptr)
+    , dbInterface_(nullptr)
+{
 }
 
-
-DBObject::~DBObject() {
+DBObject::~DBObject()
+{
+    dSafeDelete(dbInterface_);
+    if (netInterface_)
+    {
+        netInterface_->disconnect();
+        netInterface_ = nullptr;
+    }
 }
-
-bool DBObject::fetchByField(const char* field) {
+bool DBObject::initialize()
+{
+    this->createDefine();
     return true;
-    //ScriptArgs arg;
-    //arg << field;
-    //return App::Script.invoke<bool>(nameSpace(), className(), "fetchByField", mObject, arg.pointer());
 }
 
-void DBObject::sync(string data) {
+void DBObject::setGlobalID(int globalID)
+{
+    globalID_ = globalID;
+    this->dbInterface_->key();
+}
+
+void DBObject::sendDBToClient(string data)
+{
 
 }
 
-bool DBObject::fetch() {
-    return false;
-}
 
-bool DBObject::saveToDB() {
-    return false;
-}
-
-bool DBObject::createAndInsertToDB() {
-    return false;
-}
-
-void DBObject::requireGUID() {
-    //mGUID = uPlatform::generateGUIDSimpleString();
-    //setField("guid", mGUID);
-}
+//bool DBObject::pull(Value keyValue)
+//{
+//    return this->dbInterface_->pull(keyValue);
+//}
+//
+//
+//bool DBObject::commit(Value keyValue)
+//{
+//    return this->dbInterface_->commit(keyValue);
+//}
 

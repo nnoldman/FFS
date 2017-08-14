@@ -23,8 +23,6 @@ public:
         return TheTable;
     };
 public:
-    int id;
-
     int role1;
     int role2;
     int role3;

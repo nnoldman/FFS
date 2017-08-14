@@ -1,12 +1,13 @@
 #include "stdafx.h"
 #include "Encrypt.h"
+#include "md5.h"
 
-
-Encrypt::Encrypt()
+string Encrypt::makeLoginToken(int accountID,int time)
 {
-}
-
-
-Encrypt::~Encrypt()
-{
+    stringstream ss;
+    ss << accountID;
+    ss << time;
+    ss << 0X93981382;
+    MD5 md5(ss.str());
+    return md5.toStr();
 }

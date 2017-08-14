@@ -33,13 +33,11 @@ inline bool DefaultValue()
 
 enum { ReceiveBufferSize = 1 << 16, };
 
-
-class Token
+class Capacity
 {
-public:
-    static const u32 kLoginKey = 0X93981382;
+public :
+    static const int Role = 3;
 };
-
 }
 
 #endif // Default_h__

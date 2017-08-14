@@ -22,7 +22,8 @@ void Account::onEnterGate()
 void Account::onRoleRqEnterWorld(int globalID)
 {
     mActiveRole = new Role();
-    if (!mActiveRole->initialize()) {
+    if (!mActiveRole->initialize())
+    {
         assert(0);
         return;
     }
@@ -38,7 +39,12 @@ void Account::enterWorld()
 
 void Account::createDefine()
 {
-    mDBInterface = new GlobalAccountDefine();
+    this->dbInterface_ = new GlobalAccountDefine();
+}
+
+inline GlobalAccountDefine * Account::getDefine() const
+{
+    return nullptr;
 }
 
 bool Account::initialize()
