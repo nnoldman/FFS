@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "CenterApp.h"
-#include "NetAgent.h"
+#include "CenterNetAgent.h"
 #include "GameUserDefine.h"
 #include "GameRoleDefine.h"
 
@@ -47,7 +47,7 @@ bool CenterApp::onInitializeEnd()
 
 bool CenterApp::onInitializeNet()
 {
-    mNetAgent = new NetAgent();
+    mNetAgent = new CenterNetAgent();
     mNetAgent->initialize();
     return true;
 }

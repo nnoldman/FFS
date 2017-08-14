@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="BaseObject.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ConfigInfo.cpp" />
     <ClCompile Include="Connection.cpp" />
@@ -18,9 +17,6 @@
       <Filter>DB</Filter>
     </ClCompile>
     <ClCompile Include="DBExecuter.cpp">
-      <Filter>DB</Filter>
-    </ClCompile>
-    <ClCompile Include="DBObject.cpp">
       <Filter>DB</Filter>
     </ClCompile>
     <ClCompile Include="DBQuery.cpp">
@@ -45,10 +41,11 @@
       <Filter>DB</Filter>
     </ClCompile>
     <ClCompile Include="ServerID.cpp" />
+    <ClCompile Include="Encrypt.cpp" />
+    <ClCompile Include="DBObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="BaseObject.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ConfigInfo.h" />
     <ClInclude Include="Connection.h" />
@@ -65,9 +62,6 @@
       <Filter>DB</Filter>
     </ClInclude>
     <ClInclude Include="DBExecuter.h">
-      <Filter>DB</Filter>
-    </ClInclude>
-    <ClInclude Include="DBObject.h">
       <Filter>DB</Filter>
     </ClInclude>
     <ClInclude Include="DBQuery.h">
@@ -92,6 +86,8 @@
       <Filter>DB</Filter>
     </ClInclude>
     <ClInclude Include="ServerID.h" />
+    <ClInclude Include="Encrypt.h" />
+    <ClInclude Include="DBObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />

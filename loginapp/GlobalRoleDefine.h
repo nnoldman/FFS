@@ -24,7 +24,6 @@ public:
     }
 public:
     CharBuffer<Default::NameSize> name;
-    int id;
     int level;
     int vip;
 

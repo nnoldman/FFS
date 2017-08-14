@@ -3,8 +3,9 @@
 class DBObject;
 class Connection;
 
-class COREAPI World {
-  public:
+class COREAPI World
+{
+public:
     World();
     virtual ~World();
 
@@ -13,7 +14,7 @@ class COREAPI World {
 
     bool initialize();
 
-  public:
+public:
 
     void reclaimAccount(DBObject* account);
 
@@ -22,8 +23,8 @@ class COREAPI World {
     void sync(int account_guid, string cmd);
 
     virtual void onDisconnect(Connection* connection);
-  private:
-    Map<int, DBObject*> mAccounts;
+private:
+    Map<int, DBObject*> accounts_;
 };
 
 #endif // World_h__

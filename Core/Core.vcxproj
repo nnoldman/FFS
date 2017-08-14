@@ -161,7 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
-    <ClInclude Include="BaseObject.h" />
+    <ClInclude Include="DBObject.h" />
     <ClInclude Include="Config.h" />
     <ClInclude Include="ConfigInfo.h" />
     <ClInclude Include="Connection.h" />
@@ -169,10 +169,10 @@
     <ClInclude Include="DataBase.h" />
     <ClInclude Include="DBTableDefine.h" />
     <ClInclude Include="DBDefine.h" />
-    <ClInclude Include="DBObject.h" />
     <ClInclude Include="DBQuery.h" />
     <ClInclude Include="DBReturn.h" />
     <ClInclude Include="DBStream.h" />
+    <ClInclude Include="Encrypt.h" />
     <ClInclude Include="Gate.h" />
     <ClInclude Include="MySqlExecuter.h" />
     <ClInclude Include="NetWork.h" />
@@ -186,18 +186,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
-    <ClCompile Include="BaseObject.cpp" />
+    <ClCompile Include="DBObject.cpp" />
     <ClCompile Include="Config.cpp" />
     <ClCompile Include="ConfigInfo.cpp" />
     <ClCompile Include="Connection.cpp" />
     <ClCompile Include="Core.cpp" />
     <ClCompile Include="DataBase.cpp" />
     <ClCompile Include="DBDefine.cpp" />
-    <ClCompile Include="DBObject.cpp" />
     <ClCompile Include="DBQuery.cpp" />
     <ClCompile Include="DBReturn.cpp" />
     <ClCompile Include="DBStream.cpp" />
     <ClCompile Include="DBTableDefine.cpp" />
+    <ClCompile Include="Encrypt.cpp" />
     <ClCompile Include="Gate.cpp" />
     <ClCompile Include="MySqlExecuter.cpp" />
     <ClCompile Include="NetWork.cpp" />

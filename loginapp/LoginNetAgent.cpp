@@ -25,27 +25,27 @@ void LoginNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect)
     switch (pb->opcode)
     {
     case Cmd::CLIENT_COMMAND::RQAccountOperation:
-        {
-            auto req = pb->parse<Cmd::ReqAccountOperation>();
+    {
+        auto req = pb->parse<Cmd::ReqAccountOperation>();
 
-            if (req->action() == Cmd::AccountAction::AccountAction_Create)
-            {
-                on_rqCreateAccount(req->user(), req->password(), connect);
-            }
-            else if (req->action() == Cmd::AccountAction::AccountAction_Rename)
-            {
-                on_rqRenameAccount(req->user(), req->password(), connect);
-            }
-            else if (req->action() == Cmd::AccountAction::AccountAction_Delete)
-            {
-                on_rqDeleteAccount(req->user(), req->password(), connect);
-            }
-            else if (req->action() == Cmd::AccountAction::AccountAction_Login)
-            {
-                on_rqLoginAccount(req->user(), req->password(), connect);
-            }
+        if (req->action() == Cmd::AccountAction::AccountAction_Create)
+        {
+            on_rqCreateAccount(req->user(), req->password(), connect);
         }
-        break;
+        else if (req->action() == Cmd::AccountAction::AccountAction_Rename)
+        {
+            on_rqRenameAccount(req->user(), req->password(), connect);
+        }
+        else if (req->action() == Cmd::AccountAction::AccountAction_Delete)
+        {
+            on_rqDeleteAccount(req->user(), req->password(), connect);
+        }
+        else if (req->action() == Cmd::AccountAction::AccountAction_Login)
+        {
+            on_rqLoginAccount(req->user(), req->password(), connect);
+        }
+    }
+    break;
     default:
         break;
     }
@@ -61,7 +61,7 @@ bool LoginNetAgent::on_rqLoginAccount(const string& user, const string& password
     Account* gateAccount = new Account();
     gateAccount->initialize();
     gateAccount->setConnection(con);
-    auto def = (GlobalAccountDefine*)gateAccount->getDBInterface();
+    auto def = gateAccount->getDefine();
     def->user = user.c_str();
 
     if (def->pull(def->user.c_str()))
@@ -150,7 +150,8 @@ void LoginNetAgent::onLoginSucess(Account* account, Connection* con)
     Cmd::RetAccountOperation ret;
     ret.set_error(Cmd::AccountErrorCode::AccountErrorCode_LoginSucessed);
     ret.set_accountid(def->id);
-    ret.set_password(def->password.c_str());
+    ret.set_time(Basic::Time_::utc());
+    ret.set_token(Encrypt::makeLoginToken(def->id, ret.time()));
     ret.add_late_serverids(def->late_serverid1);
     ret.add_late_serverids(def->late_serverid2);
     ret.add_late_serverids(def->late_serverid3);

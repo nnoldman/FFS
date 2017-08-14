@@ -297,29 +297,36 @@ class RetAccountOperation : public ::google::protobuf::MessageLite /* @@protoc_i
   ::Cmd::AccountErrorCode error() const;
   void set_error(::Cmd::AccountErrorCode value);
 
-  // required string password = 2;
-  bool has_password() const;
-  void clear_password();
-  static const int kPasswordFieldNumber = 2;
-  const ::std::string& password() const;
-  void set_password(const ::std::string& value);
-  void set_password(const char* value);
-  void set_password(const char* value, size_t size);
-  ::std::string* mutable_password();
-  ::std::string* release_password();
-  void set_allocated_password(::std::string* password);
-
-  // required int32 accountid = 3;
+  // required int32 accountid = 2;
   bool has_accountid() const;
   void clear_accountid();
-  static const int kAccountidFieldNumber = 3;
+  static const int kAccountidFieldNumber = 2;
   ::google::protobuf::int32 accountid() const;
   void set_accountid(::google::protobuf::int32 value);
 
-  // repeated int32 late_serverids = 4;
+  // required int32 time = 3;
+  bool has_time() const;
+  void clear_time();
+  static const int kTimeFieldNumber = 3;
+  ::google::protobuf::int32 time() const;
+  void set_time(::google::protobuf::int32 value);
+
+  // required string token = 4;
+  bool has_token() const;
+  void clear_token();
+  static const int kTokenFieldNumber = 4;
+  const ::std::string& token() const;
+  void set_token(const ::std::string& value);
+  void set_token(const char* value);
+  void set_token(const char* value, size_t size);
+  ::std::string* mutable_token();
+  ::std::string* release_token();
+  void set_allocated_token(::std::string* token);
+
+  // repeated int32 late_serverids = 5;
   int late_serverids_size() const;
   void clear_late_serverids();
-  static const int kLateServeridsFieldNumber = 4;
+  static const int kLateServeridsFieldNumber = 5;
   ::google::protobuf::int32 late_serverids(int index) const;
   void set_late_serverids(int index, ::google::protobuf::int32 value);
   void add_late_serverids(::google::protobuf::int32 value);
@@ -332,10 +339,12 @@ class RetAccountOperation : public ::google::protobuf::MessageLite /* @@protoc_i
  private:
   inline void set_has_error();
   inline void clear_has_error();
-  inline void set_has_password();
-  inline void clear_has_password();
   inline void set_has_accountid();
   inline void clear_has_accountid();
+  inline void set_has_time();
+  inline void clear_has_time();
+  inline void set_has_token();
+  inline void clear_has_token();
 
   // helper for ByteSize()
   int RequiredFieldsByteSizeFallback() const;
@@ -345,10 +354,11 @@ class RetAccountOperation : public ::google::protobuf::MessageLite /* @@protoc_i
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
-  ::google::protobuf::internal::ArenaStringPtr password_;
   int error_;
   ::google::protobuf::int32 accountid_;
+  ::google::protobuf::internal::ArenaStringPtr token_;
   ::google::protobuf::RepeatedField< ::google::protobuf::int32 > late_serverids_;
+  ::google::protobuf::int32 time_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_Command_2eproto_impl();
   #else
@@ -944,69 +954,15 @@ inline void RetAccountOperation::set_error(::Cmd::AccountErrorCode value) {
   // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.error)
 }
 
-// required string password = 2;
-inline bool RetAccountOperation::has_password() const {
+// required int32 accountid = 2;
+inline bool RetAccountOperation::has_accountid() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void RetAccountOperation::set_has_password() {
+inline void RetAccountOperation::set_has_accountid() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void RetAccountOperation::clear_has_password() {
-  _has_bits_[0] &= ~0x00000002u;
-}
-inline void RetAccountOperation::clear_password() {
-  password_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_password();
-}
-inline const ::std::string& RetAccountOperation::password() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.password)
-  return password_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void RetAccountOperation::set_password(const ::std::string& value) {
-  set_has_password();
-  password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.password)
-}
-inline void RetAccountOperation::set_password(const char* value) {
-  set_has_password();
-  password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Cmd.RetAccountOperation.password)
-}
-inline void RetAccountOperation::set_password(const char* value, size_t size) {
-  set_has_password();
-  password_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Cmd.RetAccountOperation.password)
-}
-inline ::std::string* RetAccountOperation::mutable_password() {
-  set_has_password();
-  // @@protoc_insertion_point(field_mutable:Cmd.RetAccountOperation.password)
-  return password_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* RetAccountOperation::release_password() {
-  // @@protoc_insertion_point(field_release:Cmd.RetAccountOperation.password)
-  clear_has_password();
-  return password_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void RetAccountOperation::set_allocated_password(::std::string* password) {
-  if (password != NULL) {
-    set_has_password();
-  } else {
-    clear_has_password();
-  }
-  password_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), password);
-  // @@protoc_insertion_point(field_set_allocated:Cmd.RetAccountOperation.password)
-}
-
-// required int32 accountid = 3;
-inline bool RetAccountOperation::has_accountid() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void RetAccountOperation::set_has_accountid() {
-  _has_bits_[0] |= 0x00000004u;
-}
 inline void RetAccountOperation::clear_has_accountid() {
-  _has_bits_[0] &= ~0x00000004u;
+  _has_bits_[0] &= ~0x00000002u;
 }
 inline void RetAccountOperation::clear_accountid() {
   accountid_ = 0;
@@ -1022,7 +978,85 @@ inline void RetAccountOperation::set_accountid(::google::protobuf::int32 value) 
   // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.accountid)
 }
 
-// repeated int32 late_serverids = 4;
+// required int32 time = 3;
+inline bool RetAccountOperation::has_time() const {
+  return (_has_bits_[0] & 0x00000004u) != 0;
+}
+inline void RetAccountOperation::set_has_time() {
+  _has_bits_[0] |= 0x00000004u;
+}
+inline void RetAccountOperation::clear_has_time() {
+  _has_bits_[0] &= ~0x00000004u;
+}
+inline void RetAccountOperation::clear_time() {
+  time_ = 0;
+  clear_has_time();
+}
+inline ::google::protobuf::int32 RetAccountOperation::time() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.time)
+  return time_;
+}
+inline void RetAccountOperation::set_time(::google::protobuf::int32 value) {
+  set_has_time();
+  time_ = value;
+  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.time)
+}
+
+// required string token = 4;
+inline bool RetAccountOperation::has_token() const {
+  return (_has_bits_[0] & 0x00000008u) != 0;
+}
+inline void RetAccountOperation::set_has_token() {
+  _has_bits_[0] |= 0x00000008u;
+}
+inline void RetAccountOperation::clear_has_token() {
+  _has_bits_[0] &= ~0x00000008u;
+}
+inline void RetAccountOperation::clear_token() {
+  token_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+  clear_has_token();
+}
+inline const ::std::string& RetAccountOperation::token() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetAccountOperation.token)
+  return token_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RetAccountOperation::set_token(const ::std::string& value) {
+  set_has_token();
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
+  // @@protoc_insertion_point(field_set:Cmd.RetAccountOperation.token)
+}
+inline void RetAccountOperation::set_token(const char* value) {
+  set_has_token();
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
+  // @@protoc_insertion_point(field_set_char:Cmd.RetAccountOperation.token)
+}
+inline void RetAccountOperation::set_token(const char* value, size_t size) {
+  set_has_token();
+  token_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
+      ::std::string(reinterpret_cast<const char*>(value), size));
+  // @@protoc_insertion_point(field_set_pointer:Cmd.RetAccountOperation.token)
+}
+inline ::std::string* RetAccountOperation::mutable_token() {
+  set_has_token();
+  // @@protoc_insertion_point(field_mutable:Cmd.RetAccountOperation.token)
+  return token_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline ::std::string* RetAccountOperation::release_token() {
+  // @@protoc_insertion_point(field_release:Cmd.RetAccountOperation.token)
+  clear_has_token();
+  return token_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
+}
+inline void RetAccountOperation::set_allocated_token(::std::string* token) {
+  if (token != NULL) {
+    set_has_token();
+  } else {
+    clear_has_token();
+  }
+  token_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), token);
+  // @@protoc_insertion_point(field_set_allocated:Cmd.RetAccountOperation.token)
+}
+
+// repeated int32 late_serverids = 5;
 inline int RetAccountOperation::late_serverids_size() const {
   return late_serverids_.size();
 }

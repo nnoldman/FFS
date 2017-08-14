@@ -1,8 +1,11 @@
 #ifndef Default_h__
 #define Default_h__
 
-namespace Default {
-enum Const {
+namespace Default
+{
+
+enum Const
+{
     NameSize = 64,
     PasswordSize = 24,
     HostSize = 256,
@@ -10,19 +13,31 @@ enum Const {
 };
 
 template<typename T>
-T DefaultValue() {
+T DefaultValue()
+{
     T t;
     return t;
 }
 
 template<>
-inline int DefaultValue() {
+inline int DefaultValue()
+{
     return 0;
 }
 template<>
-inline bool DefaultValue() {
+
+inline bool DefaultValue()
+{
     return false;
 }
+
 enum { ReceiveBufferSize = 1 << 16, };
+
+class Capacity
+{
+public :
+    static const int Role = 3;
+};
 }
+
 #endif // Default_h__

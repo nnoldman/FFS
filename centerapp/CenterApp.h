@@ -1,5 +1,5 @@
 #pragma once
-class NetAgent;
+class CenterNetAgent;
 class CenterApp :
     public App
 {
@@ -15,7 +15,7 @@ public:
 private:
     int mServerID;
 private:
-    NetAgent* mNetAgent;
+    CenterNetAgent* mNetAgent;
 protected:
     virtual void archive() override;
 
