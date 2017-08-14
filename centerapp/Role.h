@@ -2,7 +2,7 @@
 #include "DBObject.h"
 #include "GameRoleDefine.h"
 
-class Role:DBObject
+class Role:public DBObject
 {
 public:
     Role();
@@ -12,5 +12,12 @@ public:
     virtual void createDefine()override;
 
     GameRoleDefine* getDefine() const;
+
+    bool valid() const;
 };
+
+inline bool Role::valid() const
+{
+    return getDefine()->level > 0;
+}
 

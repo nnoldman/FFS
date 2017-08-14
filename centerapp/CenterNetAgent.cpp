@@ -5,6 +5,7 @@
 #include "md5.h"
 #include "GameUser.h"
 #include "GameUserDefine.h"
+#include "Role.h"
 
 CenterNetAgent::CenterNetAgent()
 {
@@ -33,43 +34,53 @@ void CenterNetAgent::OnMessage(ProtocoBuffer* pb, Connection* connect)
 {
     switch (pb->opcode)
     {
-    case Cmd::CLIENT_COMMAND::RQLoginGame:
-    {
-        auto req = pb->parse<Cmd::ReqLoginGameServer>();
+    case Cmd::CLIENTID::RQLoginGame:
+        {
+            auto req = pb->parse<Cmd::ReqLoginGameServer>();
 
-        Cmd::RetLoginGameServer ret;
+            Cmd::RetLoginGameServer ret;
 
-        if (Encrypt::makeLoginToken(req->accountid(), req->time()) != req->token())
-        {
-            ret.set_error(Cmd::LoginGameServerErrorCode::Invalid);
-        }
-        else if (req->time() + 600<Basic::Time_::utc())
-        {
-            ret.set_error(Cmd::LoginGameServerErrorCode::Overdue);
-        }
-        else
-        {
-            auto user = new GameUser();
-            user->setGlobalID(req->accountid());
-            auto def = (GameUserDefine*)user->getDBInterface();
-            if (def->pull(def->id))
+            if (Encrypt::makeLoginToken(req->accountid(), req->time()) != req->token())
             {
-                for (int i = 0; i < Default::Capacity::Role; ++i)
+                ret.set_error(Cmd::LoginGameServerErrorCode::Invalid);
+            }
+            else if (req->time() + 600<Basic::Time_::utc())
+            {
+                ret.set_error(Cmd::LoginGameServerErrorCode::Overdue);
+            }
+            else
+            {
+                auto user = new GameUser();
+                user->setGlobalID(req->accountid());
+                user->onEnterGate();
+
+                for (int i=0; i<Default::Capacity::Role; ++i)
                 {
-                    int roleID = (&def->role1)[i];
-                    if (roleID > 0)
+                    auto role = user->getRole(i);
+                    if (role->valid())
                     {
-                        auto_ptr<GameRole> role(new GameRole());
-                        GameRoleDefine::query();
+                        auto gamerole = ret.add_roles();
+                        auto def = role->getDefine();
+                        gamerole->set_id(def->id);
+                        gamerole->set_vip(def->vip);
+                        gamerole->set_level(def->level);
+                        gamerole->set_job(def->job);
+                        gamerole->set_sex(def->sex);
                     }
                 }
+
+                App::World.onEnterWorld(user);
+                ret.set_error(Cmd::LoginGameServerErrorCode::Sucess);
             }
-            App::World.onEnterWorld(user);
-            ret.set_error(Cmd::LoginGameServerErrorCode::Sucess);
+            SendProtoBuffer(connect->getSocket(), Cmd::RTLoginGame, ret);
         }
-        SendProtoBuffer(connect->getSocket(), Cmd::RTLoginGame, ret);
-    }
-    break;
+        break;
+    case Cmd::CLIENTID::RQCreateRole:
+        {
+            auto req = pb->parse<Cmd::ReqCreateRole>();
+
+        }
+        break;
     default:
         break;
     }
