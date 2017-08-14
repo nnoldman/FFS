@@ -35,25 +35,27 @@ void protobuf_AssignDesc_Cmd_2eproto();
 void protobuf_ShutdownFile_Cmd_2eproto();
 
 
-enum CLIENT_COMMAND {
+enum CLIENTID {
   RQLoginGameServer = 100,
   RQAccountOperation = 300,
-  RQLoginGame = 400
+  RQLoginGame = 400,
+  RQCreateRole = 500
 };
-bool CLIENT_COMMAND_IsValid(int value);
-const CLIENT_COMMAND CLIENT_COMMAND_MIN = RQLoginGameServer;
-const CLIENT_COMMAND CLIENT_COMMAND_MAX = RQLoginGame;
-const int CLIENT_COMMAND_ARRAYSIZE = CLIENT_COMMAND_MAX + 1;
+bool CLIENTID_IsValid(int value);
+const CLIENTID CLIENTID_MIN = RQLoginGameServer;
+const CLIENTID CLIENTID_MAX = RQCreateRole;
+const int CLIENTID_ARRAYSIZE = CLIENTID_MAX + 1;
 
-enum SERVER_COMMAND {
+enum SERVERID {
   RTLoginGameServer = 100,
   RTAccountOperation = 300,
-  RTLoginGame = 400
+  RTLoginGame = 400,
+  RTCreateRole = 500
 };
-bool SERVER_COMMAND_IsValid(int value);
-const SERVER_COMMAND SERVER_COMMAND_MIN = RTLoginGameServer;
-const SERVER_COMMAND SERVER_COMMAND_MAX = RTLoginGame;
-const int SERVER_COMMAND_ARRAYSIZE = SERVER_COMMAND_MAX + 1;
+bool SERVERID_IsValid(int value);
+const SERVERID SERVERID_MIN = RTLoginGameServer;
+const SERVERID SERVERID_MAX = RTCreateRole;
+const int SERVERID_ARRAYSIZE = SERVERID_MAX + 1;
 
 // ===================================================================
 
@@ -74,8 +76,8 @@ const int SERVER_COMMAND_ARRAYSIZE = SERVER_COMMAND_MAX + 1;
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::Cmd::CLIENT_COMMAND> : ::google::protobuf::internal::true_type {};
-template <> struct is_proto_enum< ::Cmd::SERVER_COMMAND> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::Cmd::CLIENTID> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::Cmd::SERVERID> : ::google::protobuf::internal::true_type {};
 
 }  // namespace protobuf
 }  // namespace google
