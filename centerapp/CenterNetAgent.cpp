@@ -69,7 +69,7 @@ void CenterNetAgent::OnMessage(ProtocoBuffer* pb, Connection* connect)
                     }
                 }
 
-                App::World.onEnterWorld(user);
+                App::World.onEnterWorld(connect,user);
                 ret.set_error(Cmd::LoginGameServerErrorCode::Sucess);
             }
             SendProtoBuffer(connect->getSocket(), Cmd::RTLoginGame, ret);
@@ -78,7 +78,50 @@ void CenterNetAgent::OnMessage(ProtocoBuffer* pb, Connection* connect)
     case Cmd::CLIENTID::RQCreateRole:
         {
             auto req = pb->parse<Cmd::ReqCreateRole>();
+            auto user = (GameUser*)App::World.get(connect);
+            if (user)
+            {
+                auto role = user->getRole(req->index0());
+                if (role)
+                {
+                    Cmd::RetCreateRole ret;
 
+                    auto def = role->getDefine();
+                    def->name = req->name().c_str();
+                    if (def->exist(def->key2(), def->name.c_str()))
+                    {
+                        ret.set_error(Cmd::CreateRoleError::CreateRoleError_NameRepeated);
+                        SendProtoBuffer(connect->getSocket(), Cmd::RTCreateRole, ret);
+                    }
+                    else
+                    {
+                        def->sex = req->sex();
+                        def->job = req->job();
+                        if (!def->commit(def->name.c_str()))
+                        {
+                            assert(false);
+                        }
+                        else
+                        {
+                            ret.set_roleid(def->id);
+                            ret.set_index0(req->index0());
+                            ret.set_name(def->name.c_str());
+                            ret.set_sex(def->sex);
+                            ret.set_job(def->job);
+                            ret.set_vip(def->vip);
+                            ret.set_error(Cmd::CreateRoleError::CreateRoleError_Sucess);
+                            SendProtoBuffer(connect->getSocket(), Cmd::RTCreateRole, ret);
+                        }
+                    }
+                }
+            }
+        }
+        break;
+    case Cmd::CLIENTID::RQEnterGame:
+        {
+            auto user = (GameUser*)App::World.get(connect);
+            auto req = pb->parse<Cmd::ReqEnterGame>();
+            user->activeRole(req->index0());
         }
         break;
     default:

@@ -28,6 +28,7 @@ public:
     bool commit(Value keyvalue);
     bool insertAndQuery(Value keyvalue);
     bool getValues(stringstream& ss);
+    bool exist(const char* key, Value value);
 public:
     inline DBStream& stream()
     {

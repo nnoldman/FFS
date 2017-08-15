@@ -14,17 +14,16 @@ public:
 
     bool initialize();
 
+    DBObject* get(int accountID);
+
+    DBObject* get(Connection* connection);
 public:
-
-    void reclaimAccount(DBObject* account);
-
-    void onEnterWorld(DBObject* account);
-
-    void sync(int account_guid, string cmd);
+    void reclaimAccount(Connection* connection);
+    void onEnterWorld(Connection* connection, DBObject* account);
 
     virtual void onDisconnect(Connection* connection);
 private:
-    Map<int, DBObject*> accounts_;
+    Map<string, DBObject*> accounts_;
 };
 
 #endif // World_h__

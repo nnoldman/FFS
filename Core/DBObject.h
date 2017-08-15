@@ -13,7 +13,7 @@ public:
     virtual void createDefine() = 0;
     inline DBDefine* getDBInterface() const;
     inline void setConnection(Connection* connect);
-    void sendDBToClient(string data);
+    virtual void syncToClient();
     inline int globalID()const;
     inline Connection* getNetInterface();
     //bool pull(Value keyValue);

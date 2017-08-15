@@ -14,8 +14,9 @@ World App::World;
 Gate App::Gate;
 
 App::App(int narg, const char** args)
-    :mCommandLine(narg, args)
-    ,mQuiting(false)
+    :commandLine_(narg, args)
+    , quiting_(false)
+    , isCenter_(false)
 {
     Instance = this;
 }
@@ -23,12 +24,12 @@ App::App(int narg, const char** args)
 App::~App()
 {
     Instance = nullptr;
-    OutputDebugStringA("~App");
+    std::cout << "~App" << std::endl;
 }
 
 bool App::initialize()
 {
-    if (mCommandLine.arg_count())
+    if (commandLine_.arg_count())
     {
         if (!parseCommandLine())
         {
@@ -41,14 +42,15 @@ bool App::initialize()
         return false;
 
     if (!Net.initialize(getNetConfig()))
-    {
         return false;
-    }
 
     if (!onInitializeNet())
         return false;
 
     if (!initializeDataBase())
+        return false;
+
+    if (!isCenter_ && !connectCenter())
         return false;
 
     if (!World.initialize())
@@ -59,7 +61,7 @@ bool App::initialize()
 
 void App::run()
 {
-    while (!mQuiting)
+    while (!quiting_)
     {
         Net.prosess();
         Platform::sleep(5);
@@ -94,6 +96,11 @@ bool App::initializeDataBase()
     return true;
 }
 
+bool App::connectCenter()
+{
+    return true;
+}
+
 void App::onQuit()
 {
     archive();
@@ -106,17 +113,17 @@ void App::archive()
 
 void App::quit()
 {
-    mQuiting = true;
+    quiting_ = true;
 }
 
 bool App::isQuiting() const
 {
-    return mQuiting;
+    return quiting_;
 }
 
 Basic::CommandLine& App::getCommandLine()
 {
-    return mCommandLine;
+    return commandLine_;
 }
 
 int App::Main(App* app)

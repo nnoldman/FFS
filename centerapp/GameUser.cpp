@@ -39,7 +39,21 @@ void GameUser::onEnterGate()
     }
 }
 
-Role* GameUser::getRole(int index) const
+Role* GameUser::getRole(int index)
 {
-    return nullptr;
+    return &roles_[index];
+}
+
+void GameUser::activeRole(int index0)
+{
+    auto role = getRole(index0);
+    if (role->valid())
+    {
+        role->setConnection(getNetInterface());
+        role->syncToClient();
+    }
+    else
+    {
+        assert(false);
+    }
 }

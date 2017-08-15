@@ -22,29 +22,37 @@ bool World::initialize()
     return true;
 }
 
-void World::reclaimAccount(DBObject* account)
-{
-    onAccountLeaveWorld.invoke(account);
 
-    assert(account);
-    assert(accounts_.find(account->globalID()) != accounts_.end());
-    accounts_.erase(account->globalID());
-    dSafeDelete(account);
+DBObject* World::get(Connection* connection)
+{
+    DBObject* ret;
+    string key = connection->getSocket().address().toString();
+    accounts_.Get(key, ret);
+    return ret;
 }
 
-void World::onEnterWorld(DBObject* account)
+void World::reclaimAccount(Connection* connection)
 {
-    assert(accounts_.find(account->globalID()) == accounts_.end());
-    accounts_.insert(make_pair(account->globalID(), account));
+    string key = connection->getSocket().address().toString();
+    //onAccountLeaveWorld.invoke(account);
+    DBObject* ret;
+    accounts_.Get(key, ret);
+    assert(ret);
+    accounts_.erase(key);
+    dSafeDelete(ret);
+}
+
+void World::onEnterWorld(Connection* connection,DBObject* account)
+{
+    account->setConnection(connection);
+    DBObject* ret;
+    string key = connection->getSocket().address().toString();
+    accounts_.Get(key, ret);
+    assert(accounts_.find(key) == accounts_.end());
+    accounts_.insert(make_pair(key, account));
     onAccountEnterWorld.invoke(account);
 }
 
-void World::sync(int account_guid, string cmd)
-{
-    auto acc = accounts_.find(account_guid);
-    assert(acc != accounts_.end());
-    acc->second->sendDBToClient(cmd);
-}
 
 void World::onDisconnect(Connection* connection)
 {
@@ -54,7 +62,7 @@ void World::onDisconnect(Connection* connection)
     {
         if (ibegin->second->getNetInterface() == connection)
         {
-            reclaimAccount(ibegin->second);
+            reclaimAccount(ibegin->second->getNetInterface());
             return;
         }
     }

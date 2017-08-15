@@ -37,9 +37,11 @@ protected:
 private:
     void run();
     virtual bool initializeDataBase()final;
+    bool connectCenter();
 private:
-    CommandLine mCommandLine;
-    bool mQuiting;
+    CommandLine commandLine_;
+    bool quiting_;
+    bool isCenter_;
 public:
     static int Main(App* app);
 };
