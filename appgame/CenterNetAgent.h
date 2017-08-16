@@ -15,7 +15,5 @@ protected:
     bool on_rqCreateAccount(const string& user, const string& password, Connection* con);
     bool on_rqLoginAccount(string user, string psw, Connection* con);
     void onLoginSucess(Account* account);
-private:
-    Map<Connection*, int> mClients;
 };
 

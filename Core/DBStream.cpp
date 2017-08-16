@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "DBStream.h"
-
+using namespace Basic;
+using namespace Basic::StringHelper;
 
 DBStream::DBStream()
     :position_(0)

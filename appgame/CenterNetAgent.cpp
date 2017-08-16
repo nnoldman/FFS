@@ -27,7 +27,7 @@ bool CenterNetAgent::initialize()
 
 void CenterNetAgent::onDisconnect(Connection* connection)
 {
-    mClients.erase(connection);
+    App::World.reclaimAccount(connection);
 }
 
 void CenterNetAgent::OnMessage(ProtocoBuffer* pb, Connection* connect)

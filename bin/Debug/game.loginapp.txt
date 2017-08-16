@@ -4,3 +4,4 @@ QUERY=>SELECT COUNT(*) FROM game_role1;
 QUERY=>SELECT COUNT(*) FROM game_user1;
 QUERY=>SELECT COUNT(*) FROM global_account;
 QUERY=>SELECT COUNT(*) FROM global_role;
+~App

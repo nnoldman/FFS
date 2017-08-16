@@ -14,6 +14,9 @@ public:
     GameRoleDefine* getDefine() const;
 
     bool valid() const;
+
+    virtual void syncToClient() override;
+
 };
 
 inline bool Role::valid() const

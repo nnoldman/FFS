@@ -32,9 +32,9 @@ public:
     DBStream& operator >> (double& var);
 
     template<int N>
-    inline DBStream& operator << (CharBuffer<N>& var);
+    inline DBStream& operator << (Basic::CharBuffer<N>& var);
     template<int N>
-    inline DBStream& operator >> (CharBuffer<N>& var);
+    inline DBStream& operator >> (Basic::CharBuffer<N>& var);
     void set(vector<string>& values);
 
     const vector<string>& getContents() const
@@ -55,7 +55,7 @@ private:
 };
 
 template<int N>
-inline DBStream& DBStream::operator >> (CharBuffer<N>& var)
+inline DBStream& DBStream::operator >> (Basic::CharBuffer<N>& var)
 {
     string container = contents_[position_];
     var.setString(container.c_str());
@@ -65,7 +65,7 @@ inline DBStream& DBStream::operator >> (CharBuffer<N>& var)
 }
 
 template<int N>
-inline DBStream& DBStream::operator<<(CharBuffer<N>& var)
+inline DBStream& DBStream::operator<<(Basic::CharBuffer<N>& var)
 {
     string container = var.c_str();
     contents_.push_back(container);

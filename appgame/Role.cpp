@@ -25,3 +25,8 @@ GameRoleDefine* Role::getDefine() const
 {
     return (GameRoleDefine*)this->dbInterface_;
 }
+
+void Role::syncToClient()
+{
+    throw std::exception("The method or operation is not implemented.");
+}
