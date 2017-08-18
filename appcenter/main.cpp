@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "vld.h"
-#include "LoginApp.h"
+#include "CenterApp.h"
 BOOL WINAPI onControl(DWORD CtrlType)
 {
     if (CTRL_CLOSE_EVENT == CtrlType)
@@ -19,7 +19,7 @@ int main(int argc, const char** argv)
         freopen("game.loginapp.txt", "w", stdout);
         //freopen("COUT", "w", stdout);
         SetConsoleCtrlHandler(onControl, TRUE);
-        LoginApp app(argc, argv);
+        CenterApp app(argc, argv);
         ret = App::Main(&app);
     }
 

@@ -9,7 +9,7 @@ public:
     bool initialize();
 protected:
     void onDisconnect(Connection* connection);
-    void OnMessage(ProtocoBuffer* pb, Connection* connection);
+    void onMessage(ProtocoBuffer* pb, Connection* connection);
 protected:
 
     bool on_rqCreateAccount(const string& user, const string& password, Connection* con);

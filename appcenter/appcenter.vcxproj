@@ -165,13 +165,13 @@
     <ClInclude Include="Account.h" />
     <ClInclude Include="GlobalAccountDefine.h" />
     <ClInclude Include="GlobalRoleDefine.h" />
-    <ClInclude Include="LoginApp.h" />
+    <ClInclude Include="CenterApp.h" />
     <ClInclude Include="LoginNetAgent.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Account.cpp" />
-    <ClCompile Include="LoginApp.cpp">
+    <ClCompile Include="CenterApp.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Use</PrecompiledHeader>
     </ClCompile>

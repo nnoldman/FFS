@@ -25,10 +25,15 @@ bool GameUser::initialize()
 void GameUser::onEnterGate()
 {
     auto def = getDefine();
+    for (auto iter : roles_)
+        iter.initialize();
+
     if (def->pull(def->id))
     {
         for (int i = 0; i < Default::Capacity::Role; ++i)
         {
+            roles_[i].initialize();
+
             int roleID = (&def->role1)[i];
             if (roleID > 0)
             {

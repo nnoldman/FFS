@@ -1,8 +1,9 @@
 #include "stdafx.h"
 #include "CenterApp.h"
-#include "CenterNetAgent.h"
-#include "GameUserDefine.h"
-#include "GameRoleDefine.h"
+#include "LoginNetAgent.h"
+#include "DBTableDefine.h"
+#include "GlobalRoleDefine.h"
+#include "GlobalAccountDefine.h"
 
 CenterApp::CenterApp(int narg, const char** args)
     : App(narg, args)
@@ -18,22 +19,17 @@ CenterApp::~CenterApp()
 
 const NetConfig& CenterApp::getNetConfig()
 {
-    return *Config.center.centers[mServerID];
+    return Config.login.net;
 }
 
 const DBConfig& CenterApp::getDataBaseConfig()
 {
-    return Config.center.db;
+    return Config.login.db;
 }
 
 bool CenterApp::parseCommandLine()
 {
-    auto commandline = this->getCommandLine();
-    commandline.get("serverID", mServerID);
-    string serverID;
-    commandline.get("serverID", serverID);
-    ServerID::set(serverID.c_str());
-    return mServerID > 0;
+    return true;
 }
 
 void CenterApp::archive()
@@ -47,8 +43,9 @@ bool CenterApp::onInitializeEnd()
 
 bool CenterApp::onInitializeNet()
 {
-    mNetAgent = new CenterNetAgent();
-    mNetAgent->initialize();
+    mNetAgent = new LoginNetAgent();
+    if (!mNetAgent->initialize())
+        return false;
     return true;
 }
 
@@ -56,8 +53,9 @@ const vector<const DBTableDefine*>& CenterApp::getTableDefines() const
 {
     static const vector<const DBTableDefine*> ret
     {
-        &GameUserDefine::GetDefine(),
-        &GameRoleDefine::GetDefine(),
+        &GlobalAccountDefine::GetDefine(),
+        &GlobalRoleDefine::GetDefine(),
     };
     return ret;
 }
+

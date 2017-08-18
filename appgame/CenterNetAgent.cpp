@@ -14,13 +14,13 @@ CenterNetAgent::CenterNetAgent()
 
 CenterNetAgent::~CenterNetAgent()
 {
-    App::Net.onMessage.remove(&::CenterNetAgent::OnMessage, this);
+    App::Net.onMessage.remove(&::CenterNetAgent::onMessage, this);
     App::Net.onDisconnect.remove(&::CenterNetAgent::onDisconnect, this);
 }
 
 bool CenterNetAgent::initialize()
 {
-    App::Net.onMessage.add(&::CenterNetAgent::OnMessage, this);
+    App::Net.onMessage.add(&::CenterNetAgent::onMessage, this);
     App::Net.onDisconnect.add(&::CenterNetAgent::onDisconnect, this);
     return true;
 }
@@ -30,7 +30,7 @@ void CenterNetAgent::onDisconnect(Connection* connection)
     App::World.reclaimAccount(connection);
 }
 
-void CenterNetAgent::OnMessage(ProtocoBuffer* pb, Connection* connect)
+void CenterNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect)
 {
     switch (pb->opcode)
     {
@@ -51,6 +51,7 @@ void CenterNetAgent::OnMessage(ProtocoBuffer* pb, Connection* connect)
             else
             {
                 auto user = new GameUser();
+                user->initialize();
                 user->setGlobalID(req->accountid());
                 user->onEnterGate();
 

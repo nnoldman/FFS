@@ -13,7 +13,7 @@ Role::~Role()
 
 bool Role::initialize()
 {
-    throw std::logic_error("The method or operation is not implemented.");
+    return __super::initialize();
 }
 
 void Role::createDefine()

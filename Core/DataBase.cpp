@@ -122,7 +122,7 @@ bool DataBase::queryRecord(string table, string key, const char* value, OUT DBDe
 
 bool DataBase::pull(Value keyvalue, OUT DBDefine* def)
 {
-    return pull(def->key(), def);
+    return pull(def->key(), keyvalue, def);
 }
 
 bool DataBase::pull(const char* key, Value keyvalue, OUT DBDefine* def)
