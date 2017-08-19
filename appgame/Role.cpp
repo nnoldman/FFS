@@ -28,5 +28,4 @@ GameRoleDefine* Role::getDefine() const
 
 void Role::syncToClient()
 {
-    throw std::exception("The method or operation is not implemented.");
 }

@@ -25,7 +25,7 @@ bool GameUser::initialize()
 void GameUser::onEnterGate()
 {
     auto def = getDefine();
-    for (auto iter : roles_)
+    for (auto& iter : roles_)
         iter.initialize();
 
     if (def->pull(def->id))

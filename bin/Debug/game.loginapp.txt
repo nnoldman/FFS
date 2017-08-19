@@ -8,4 +8,12 @@ QUERY=>SELECT * FROM global_account WHERE user = 123
 ~Account()
 ~disconnect()
 ~Connection()
+QUERY=>SELECT * FROM global_account WHERE user = 123
+~Account()
+~disconnect()
+~Connection()
+QUERY=>SELECT * FROM global_account WHERE user = 123
+~Account()
+~disconnect()
+~Connection()
 ~App
