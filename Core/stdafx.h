@@ -15,7 +15,7 @@
 // TODO:  在此处引用程序需要的其他头文件
 #include <iostream>
 #include <sstream>
-#include "XBase.h"
+#include "Basic.h"
 #include "Poco\Dynamic\Var.h"
 #include "Poco\Net\NetException.h"
 using namespace Poco;

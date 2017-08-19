@@ -17,7 +17,9 @@ public:
 
     void onEnterGate();
 
-    Role* getRole(int index) const;
+    Role* getRole(int index);
+
+    void activeRole(int index0);
 
 private:
     Role roles_[Default::Capacity::Role];

@@ -38,7 +38,7 @@ bool DBDefine::commit(Value keyvalue)
 //delete from global_account where user = '123';
 bool DBDefine::insertAndQuery(Value keyvalue)
 {
-    if (App::DataBase.insert(keyvalue, this))
+    if (App::DataBase.insert(this))
         return pull(keyvalue);
     return false;
 }
@@ -53,5 +53,10 @@ bool DBDefine::getValues(stringstream& ss)
             ss << ",";
     }
     return true;
+}
+
+bool DBDefine::exist(const char* key, Value value)
+{
+    return App::DataBase.pull(key, value,this);
 }
 

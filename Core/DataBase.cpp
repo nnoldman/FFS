@@ -122,8 +122,13 @@ bool DataBase::queryRecord(string table, string key, const char* value, OUT DBDe
 
 bool DataBase::pull(Value keyvalue, OUT DBDefine* def)
 {
+    return pull(def->key(), keyvalue, def);
+}
+
+bool DataBase::pull(const char* key, Value keyvalue, OUT DBDefine* def)
+{
     stringstream ss;
-    ss << "SELECT * FROM " << def->table() << " WHERE " << def->key() << " = " << keyvalue.toString();
+    ss << "SELECT * FROM " << def->table() << " WHERE " << key << " = " << keyvalue.toString();
     mExecuter->queryBegin(ss.str().c_str());
     std::vector<string> records;
     auto ret = mExecuter->queryEnd(records);
@@ -140,7 +145,12 @@ bool DataBase::commit(Value keyvalue, OUT DBDefine* def)
     return false;
 }
 
-bool DataBase::insert(Value keyvalue, OUT DBDefine* def)
+bool DataBase::commit(OUT DBDefine* def)
+{
+    return insert(def);
+}
+
+bool DataBase::insert(OUT DBDefine* def)
 {
     stringstream ss;
     stringstream ssvalue;
@@ -153,7 +163,7 @@ bool DataBase::insert(Value keyvalue, OUT DBDefine* def)
 
 bool DataBase::insertAndQuery(Value keyvalue, OUT DBDefine* def)
 {
-    bool ret = insert(keyvalue, def);
+    bool ret = insert(def);
     if (ret)
     {
         ret = pull(keyvalue, def);

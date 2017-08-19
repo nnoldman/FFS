@@ -11,12 +11,14 @@ public:
     {
         static const DBTableDefine TheTable
         {
-            "game_role",false,"id",nullptr,
+            "game_role",false,"id","name",
             {
-                { "id",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
-                { "role1",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
-                { "role2",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
-                { "role3",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
+                { "id",enum_field_types::MYSQL_TYPE_LONG,0,true,false },
+                { "name",enum_field_types::MYSQL_TYPE_VARCHAR,Default::NameSize,false,false },
+                { "vip",enum_field_types::MYSQL_TYPE_LONG,0,false,false },
+                { "level",enum_field_types::MYSQL_TYPE_LONG,0,false,false,1 },
+                { "sex",enum_field_types::MYSQL_TYPE_BIT,0,false,false },
+                { "job",enum_field_types::MYSQL_TYPE_SHORT,0,false,false },
             },
         };
         return TheTable;

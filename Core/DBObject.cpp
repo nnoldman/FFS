@@ -30,7 +30,7 @@ void DBObject::setGlobalID(int globalID)
     this->dbInterface_->key();
 }
 
-void DBObject::sendDBToClient(string data)
+void DBObject::syncToClient()
 {
 
 }

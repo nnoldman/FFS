@@ -13,7 +13,7 @@ Role::~Role()
 
 bool Role::initialize()
 {
-    throw std::logic_error("The method or operation is not implemented.");
+    return __super::initialize();
 }
 
 void Role::createDefine()
@@ -24,4 +24,8 @@ void Role::createDefine()
 GameRoleDefine* Role::getDefine() const
 {
     return (GameRoleDefine*)this->dbInterface_;
+}
+
+void Role::syncToClient()
+{
 }
