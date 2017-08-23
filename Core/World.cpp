@@ -48,7 +48,8 @@ void World::onEnterWorld(Connection* connection,DBObject* account)
     DBObject* ret;
     string key = connection->getSocket().address().toString();
     accounts_.Get(key, ret);
-    assert(accounts_.find(key) == accounts_.end());
+    if (ret)
+        return;
     accounts_.insert(make_pair(key, account));
     onAccountEnterWorld.invoke(account);
 }

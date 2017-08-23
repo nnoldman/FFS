@@ -17,6 +17,7 @@ public:
     DBObject* get(int accountID);
 
     DBObject* get(Connection* connection);
+
 public:
     void reclaimAccount(Connection* connection);
     void onEnterWorld(Connection* connection, DBObject* account);
