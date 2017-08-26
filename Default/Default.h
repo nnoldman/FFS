@@ -36,7 +36,6 @@ enum { ReceiveBufferSize = 1 << 16, };
 class Capacity
 {
 public :
-    static const int Role = 3;
 };
 }
 

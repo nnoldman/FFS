@@ -55,19 +55,17 @@ void CenterNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect)
                 user->setGlobalID(req->accountid());
                 user->onEnterGate();
 
-                for (int i=0; i<Default::Capacity::Role; ++i)
+                auto role = user->getRole();
+                if (role->valid())
                 {
-                    auto role = user->getRole(i);
-                    if (role->valid())
-                    {
-                        auto gamerole = ret.add_roles();
-                        auto def = role->getDefine();
-                        gamerole->set_id(def->id);
-                        gamerole->set_vip(def->vip);
-                        gamerole->set_level(def->level);
-                        gamerole->set_job(def->job);
-                        gamerole->set_sex(def->sex);
-                    }
+                    auto gameRole = new Cmd::GameRole();
+                    ret.set_allocated_role(gameRole);
+                    auto def = role->getDefine();
+                    gameRole->set_id(def->id);
+                    gameRole->set_vip(def->vip);
+                    gameRole->set_level(def->level);
+                    gameRole->set_job(def->job);
+                    gameRole->set_sex(def->sex);
                 }
 
                 App::World.onEnterWorld(connect,user);
@@ -82,7 +80,7 @@ void CenterNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect)
             auto user = (GameUser*)App::World.get(connect);
             if (user)
             {
-                auto role = user->getRole(req->index0());
+                auto role = user->getRole();
                 if (role)
                 {
                     Cmd::RetCreateRole ret;
@@ -105,7 +103,6 @@ void CenterNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect)
                         else
                         {
                             ret.set_roleid(def->id);
-                            ret.set_index0(req->index0());
                             ret.set_name(def->name.c_str());
                             ret.set_sex(def->sex);
                             ret.set_job(def->job);
@@ -121,8 +118,7 @@ void CenterNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect)
     case Cmd::CLIENTID::RQEnterGame:
         {
             auto user = (GameUser*)App::World.get(connect);
-            auto req = pb->parse<Cmd::ReqEnterGame>();
-            user->activeRole(req->index0());
+            user->activeRole();
         }
         break;
     default:

@@ -17,12 +17,12 @@ public:
 
     void onEnterGate();
 
-    Role* getRole(int index);
+    Role* getRole();
 
-    void activeRole(int index0);
+    void activeRole();
 
 private:
-    Role roles_[Default::Capacity::Role];
+    Role role_;
 };
 
 

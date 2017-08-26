@@ -25,37 +25,29 @@ bool GameUser::initialize()
 void GameUser::onEnterGate()
 {
     auto def = getDefine();
-    for (auto& iter : roles_)
-        iter.initialize();
+    role_.initialize();
 
     if (def->pull(def->id))
     {
-        for (int i = 0; i < Default::Capacity::Role; ++i)
+        if (def->role > 0)
         {
-            roles_[i].initialize();
-
-            int roleID = (&def->role1)[i];
-            if (roleID > 0)
-            {
-                roles_[i].setGlobalID(roleID);
-                roles_[i].getDefine()->pull(roleID);
-            }
+            role_.setGlobalID(def->role);
+            role_.getDefine()->pull(def->role);
         }
     }
 }
 
-Role* GameUser::getRole(int index)
+Role* GameUser::getRole()
 {
-    return &roles_[index];
+    return &role_;
 }
 
-void GameUser::activeRole(int index0)
+void GameUser::activeRole()
 {
-    auto role = getRole(index0);
-    if (role->valid())
+    if (role_.valid())
     {
-        role->setConnection(getNetInterface());
-        role->syncToClient();
+        role_.setConnection(getNetInterface());
+        role_.syncToClient();
     }
     else
     {
