@@ -598,14 +598,14 @@ class GameRole : public ::google::protobuf::MessageLite /* @@protoc_insertion_po
   ::google::protobuf::int32 id() const;
   void set_id(::google::protobuf::int32 value);
 
-  // required int32 level = 2;
+  // optional int32 level = 2;
   bool has_level() const;
   void clear_level();
   static const int kLevelFieldNumber = 2;
   ::google::protobuf::int32 level() const;
   void set_level(::google::protobuf::int32 value);
 
-  // required string name = 3;
+  // optional string name = 3;
   bool has_name() const;
   void clear_name();
   static const int kNameFieldNumber = 3;
@@ -617,21 +617,21 @@ class GameRole : public ::google::protobuf::MessageLite /* @@protoc_insertion_po
   ::std::string* release_name();
   void set_allocated_name(::std::string* name);
 
-  // required int32 sex = 4;
+  // optional int32 sex = 4;
   bool has_sex() const;
   void clear_sex();
   static const int kSexFieldNumber = 4;
   ::google::protobuf::int32 sex() const;
   void set_sex(::google::protobuf::int32 value);
 
-  // required int32 job = 5;
+  // optional int32 job = 5;
   bool has_job() const;
   void clear_job();
   static const int kJobFieldNumber = 5;
   ::google::protobuf::int32 job() const;
   void set_job(::google::protobuf::int32 value);
 
-  // required int32 vip = 6;
+  // optional int32 vip = 6;
   bool has_vip() const;
   void clear_vip();
   static const int kVipFieldNumber = 6;
@@ -652,9 +652,6 @@ class GameRole : public ::google::protobuf::MessageLite /* @@protoc_insertion_po
   inline void clear_has_job();
   inline void set_has_vip();
   inline void clear_has_vip();
-
-  // helper for ByteSize()
-  int RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::ArenaStringPtr _unknown_fields_;
   ::google::protobuf::Arena* _arena_ptr_;
@@ -1683,7 +1680,7 @@ inline void GameRole::set_id(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:Cmd.GameRole.id)
 }
 
-// required int32 level = 2;
+// optional int32 level = 2;
 inline bool GameRole::has_level() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -1707,7 +1704,7 @@ inline void GameRole::set_level(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:Cmd.GameRole.level)
 }
 
-// required string name = 3;
+// optional string name = 3;
 inline bool GameRole::has_name() const {
   return (_has_bits_[0] & 0x00000004u) != 0;
 }
@@ -1761,7 +1758,7 @@ inline void GameRole::set_allocated_name(::std::string* name) {
   // @@protoc_insertion_point(field_set_allocated:Cmd.GameRole.name)
 }
 
-// required int32 sex = 4;
+// optional int32 sex = 4;
 inline bool GameRole::has_sex() const {
   return (_has_bits_[0] & 0x00000008u) != 0;
 }
@@ -1785,7 +1782,7 @@ inline void GameRole::set_sex(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:Cmd.GameRole.sex)
 }
 
-// required int32 job = 5;
+// optional int32 job = 5;
 inline bool GameRole::has_job() const {
   return (_has_bits_[0] & 0x00000010u) != 0;
 }
@@ -1809,7 +1806,7 @@ inline void GameRole::set_job(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:Cmd.GameRole.job)
 }
 
-// required int32 vip = 6;
+// optional int32 vip = 6;
 inline bool GameRole::has_vip() const {
   return (_has_bits_[0] & 0x00000020u) != 0;
 }

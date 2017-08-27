@@ -35,6 +35,7 @@ void Connection::run()
                             header_ = 0;
                         }
                     }
+                    buffer_.clear();
                     //length = ss.receiveBytes(buffer_.getBuffer(), buffer_.length());
                 }
                 else

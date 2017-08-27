@@ -47,7 +47,26 @@ public:
     DBExecuter& executer();
 
     DBTable* getTable(const char* name);
-
+    template<typename T>
+    bool insertKeyValue(const char* table, T value, T value1)
+    {
+        stringstream str;
+        str << "INSERT INTO " << table << " VALUES (?,?) ";
+        try
+        {
+            *_pSession << str.str(), use(value), use(value1), now;
+            return true;
+        }
+        catch (ConnectionException& ce)
+        {
+            std::cout << ce.displayText() << std::endl;
+        }
+        catch (StatementException& se)
+        {
+            std::cout << se.displayText() << std::endl;
+        }
+        return false;
+    }
 public:
 
     bool createDB();
@@ -71,26 +90,7 @@ private:
 
 
 
-template<typename T>
-bool DataBase::insertKeyValue(const char* table, T value, T value1)
-{
-    stringstream str;
-    str << "INSERT INTO " << table << " VALUES (?,?) ";
-    try
-    {
-        *_pSession << str.str(), use(value), use(value1), now;
-        return true;
-    }
-    catch (ConnectionException& ce)
-    {
-        std::cout << ce.displayText() << std::endl;
-    }
-    catch (StatementException& se)
-    {
-        std::cout << se.displayText() << std::endl;
-    }
-    return false;
-}
+
 inline DBExecuter& DataBase::executer()
 {
     return *mExecuter;
