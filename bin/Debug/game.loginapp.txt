@@ -16,4 +16,471 @@ QUERY=>SELECT * FROM global_account WHERE user = 123
 ~Account()
 ~disconnect()
 ~Connection()
+QUERY=>SELECT * FROM global_account WHERE user = 123
+~Account()
+~disconnect()
+~Connection()
 ~App
+WARNING: Visual Leak Detector detected memory leaks!
+---------- Block 15 at 0x00F83280: 40 bytes ----------
+  Leak Hash: 0xBA6C66CF, Count: 1, Total 40 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000AD146()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    A0 33 0D 00    10 AE 06 01    00 00 00 00    00 00 00 00     .3...... ........
+    00 00 00 00    00 00 00 00    00 00 00 00    10 AE 06 01     ........ ........
+    00 00 00 00    00 00 00 00                                   ........ ........
+
+
+---------- Block 11 at 0x00F83598: 44 bytes ----------
+  Leak Hash: 0x1E67BB22, Count: 1, Total 44 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000ACFD6()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    50 32 0D 00    10 AE 06 01    00 00 00 00    00 00 00 00     P2...... ........
+    00 00 00 00    00 00 00 00    00 00 00 00    10 AE 06 01     ........ ........
+    00 00 00 00    00 00 00 00    00 00 00 00                    ........ ........
+
+
+---------- Block 14 at 0x00F83908: 44 bytes ----------
+  Leak Hash: 0xF87C32B0, Count: 1, Total 44 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000AD0EA()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    4C 33 0D 00    10 AE 06 01    00 00 00 00    00 00 00 00     L3...... ........
+    00 00 00 00    00 00 00 00    00 00 00 00    10 AE 06 01     ........ ........
+    00 00 00 00    00 00 00 00    00 00 00 00                    ........ ........
+
+
+---------- Block 26 at 0x00F8D5D0: 4 bytes ----------
+  Leak Hash: 0x59310FEF, Count: 1, Total 4 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x00076FE1()
+    appcenter.exe!0x0008B7C0()
+    appcenter.exe!0x000814BB()
+    appcenter.exe!0x0008E9DF()
+    appcenter.exe!0x00080A49()
+    appcenter.exe!0x0008D5B7()
+    appcenter.exe!0x0007C5C6()
+    appbase.dll!BundleSender::setConnection() + 0x29C1B bytes
+    appbase.dll!BundleSender::setConnection() + 0x18D0E bytes
+    appcenter.exe!0x0008F15B()
+    appcenter.exe!0x000C107E()
+    appcenter.exe!0x000C0EF0()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    80 14 F9 00                                                  ........ ........
+
+
+---------- Block 6 at 0x00F8D7E0: 4 bytes ----------
+  Leak Hash: 0x3065D217, Count: 1, Total 4 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x00090D5F()
+    appcenter.exe!0x000930E1()
+    appcenter.exe!0x000AF3EB()
+    appcenter.exe!0x00092FEC()
+    appcenter.exe!0x00093092()
+    appcenter.exe!0x00090A3F()
+    appcenter.exe!0x000AF0BD()
+    appcenter.exe!0x000930E1()
+    appcenter.exe!0x000AF3EB()
+    appcenter.exe!0x00092FEC()
+    appcenter.exe!0x000A289D()
+    appcenter.exe!0x000A9EB8()
+    appcenter.exe!0x0009E95C()
+    appcenter.exe!0x000ACEE6()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    D8 B2 06 01                                                  ........ ........
+
+
+---------- Block 25 at 0x00F91480: 48 bytes ----------
+  Leak Hash: 0x49974EE8, Count: 1, Total 48 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000809D2()
+    appcenter.exe!0x0008D5B7()
+    appcenter.exe!0x0007C5C6()
+    appbase.dll!BundleSender::setConnection() + 0x29C1B bytes
+    appbase.dll!BundleSender::setConnection() + 0x18D0E bytes
+    appcenter.exe!0x0008F15B()
+    appcenter.exe!0x000C107E()
+    appcenter.exe!0x000C0EF0()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    0C F7 BE 00    80 D9 02 02    BC 18 0D 00    92 C9 06 00     ........ ........
+    0C F7 00 00    80 D9 02 02    00 00 00 00    00 00 00 00     ........ ........
+    00 00 00 00    00 00 00 00    00 00 00 00    88 14 F9 00     ........ ........
+
+
+---------- Block 27 at 0x00F918A0: 48 bytes ----------
+  Leak Hash: 0x7A04CBAA, Count: 1, Total 48 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000807AA()
+    appcenter.exe!0x0008D5CE()
+    appcenter.exe!0x0007C5C6()
+    appbase.dll!BundleSender::setConnection() + 0x29C1B bytes
+    appbase.dll!BundleSender::setConnection() + 0x18D0E bytes
+    appcenter.exe!0x0008F15B()
+    appcenter.exe!0x000C107E()
+    appcenter.exe!0x000C0EF0()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    0C F7 BE 00    80 D9 02 02    E0 18 0D 00    1F D3 06 00     ........ ........
+    0C 00 00 00    80 D9 02 02    00 00 00 00    00 00 00 00     ........ ........
+    00 00 00 00    00 00 00 00    00 00 00 00    A8 18 F9 00     ........ ........
+
+
+---------- Block 9 at 0x00F919C0: 48 bytes ----------
+  Leak Hash: 0x49C34A00, Count: 1, Total 48 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000ACF1E()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    A8 31 0D 00    10 AE 06 01    00 00 00 00    00 00 00 00     .1...... ........
+    00 00 00 00    00 00 00 00    00 00 00 00    10 AE 06 01     ........ ........
+    00 00 00 00    00 00 00 00    00 00 00 00    00 00 00 00     ........ ........
+
+
+---------- Block 3 at 0x00FA6208: 8 bytes ----------
+  Leak Hash: 0x8A8D4D5E, Count: 1, Total 8 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x00076FE1()
+    appcenter.exe!0x00078F10()
+    appcenter.exe!0x00076DA8()
+    appcenter.exe!0x00075AC1()
+    appcenter.exe!0x00083C4A()
+    appcenter.exe!0x000AF09F()
+    appcenter.exe!0x000930E1()
+    appcenter.exe!0x000AF3EB()
+    appcenter.exe!0x00092FEC()
+    appcenter.exe!0x000A289D()
+    appcenter.exe!0x000A9EB8()
+    appcenter.exe!0x0009E95C()
+    appcenter.exe!0x000ACEE6()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    10 AE 06 01    00 00 00 00                                   ........ ........
+
+
+---------- Block 16 at 0x00FA6390: 8 bytes ----------
+  Leak Hash: 0xEDF71D27, Count: 1, Total 8 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x00076FE1()
+    appcenter.exe!0x00094C6B()
+    appcenter.exe!0x00094BEA()
+    appcenter.exe!0x000944C7()
+    appcenter.exe!0x000946AA()
+    appcenter.exe!0x00096014()
+    appcenter.exe!0x00090A63()
+    appcenter.exe!0x000AD1FD()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    4F DA 06 00    76 D6 06 00                                   O...v... ........
+
+
+---------- Block 5 at 0x00FA6400: 8 bytes ----------
+  Leak Hash: 0x43912FE3, Count: 1, Total 8 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x00076FE1()
+    appcenter.exe!0x00078F10()
+    appcenter.exe!0x00094C2A()
+    appcenter.exe!0x0009322C()
+    appcenter.exe!0x00091FC2()
+    appcenter.exe!0x00092535()
+    appcenter.exe!0x00090D44()
+    appcenter.exe!0x000930E1()
+    appcenter.exe!0x000AF3EB()
+    appcenter.exe!0x00092FEC()
+    appcenter.exe!0x00093092()
+    appcenter.exe!0x00090A3F()
+    appcenter.exe!0x000AF0BD()
+    appcenter.exe!0x000930E1()
+    appcenter.exe!0x000AF3EB()
+    appcenter.exe!0x00092FEC()
+    appcenter.exe!0x000A289D()
+    appcenter.exe!0x000A9EB8()
+    appcenter.exe!0x0009E95C()
+    appcenter.exe!0x000ACEE6()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    50 96 FA 00    00 00 00 00                                   P....... ........
+
+
+---------- Block 4 at 0x00FA9650: 16 bytes ----------
+  Leak Hash: 0xF929FDC9, Count: 1, Total 16 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x00090D30()
+    appcenter.exe!0x000930E1()
+    appcenter.exe!0x000AF3EB()
+    appcenter.exe!0x00092FEC()
+    appcenter.exe!0x00093092()
+    appcenter.exe!0x00090A3F()
+    appcenter.exe!0x000AF0BD()
+    appcenter.exe!0x000930E1()
+    appcenter.exe!0x000AF3EB()
+    appcenter.exe!0x00092FEC()
+    appcenter.exe!0x000A289D()
+    appcenter.exe!0x000A9EB8()
+    appcenter.exe!0x0009E95C()
+    appcenter.exe!0x000ACEE6()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    00 64 FA 00    90 63 FA 00    98 63 FA 00    98 63 FA 00     .d...c.. .c...c..
+
+
+---------- Block 1 at 0x00FB0568: 32 bytes ----------
+  Leak Hash: 0xDA11F9FA, Count: 1, Total 32 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000ACEC2()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    54 31 0D 00    10 AE 06 01    00 00 00 00    00 00 00 00     T1...... ........
+    00 00 00 00    10 AE 06 01    10 AE 06 01    00 00 00 00     ........ ........
+
+
+---------- Block 13 at 0x00FB05B8: 32 bytes ----------
+  Leak Hash: 0x70A3035A, Count: 1, Total 32 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000AD08E()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    F8 32 0D 00    10 AE 06 01    00 00 00 00    00 00 00 00     .2...... ........
+    00 00 00 00    00 00 00 00    00 00 00 00    10 AE 06 01     ........ ........
+
+
+---------- Block 10 at 0x00FB0838: 32 bytes ----------
+  Leak Hash: 0x9801AD85, Count: 1, Total 32 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000ACF7A()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    FC 31 0D 00    10 AE 06 01    00 00 00 00    00 00 00 00     .1...... ........
+    00 00 00 00    00 00 00 00    00 00 00 00    10 AE 06 01     ........ ........
+
+
+---------- Block 2 at 0x0106AE10: 28 bytes ----------
+  Leak Hash: 0x565213D9, Count: 1, Total 28 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000AF08B()
+    appcenter.exe!0x000930E1()
+    appcenter.exe!0x000AF3EB()
+    appcenter.exe!0x00092FEC()
+    appcenter.exe!0x000A289D()
+    appcenter.exe!0x000A9EB8()
+    appcenter.exe!0x0009E95C()
+    appcenter.exe!0x000ACEE6()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    08 62 FA 00    00 CD CD CD    CD CD CD CD    CD CD CD CD     .b...... ........
+    CD CD CD CD    00 00 00 00    0F 00 00 00                    ........ ........
+
+
+---------- Block 7 at 0x0106B2D8: 28 bytes ----------
+  Leak Hash: 0x6C8C7C1A, Count: 1, Total 28 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000902CF()
+    appcenter.exe!0x00090D7A()
+    appcenter.exe!0x000930E1()
+    appcenter.exe!0x000AF3EB()
+    appcenter.exe!0x00092FEC()
+    appcenter.exe!0x00093092()
+    appcenter.exe!0x00090A3F()
+    appcenter.exe!0x000AF0BD()
+    appcenter.exe!0x000930E1()
+    appcenter.exe!0x000AF3EB()
+    appcenter.exe!0x00092FEC()
+    appcenter.exe!0x000A289D()
+    appcenter.exe!0x000A9EB8()
+    appcenter.exe!0x0009E95C()
+    appcenter.exe!0x000ACEE6()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    FF FF FF FF    FF FF FF FF    00 00 00 00    00 00 00 00     ........ ........
+    00 00 00 00    D0 07 00 02    00 00 00 00                    ........ ........
+
+
+---------- Block 12 at 0x0106B320: 28 bytes ----------
+  Leak Hash: 0x4B85F459, Count: 1, Total 28 bytes
+  Call Stack (TID 17776):
+    ucrtbased.dll!malloc()
+    appcenter.exe!0x000C133D()
+    appcenter.exe!0x000AD032()
+    appcenter.exe!0x0009F1C8()
+    appcenter.exe!0x00071BF8()
+    ucrtbased.dll!initterm() + 0x49 bytes
+    appcenter.exe!0x000C0E5E()
+    appcenter.exe!0x000C0D8D()
+    appcenter.exe!0x000C10F8()
+    KERNEL32.DLL!BaseThreadInitThunk() + 0x24 bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xFD bytes
+    ntdll.dll!RtlGetAppContainerNamedObjectPath() + 0xCD bytes
+  Data:
+    A4 32 0D 00    10 AE 06 01    00 00 00 00    00 00 00 00     .2...... ........
+    00 00 00 00    98 35 F8 00    00 00 00 00                    .....5.. ........
+
+
+Visual Leak Detector detected 18 memory leaks (1148 bytes).
+Largest number used: 2420 bytes.
+Total allocations: 6280 bytes.
+Visual Leak Detector is now exiting.
