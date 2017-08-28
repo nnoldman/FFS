@@ -91,3 +91,4 @@
 /Test/memory_leak_report.txt
 /Test/x64/Debug
 /bin/Debug/COUT
+/appgame/Debug/*.log

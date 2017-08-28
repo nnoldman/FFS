@@ -15,7 +15,7 @@ void Connection::run()
         buffer_.clear();
         while (!closed_)
         {
-            if (ss.available() > 0)
+            if (ss.available() >= 0)
             {
                 int length = ss.receiveBytes(buffer_.getBuffer(), buffer_.length());
                 if (length > 0)
@@ -36,6 +36,10 @@ void Connection::run()
                         }
                     }
                     //length = ss.receiveBytes(buffer_.getBuffer(), buffer_.length());
+                }
+                else
+                {
+                    closed_ = true;
                 }
             }
             else
