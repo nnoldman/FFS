@@ -23,6 +23,7 @@ public:
     const char* tableName() const;
     const char* key2() const;
     const char* key() const;
+    const char* column(int index) const;
 private:
     void generateName();
 private:

@@ -23,6 +23,9 @@ public:
         };
         return TheTable;
     }
+
+
+
 public:
     CharBuffer<Default::NameSize> user;
     CharBuffer<Default::NameSize> password;
@@ -58,6 +61,15 @@ public:
         stream() << late_serverid1;
         stream() << late_serverid2;
         stream() << late_serverid3;
+    }
+    virtual void serializeForUpdate(stringstream& ss) override
+    {
+        startConcat(ss, GetDefine(), id);
+        concat(ss, GetDefine(), user);
+        concat(ss, GetDefine(), password);
+        concat(ss, GetDefine(), late_serverid1);
+        concat(ss, GetDefine(), late_serverid2);
+        concat(ss, GetDefine(), late_serverid3);
     }
 };
 

@@ -25,7 +25,7 @@ bool World::initialize()
 
 DBObject* World::get(Connection* connection)
 {
-    DBObject* ret;
+    DBObject* ret = nullptr;
     string key = connection->getSocket().address().toString();
     accounts_.Get(key, ret);
     return ret;
@@ -45,7 +45,7 @@ void World::reclaimAccount(Connection* connection)
 void World::onEnterWorld(Connection* connection,DBObject* account)
 {
     account->setConnection(connection);
-    DBObject* ret;
+    DBObject* ret = nullptr;
     string key = connection->getSocket().address().toString();
     accounts_.Get(key, ret);
     if (ret)

@@ -21,6 +21,6 @@ public:
 
 inline bool Role::valid() const
 {
-    return getDefine()->level > 0;
+    return getDefine()->id > 0;
 }
 

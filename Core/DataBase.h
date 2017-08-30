@@ -41,6 +41,7 @@ public:
      *	insert and record ,then execute query
      */
     bool insertAndQuery(Value keyvalue, OUT DBDefine* def);
+    bool insertAndQuery(const char* key, Value keyvalue, OUT DBDefine* def);
 
     bool insertDefaultByGUID(const char* table, const char* guid);
 

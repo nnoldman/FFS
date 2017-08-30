@@ -44,4 +44,10 @@ public:
 
         stream() << role;
     }
+
+    virtual void serializeForUpdate(stringstream& ss) override
+    {
+        startConcat(ss, GetDefine(), id);
+        concat(ss, GetDefine(), role);
+    }
 };

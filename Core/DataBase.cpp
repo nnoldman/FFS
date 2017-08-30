@@ -147,7 +147,12 @@ bool DataBase::commit(Value keyvalue, OUT DBDefine* def)
 
 bool DataBase::commit(OUT DBDefine* def)
 {
-    return insert(def);
+    stringstream ssupdate;
+    def->serializeForUpdate(ssupdate);
+    stringstream cmd;
+    cmd << "UPDATE " << def->table() << " SET " << ssupdate.str() << "WHERE id="<<def->id<<";";
+    mExecuter->queryBegin(cmd.str().c_str());
+    return mExecuter->queryEnd();
 }
 
 bool DataBase::insert(OUT DBDefine* def)
@@ -167,6 +172,16 @@ bool DataBase::insertAndQuery(Value keyvalue, OUT DBDefine* def)
     if (ret)
     {
         ret = pull(keyvalue, def);
+    }
+    return ret;
+}
+
+bool DataBase::insertAndQuery(const char* key, Value keyvalue, OUT DBDefine* def)
+{
+    bool ret = insert(def);
+    if (ret)
+    {
+        ret = pull(key, keyvalue, def);
     }
     return ret;
 }
