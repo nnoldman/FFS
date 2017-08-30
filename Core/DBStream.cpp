@@ -134,9 +134,9 @@ void DBStream::set(vector<string>& values)
 
 DBStream& DBStream::operator<<(string var)
 {
-    string container;
-    StringHelper::toString(container, &var);
-    contents_.push_back(container);
+    stringstream ss;
+    ss << "'" << var << "'";
+    contents_.push_back(ss.str());
     position_++;
     return *this;
 }

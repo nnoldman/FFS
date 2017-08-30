@@ -128,7 +128,10 @@ bool DataBase::pull(Value keyvalue, OUT DBDefine* def)
 bool DataBase::pull(const char* key, Value keyvalue, OUT DBDefine* def)
 {
     stringstream ss;
-    ss << "SELECT * FROM " << def->table() << " WHERE " << key << " = " << keyvalue.toString();
+    if (keyvalue.type()==Basic::ValueType::String)
+        ss << "SELECT * FROM " << def->table() << " WHERE " << key << " = '" << keyvalue.toString() << "'";
+    else
+        ss << "SELECT * FROM " << def->table() << " WHERE " << key << " = " << keyvalue.toString();
     mExecuter->queryBegin(ss.str().c_str());
     std::vector<string> records;
     auto ret = mExecuter->queryEnd(records);

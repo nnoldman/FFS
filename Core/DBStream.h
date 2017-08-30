@@ -68,7 +68,9 @@ template<int N>
 inline DBStream& DBStream::operator<<(Basic::CharBuffer<N>& var)
 {
     string container = var.c_str();
-    contents_.push_back(container);
+    stringstream ss;
+    ss << "'" << container << "'";
+    contents_.push_back(ss.str());
     position_++;
     return *this;
 }

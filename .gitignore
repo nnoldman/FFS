@@ -94,3 +94,4 @@
 /appgame/Debug/*.log
 /bin/Debug/appbase.dll
 /bin/Debug/appcenter.exe
+/appcenter/Debug/*.log

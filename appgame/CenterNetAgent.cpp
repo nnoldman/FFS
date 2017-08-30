@@ -98,7 +98,8 @@ void CenterNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect)
                     {
                         def->sex = req->sex();
                         def->job = req->job();
-                        if (!def->insertAndQuery(def->key2(),def->name.c_str()))
+                        //if (!def->insertAndQuery(def->key2(), def->name.c_str()))
+                        if (!def->insertAndQuery(def->key2(), def->name.c_str()))
                         {
                             assert(false);
                         }
