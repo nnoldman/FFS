@@ -48,22 +48,26 @@ struct StaticDescriptorInitializer_Cmd_2eproto {
   }
 } static_descriptor_initializer_Cmd_2eproto_;
 #endif
-bool CLIENT_COMMAND_IsValid(int value) {
+bool CLIENTID_IsValid(int value) {
   switch(value) {
     case 100:
     case 300:
     case 400:
+    case 500:
+    case 600:
       return true;
     default:
       return false;
   }
 }
 
-bool SERVER_COMMAND_IsValid(int value) {
+bool SERVERID_IsValid(int value) {
   switch(value) {
     case 100:
     case 300:
     case 400:
+    case 500:
+    case 600:
       return true;
     default:
       return false;

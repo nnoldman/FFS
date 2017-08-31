@@ -5,47 +5,65 @@
 #include "Connection.h"
 
 
-World::World() {
+World::World()
+{
 }
 
 
-World::~World() {
+World::~World()
+{
     App::Net.onDisconnect.remove(&World::onDisconnect, this);
-    dSafeDeleteMap2(mAccounts);
+    dSafeDeleteMap2(accounts_);
 }
 
-bool World::initialize() {
+bool World::initialize()
+{
     App::Net.onDisconnect.add(&World::onDisconnect, this);
     return true;
 }
 
-void World::reclaimAccount(DBObject* account) {
-    onAccountLeaveWorld.invoke(account);
 
-    assert(account);
-    assert(mAccounts.find(account->globalID()) != mAccounts.end());
-    mAccounts.erase(account->globalID());
-    dSafeDelete(account);
+DBObject* World::get(Connection* connection)
+{
+    DBObject* ret;
+    string key = connection->getSocket().address().toString();
+    accounts_.Get(key, ret);
+    return ret;
 }
 
-void World::onEnterWorld(DBObject* account) {
-    assert(mAccounts.find(account->globalID()) == mAccounts.end());
-    mAccounts.insert(make_pair(account->globalID(), account));
+void World::reclaimAccount(Connection* connection)
+{
+    string key = connection->getSocket().address().toString();
+    //onAccountLeaveWorld.invoke(account);
+    DBObject* ret;
+    accounts_.Get(key, ret);
+    assert(ret);
+    accounts_.erase(key);
+    dSafeDelete(ret);
+}
+
+void World::onEnterWorld(Connection* connection,DBObject* account)
+{
+    account->setConnection(connection);
+    DBObject* ret;
+    string key = connection->getSocket().address().toString();
+    accounts_.Get(key, ret);
+    if (ret)
+        return;
+    accounts_.insert(make_pair(key, account));
     onAccountEnterWorld.invoke(account);
 }
 
-void World::sync(int account_guid, string cmd) {
-    auto acc = mAccounts.find(account_guid);
-    assert(acc != mAccounts.end());
-    acc->second->sendDBToClient(cmd);
-}
 
-void World::onDisconnect(Connection* connection) {
-    auto ibegin = mAccounts.begin();
-    auto iend = mAccounts.end();
-    for (; ibegin != iend; ++ibegin) {
-        if (ibegin->second->getNetInterface() == connection) {
-            reclaimAccount(ibegin->second);
+void World::onDisconnect(Connection* connection)
+{
+    auto ibegin = accounts_.begin();
+    auto iend = accounts_.end();
+    for (; ibegin != iend; ++ibegin)
+    {
+        if (ibegin->second->getNetInterface() == connection)
+        {
+            reclaimAccount(ibegin->second->getNetInterface());
             return;
         }
     }

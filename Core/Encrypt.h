@@ -1,8 +1,7 @@
 #pragma once
-class Encrypt
+class COREAPI Encrypt
 {
 public:
-    Encrypt();
-    ~Encrypt();
+    static string makeLoginToken(int accountID,int time);
 };
 

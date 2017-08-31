@@ -6,8 +6,9 @@
 
 class DBDefine;
 
-class COREAPI DataBase {
-  public:
+class COREAPI DataBase
+{
+public:
     DataBase();
     ~DataBase();
 
@@ -32,8 +33,10 @@ class COREAPI DataBase {
     bool queryRecord(const char* cmd, std::vector<string>& result);
 
     bool pull(Value keyvalue, OUT DBDefine* def);
+    bool pull(const char* key, Value keyvalue, OUT DBDefine* def);
+    bool commit(OUT DBDefine* def);
     bool commit(Value keyvalue, OUT DBDefine* def);
-    bool insert(Value keyvalue, OUT DBDefine* def);
+    bool insert(OUT DBDefine* def);
     /*
      *	insert and record ,then execute query
      */
@@ -44,12 +47,31 @@ class COREAPI DataBase {
     DBExecuter& executer();
 
     DBTable* getTable(const char* name);
-
-  public:
+    template<typename T>
+    bool insertKeyValue(const char* table, T value, T value1)
+    {
+        stringstream str;
+        str << "INSERT INTO " << table << " VALUES (?,?) ";
+        try
+        {
+            *_pSession << str.str(), use(value), use(value1), now;
+            return true;
+        }
+        catch (ConnectionException& ce)
+        {
+            std::cout << ce.displayText() << std::endl;
+        }
+        catch (StatementException& se)
+        {
+            std::cout << se.displayText() << std::endl;
+        }
+        return false;
+    }
+public:
 
     bool createDB();
 
-  private:
+private:
 
     void generateConnectString();
     void reGetTables();
@@ -57,7 +79,7 @@ class COREAPI DataBase {
     //static void dbInfo(Poco::Data::Session& session);
     void bareboneMySQLTest(const char* host, const char* user, const char* pwd, const char* db, int port, const char* tableCreateString);
 
-  private:
+private:
 
     DBExecuter* mExecuter;
 
@@ -68,20 +90,8 @@ class COREAPI DataBase {
 
 
 
-template<typename T>
-bool DataBase::insertKeyValue(const char* table, T value, T value1) {
-    stringstream str;
-    str << "INSERT INTO " << table << " VALUES (?,?) ";
-    try {
-        *_pSession << str.str(), use(value), use(value1), now;
-        return true;
-    } catch (ConnectionException& ce) {
-        std::cout << ce.displayText() << std::endl;
-    } catch (StatementException& se) {
-        std::cout << se.displayText() << std::endl;
-    }
-    return false;
-}
-inline DBExecuter& DataBase::executer() {
+
+inline DBExecuter& DataBase::executer()
+{
     return *mExecuter;
 }

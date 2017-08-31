@@ -6,37 +6,29 @@ class DataBase;
 class COREAPI DBDefine
 {
 public:
+    int id;
+public:
     virtual ~DBDefine() {}
     virtual const char* table() = 0;
+
+    void setGlobalID(int id);
     virtual const char* key() = 0;
-    virtual const char* key2()
-    {
-        return nullptr;
-    }
+    virtual const char* key2();
 
-    virtual void deserialize() final
-    {
-        this->stream().moveToEnd();
-        this->deserializeMe();
-    }
-
-    virtual void serialize() final
-    {
-        this->stream().clear();
-        this->serializeMe();
-    }
+    virtual void deserialize() final;
+    virtual void serialize() final;
 
     virtual void serializeMe() = 0;
     virtual void deserializeMe() = 0;
 
-    void set(vector<string>& values)
-    {
-        stream_.set(values);
-    }
+    void set(vector<string>& values);
+    //use key()
     bool pull(Value keyvalue);
+    //use key()
     bool commit(Value keyvalue);
     bool insertAndQuery(Value keyvalue);
     bool getValues(stringstream& ss);
+    bool exist(const char* key, Value value);
 public:
     inline DBStream& stream()
     {
@@ -47,4 +39,8 @@ protected:
 private:
     DBStream stream_;
 };
+inline	void DBDefine::setGlobalID(int id)
+{
+    this->id = id;
+}
 

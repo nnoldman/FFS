@@ -1,9 +1,9 @@
 #pragma once
 #include "Connection.h"
 #include "DBDefine.h"
-#include "BaseObject.h"
-class Role;
-class Account : public BaseObject
+#include "DBObject.h"
+#include "GlobalAccountDefine.h"
+class Account : public DBObject
 {
 public:
     Account();
@@ -19,8 +19,9 @@ public:
 
     virtual void createDefine() override;
 
-protected:
-
-    Role* mActiveRole;
-
+    inline	GlobalAccountDefine* getDefine() const;
 };
+inline GlobalAccountDefine * Account::getDefine() const
+{
+    return (GlobalAccountDefine*)this->dbInterface_;
+}

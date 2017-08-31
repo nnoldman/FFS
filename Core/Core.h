@@ -4,6 +4,7 @@
 #include "Config.h"
 #include "NetWork.h"
 #include "DataBase.h"
+#include "Encrypt.h"
 #include "App.h"
 
 

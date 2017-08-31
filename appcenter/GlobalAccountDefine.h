@@ -26,7 +26,6 @@ public:
 public:
     CharBuffer<Default::NameSize> user;
     CharBuffer<Default::NameSize> password;
-    int id;
     int late_serverid1;
     int late_serverid2;
     int late_serverid3;

@@ -6,14 +6,17 @@
 #include "DBObject.h"
 
 
-Gate::Gate() {
+Gate::Gate()
+{
 }
 
 
-Gate::~Gate() {
+Gate::~Gate()
+{
 }
 
-void Gate::onEnter(DBObject* account) {
+void Gate::onEnter(DBObject* account)
+{
     //GlobalAccountDefine def;
     //App::DataBase.pull(account->globalID(), &def);
 }
