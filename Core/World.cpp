@@ -49,8 +49,17 @@ void World::onEnterWorld(Connection* connection,DBObject* account)
     string key = connection->getSocket().address().toString();
     accounts_.Get(key, ret);
     if (ret)
-        return;
-    accounts_.insert(make_pair(key, account));
+    {
+        if (ret->globalID() != account->globalID())
+        {
+            dSafeDelete(ret);
+            accounts_[key] = account;
+        }
+    }
+    else
+    {
+        accounts_.insert(make_pair(key, account));
+    }
     onAccountEnterWorld.invoke(account);
 }
 

@@ -11,7 +11,7 @@ BOOL WINAPI onControl(DWORD CtrlType)
     }
     return TRUE;
 }
-
+#pragma comment(linker, "/subsystem:\"windows\" /entry:\"mainCRTStartup\"")
 int main(int argc, const char** argv)
 {
     int ret = 0;

@@ -106,7 +106,10 @@ void CenterNetAgent::onMessage(ProtocoBuffer* pb, Connection* connect)
                         else
                         {
                             user->getDefine()->role = def->id;
-                            user->getDefine()->commit();
+                            if (!user->getDefine()->commit())
+                            {
+                                assert(false);
+                            }
                             gameRole->set_id(def->id);
                             if (role->valid())
                             {
