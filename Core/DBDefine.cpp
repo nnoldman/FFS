@@ -21,6 +21,7 @@ void DBDefine::serialize()
     this->serializeMe();
 }
 
+
 void DBDefine::set(vector<string>& values)
 {
     stream_.set(values);
@@ -31,15 +32,22 @@ bool DBDefine::pull(Value keyvalue)
     return App::DataBase.pull(keyvalue, this);
 }
 
-bool DBDefine::commit(Value keyvalue)
+bool DBDefine::commit()
 {
-    return App::DataBase.commit(keyvalue, this);
+    return App::DataBase.commit(this);
 }
 //delete from global_account where user = '123';
 bool DBDefine::insertAndQuery(Value keyvalue)
 {
     if (App::DataBase.insert(this))
         return pull(keyvalue);
+    return false;
+}
+
+bool DBDefine::insertAndQuery(const char* key, Value keyvalue)
+{
+    if (App::DataBase.insert(this))
+        return App::DataBase.pull(key, keyvalue, this);
     return false;
 }
 

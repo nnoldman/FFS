@@ -92,3 +92,6 @@
 /Test/x64/Debug
 /bin/Debug/COUT
 /appgame/Debug/*.log
+/bin/Debug/appbase.dll
+/bin/Debug/appcenter.exe
+/appcenter/Debug/*.log

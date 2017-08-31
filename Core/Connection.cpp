@@ -79,6 +79,7 @@ Connection::Connection(const Poco::Net::StreamSocket& s) : TCPServerConnection(s
 Connection::~Connection()
 {
     printf("~Connection()\n");
+    App::Net.onDisconnect.invoke(this);
 }
 
 

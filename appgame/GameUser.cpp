@@ -35,6 +35,11 @@ void GameUser::onEnterGate()
             role_.getDefine()->pull(def->role);
         }
     }
+    else
+    {
+        auto ret = def->insertAndQuery(def->id);
+        assert(ret);
+    }
 }
 
 Role* GameUser::getRole()

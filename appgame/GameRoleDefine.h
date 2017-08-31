@@ -39,6 +39,19 @@ public:
     {
         return GetDefine().key();
     }
+    virtual const char* key2() override
+    {
+        return GetDefine().key2();
+    }
+    virtual void serializeForUpdate(stringstream& ss) override
+    {
+        startConcat(ss, GetDefine(), id);
+        concat(ss, GetDefine(), name);
+        concat(ss, GetDefine(), vip);
+        concat(ss, GetDefine(), level);
+        concat(ss, GetDefine(), sex);
+        concat(ss, GetDefine(), job);
+    }
 
     virtual void deserializeMe() override
     {

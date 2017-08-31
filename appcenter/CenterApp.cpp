@@ -4,10 +4,12 @@
 #include "DBTableDefine.h"
 #include "GlobalRoleDefine.h"
 #include "GlobalAccountDefine.h"
+#include "HServer.h"
 
 CenterApp::CenterApp(int narg, const char** args)
     : App(narg, args)
     , mNetAgent(nullptr)
+    , hServer_(nullptr)
 {
 
 }
@@ -38,6 +40,8 @@ void CenterApp::archive()
 
 bool CenterApp::onInitializeEnd()
 {
+    hServer_ = new HServer();
+    hServer_->Start();
     return true;
 }
 

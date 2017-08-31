@@ -1,5 +1,6 @@
 #pragma once
 class LoginNetAgent;
+class HServer;
 class CenterApp :
     public App
 {
@@ -11,6 +12,7 @@ public:
     virtual bool parseCommandLine() override;
 private:
     LoginNetAgent* mNetAgent;
+    HServer* hServer_;
 protected:
     virtual void archive() override;
 

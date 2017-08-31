@@ -69,6 +69,12 @@ const char* DBTableDefine::key() const
     return primaryKey1.c_str();
 }
 
+const char* DBTableDefine::column(int index) const
+{
+    assert(index < columns.size());
+    return columns[index].name;
+}
+
 void DBTableDefine::generateName()
 {
     finalName_.clear();

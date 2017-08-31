@@ -69,23 +69,23 @@ const AccountErrorCode AccountErrorCode_MIN = AccountErrorCode_None;
 const AccountErrorCode AccountErrorCode_MAX = AccountErrorCode_LoginSucessed;
 const int AccountErrorCode_ARRAYSIZE = AccountErrorCode_MAX + 1;
 
-enum LoginGameServerErrorCode {
-  Sucess = 0,
-  Overdue = 1,
-  Invalid = 2
+enum LoginGameError {
+  LoginGameSucess = 0,
+  LoginGameOverdue = 1,
+  LoginGameInvalid = 2
 };
-bool LoginGameServerErrorCode_IsValid(int value);
-const LoginGameServerErrorCode LoginGameServerErrorCode_MIN = Sucess;
-const LoginGameServerErrorCode LoginGameServerErrorCode_MAX = Invalid;
-const int LoginGameServerErrorCode_ARRAYSIZE = LoginGameServerErrorCode_MAX + 1;
+bool LoginGameError_IsValid(int value);
+const LoginGameError LoginGameError_MIN = LoginGameSucess;
+const LoginGameError LoginGameError_MAX = LoginGameInvalid;
+const int LoginGameError_ARRAYSIZE = LoginGameError_MAX + 1;
 
 enum CreateRoleError {
-  CreateRoleError_Sucess = 0,
-  CreateRoleError_NameRepeated = 1
+  CreateRoleSucess = 0,
+  CreateRoleNameRepeated = 1
 };
 bool CreateRoleError_IsValid(int value);
-const CreateRoleError CreateRoleError_MIN = CreateRoleError_Sucess;
-const CreateRoleError CreateRoleError_MAX = CreateRoleError_NameRepeated;
+const CreateRoleError CreateRoleError_MIN = CreateRoleSucess;
+const CreateRoleError CreateRoleError_MAX = CreateRoleNameRepeated;
 const int CreateRoleError_ARRAYSIZE = CreateRoleError_MAX + 1;
 
 // ===================================================================
@@ -591,7 +591,7 @@ class GameRole : public ::google::protobuf::MessageLite /* @@protoc_insertion_po
 
   // accessors -------------------------------------------------------
 
-  // required int32 id = 1;
+  // optional int32 id = 1;
   bool has_id() const;
   void clear_id();
   static const int kIdFieldNumber = 1;
@@ -751,14 +751,14 @@ class RetLoginGameServer : public ::google::protobuf::MessageLite /* @@protoc_in
 
   // accessors -------------------------------------------------------
 
-  // required .Cmd.LoginGameServerErrorCode error = 1;
+  // optional .Cmd.LoginGameError error = 1;
   bool has_error() const;
   void clear_error();
   static const int kErrorFieldNumber = 1;
-  ::Cmd::LoginGameServerErrorCode error() const;
-  void set_error(::Cmd::LoginGameServerErrorCode value);
+  ::Cmd::LoginGameError error() const;
+  void set_error(::Cmd::LoginGameError value);
 
-  // required .Cmd.GameRole role = 2;
+  // optional .Cmd.GameRole role = 2;
   bool has_role() const;
   void clear_role();
   static const int kRoleFieldNumber = 2;
@@ -773,9 +773,6 @@ class RetLoginGameServer : public ::google::protobuf::MessageLite /* @@protoc_in
   inline void clear_has_error();
   inline void set_has_role();
   inline void clear_has_role();
-
-  // helper for ByteSize()
-  int RequiredFieldsByteSizeFallback() const;
 
   ::google::protobuf::internal::ArenaStringPtr _unknown_fields_;
   ::google::protobuf::Arena* _arena_ptr_;
@@ -1011,60 +1008,21 @@ class RetCreateRole : public ::google::protobuf::MessageLite /* @@protoc_inserti
   ::Cmd::CreateRoleError error() const;
   void set_error(::Cmd::CreateRoleError value);
 
-  // required int32 roleID = 2;
-  bool has_roleid() const;
-  void clear_roleid();
-  static const int kRoleIDFieldNumber = 2;
-  ::google::protobuf::int32 roleid() const;
-  void set_roleid(::google::protobuf::int32 value);
-
-  // required string name = 3;
-  bool has_name() const;
-  void clear_name();
-  static const int kNameFieldNumber = 3;
-  const ::std::string& name() const;
-  void set_name(const ::std::string& value);
-  void set_name(const char* value);
-  void set_name(const char* value, size_t size);
-  ::std::string* mutable_name();
-  ::std::string* release_name();
-  void set_allocated_name(::std::string* name);
-
-  // required int32 sex = 4;
-  bool has_sex() const;
-  void clear_sex();
-  static const int kSexFieldNumber = 4;
-  ::google::protobuf::int32 sex() const;
-  void set_sex(::google::protobuf::int32 value);
-
-  // required int32 job = 5;
-  bool has_job() const;
-  void clear_job();
-  static const int kJobFieldNumber = 5;
-  ::google::protobuf::int32 job() const;
-  void set_job(::google::protobuf::int32 value);
-
-  // required int32 vip = 6;
-  bool has_vip() const;
-  void clear_vip();
-  static const int kVipFieldNumber = 6;
-  ::google::protobuf::int32 vip() const;
-  void set_vip(::google::protobuf::int32 value);
+  // required .Cmd.GameRole role = 2;
+  bool has_role() const;
+  void clear_role();
+  static const int kRoleFieldNumber = 2;
+  const ::Cmd::GameRole& role() const;
+  ::Cmd::GameRole* mutable_role();
+  ::Cmd::GameRole* release_role();
+  void set_allocated_role(::Cmd::GameRole* role);
 
   // @@protoc_insertion_point(class_scope:Cmd.RetCreateRole)
  private:
   inline void set_has_error();
   inline void clear_has_error();
-  inline void set_has_roleid();
-  inline void clear_has_roleid();
-  inline void set_has_name();
-  inline void clear_has_name();
-  inline void set_has_sex();
-  inline void clear_has_sex();
-  inline void set_has_job();
-  inline void clear_has_job();
-  inline void set_has_vip();
-  inline void clear_has_vip();
+  inline void set_has_role();
+  inline void clear_has_role();
 
   // helper for ByteSize()
   int RequiredFieldsByteSizeFallback() const;
@@ -1074,12 +1032,8 @@ class RetCreateRole : public ::google::protobuf::MessageLite /* @@protoc_inserti
 
   ::google::protobuf::uint32 _has_bits_[1];
   mutable int _cached_size_;
+  ::Cmd::GameRole* role_;
   int error_;
-  ::google::protobuf::int32 roleid_;
-  ::google::protobuf::internal::ArenaStringPtr name_;
-  ::google::protobuf::int32 sex_;
-  ::google::protobuf::int32 job_;
-  ::google::protobuf::int32 vip_;
   #ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
   friend void  protobuf_AddDesc_Command_2eproto_impl();
   #else
@@ -1656,7 +1610,7 @@ inline void ReqLoginGameServer::set_allocated_token(::std::string* token) {
 
 // GameRole
 
-// required int32 id = 1;
+// optional int32 id = 1;
 inline bool GameRole::has_id() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1834,7 +1788,7 @@ inline void GameRole::set_vip(::google::protobuf::int32 value) {
 
 // RetLoginGameServer
 
-// required .Cmd.LoginGameServerErrorCode error = 1;
+// optional .Cmd.LoginGameError error = 1;
 inline bool RetLoginGameServer::has_error() const {
   return (_has_bits_[0] & 0x00000001u) != 0;
 }
@@ -1848,18 +1802,18 @@ inline void RetLoginGameServer::clear_error() {
   error_ = 0;
   clear_has_error();
 }
-inline ::Cmd::LoginGameServerErrorCode RetLoginGameServer::error() const {
+inline ::Cmd::LoginGameError RetLoginGameServer::error() const {
   // @@protoc_insertion_point(field_get:Cmd.RetLoginGameServer.error)
-  return static_cast< ::Cmd::LoginGameServerErrorCode >(error_);
+  return static_cast< ::Cmd::LoginGameError >(error_);
 }
-inline void RetLoginGameServer::set_error(::Cmd::LoginGameServerErrorCode value) {
-  assert(::Cmd::LoginGameServerErrorCode_IsValid(value));
+inline void RetLoginGameServer::set_error(::Cmd::LoginGameError value) {
+  assert(::Cmd::LoginGameError_IsValid(value));
   set_has_error();
   error_ = value;
   // @@protoc_insertion_point(field_set:Cmd.RetLoginGameServer.error)
 }
 
-// required .Cmd.GameRole role = 2;
+// optional .Cmd.GameRole role = 2;
 inline bool RetLoginGameServer::has_role() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
@@ -2042,154 +1996,52 @@ inline void RetCreateRole::set_error(::Cmd::CreateRoleError value) {
   // @@protoc_insertion_point(field_set:Cmd.RetCreateRole.error)
 }
 
-// required int32 roleID = 2;
-inline bool RetCreateRole::has_roleid() const {
+// required .Cmd.GameRole role = 2;
+inline bool RetCreateRole::has_role() const {
   return (_has_bits_[0] & 0x00000002u) != 0;
 }
-inline void RetCreateRole::set_has_roleid() {
+inline void RetCreateRole::set_has_role() {
   _has_bits_[0] |= 0x00000002u;
 }
-inline void RetCreateRole::clear_has_roleid() {
+inline void RetCreateRole::clear_has_role() {
   _has_bits_[0] &= ~0x00000002u;
 }
-inline void RetCreateRole::clear_roleid() {
-  roleid_ = 0;
-  clear_has_roleid();
+inline void RetCreateRole::clear_role() {
+  if (role_ != NULL) role_->::Cmd::GameRole::Clear();
+  clear_has_role();
 }
-inline ::google::protobuf::int32 RetCreateRole::roleid() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetCreateRole.roleID)
-  return roleid_;
+inline const ::Cmd::GameRole& RetCreateRole::role() const {
+  // @@protoc_insertion_point(field_get:Cmd.RetCreateRole.role)
+#ifdef GOOGLE_PROTOBUF_NO_STATIC_INITIALIZER
+  return role_ != NULL ? *role_ : *default_instance().role_;
+#else
+  return role_ != NULL ? *role_ : *default_instance_->role_;
+#endif
 }
-inline void RetCreateRole::set_roleid(::google::protobuf::int32 value) {
-  set_has_roleid();
-  roleid_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.RetCreateRole.roleID)
-}
-
-// required string name = 3;
-inline bool RetCreateRole::has_name() const {
-  return (_has_bits_[0] & 0x00000004u) != 0;
-}
-inline void RetCreateRole::set_has_name() {
-  _has_bits_[0] |= 0x00000004u;
-}
-inline void RetCreateRole::clear_has_name() {
-  _has_bits_[0] &= ~0x00000004u;
-}
-inline void RetCreateRole::clear_name() {
-  name_.ClearToEmptyNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-  clear_has_name();
-}
-inline const ::std::string& RetCreateRole::name() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetCreateRole.name)
-  return name_.GetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void RetCreateRole::set_name(const ::std::string& value) {
-  set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), value);
-  // @@protoc_insertion_point(field_set:Cmd.RetCreateRole.name)
-}
-inline void RetCreateRole::set_name(const char* value) {
-  set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), ::std::string(value));
-  // @@protoc_insertion_point(field_set_char:Cmd.RetCreateRole.name)
-}
-inline void RetCreateRole::set_name(const char* value, size_t size) {
-  set_has_name();
-  name_.SetNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(),
-      ::std::string(reinterpret_cast<const char*>(value), size));
-  // @@protoc_insertion_point(field_set_pointer:Cmd.RetCreateRole.name)
-}
-inline ::std::string* RetCreateRole::mutable_name() {
-  set_has_name();
-  // @@protoc_insertion_point(field_mutable:Cmd.RetCreateRole.name)
-  return name_.MutableNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline ::std::string* RetCreateRole::release_name() {
-  // @@protoc_insertion_point(field_release:Cmd.RetCreateRole.name)
-  clear_has_name();
-  return name_.ReleaseNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited());
-}
-inline void RetCreateRole::set_allocated_name(::std::string* name) {
-  if (name != NULL) {
-    set_has_name();
-  } else {
-    clear_has_name();
+inline ::Cmd::GameRole* RetCreateRole::mutable_role() {
+  set_has_role();
+  if (role_ == NULL) {
+    role_ = new ::Cmd::GameRole;
   }
-  name_.SetAllocatedNoArena(&::google::protobuf::internal::GetEmptyStringAlreadyInited(), name);
-  // @@protoc_insertion_point(field_set_allocated:Cmd.RetCreateRole.name)
+  // @@protoc_insertion_point(field_mutable:Cmd.RetCreateRole.role)
+  return role_;
 }
-
-// required int32 sex = 4;
-inline bool RetCreateRole::has_sex() const {
-  return (_has_bits_[0] & 0x00000008u) != 0;
+inline ::Cmd::GameRole* RetCreateRole::release_role() {
+  // @@protoc_insertion_point(field_release:Cmd.RetCreateRole.role)
+  clear_has_role();
+  ::Cmd::GameRole* temp = role_;
+  role_ = NULL;
+  return temp;
 }
-inline void RetCreateRole::set_has_sex() {
-  _has_bits_[0] |= 0x00000008u;
-}
-inline void RetCreateRole::clear_has_sex() {
-  _has_bits_[0] &= ~0x00000008u;
-}
-inline void RetCreateRole::clear_sex() {
-  sex_ = 0;
-  clear_has_sex();
-}
-inline ::google::protobuf::int32 RetCreateRole::sex() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetCreateRole.sex)
-  return sex_;
-}
-inline void RetCreateRole::set_sex(::google::protobuf::int32 value) {
-  set_has_sex();
-  sex_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.RetCreateRole.sex)
-}
-
-// required int32 job = 5;
-inline bool RetCreateRole::has_job() const {
-  return (_has_bits_[0] & 0x00000010u) != 0;
-}
-inline void RetCreateRole::set_has_job() {
-  _has_bits_[0] |= 0x00000010u;
-}
-inline void RetCreateRole::clear_has_job() {
-  _has_bits_[0] &= ~0x00000010u;
-}
-inline void RetCreateRole::clear_job() {
-  job_ = 0;
-  clear_has_job();
-}
-inline ::google::protobuf::int32 RetCreateRole::job() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetCreateRole.job)
-  return job_;
-}
-inline void RetCreateRole::set_job(::google::protobuf::int32 value) {
-  set_has_job();
-  job_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.RetCreateRole.job)
-}
-
-// required int32 vip = 6;
-inline bool RetCreateRole::has_vip() const {
-  return (_has_bits_[0] & 0x00000020u) != 0;
-}
-inline void RetCreateRole::set_has_vip() {
-  _has_bits_[0] |= 0x00000020u;
-}
-inline void RetCreateRole::clear_has_vip() {
-  _has_bits_[0] &= ~0x00000020u;
-}
-inline void RetCreateRole::clear_vip() {
-  vip_ = 0;
-  clear_has_vip();
-}
-inline ::google::protobuf::int32 RetCreateRole::vip() const {
-  // @@protoc_insertion_point(field_get:Cmd.RetCreateRole.vip)
-  return vip_;
-}
-inline void RetCreateRole::set_vip(::google::protobuf::int32 value) {
-  set_has_vip();
-  vip_ = value;
-  // @@protoc_insertion_point(field_set:Cmd.RetCreateRole.vip)
+inline void RetCreateRole::set_allocated_role(::Cmd::GameRole* role) {
+  delete role_;
+  role_ = role;
+  if (role) {
+    set_has_role();
+  } else {
+    clear_has_role();
+  }
+  // @@protoc_insertion_point(field_set_allocated:Cmd.RetCreateRole.role)
 }
 
 // -------------------------------------------------------------------
@@ -2372,7 +2224,7 @@ namespace protobuf {
 
 template <> struct is_proto_enum< ::Cmd::AccountAction> : ::google::protobuf::internal::true_type {};
 template <> struct is_proto_enum< ::Cmd::AccountErrorCode> : ::google::protobuf::internal::true_type {};
-template <> struct is_proto_enum< ::Cmd::LoginGameServerErrorCode> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::Cmd::LoginGameError> : ::google::protobuf::internal::true_type {};
 template <> struct is_proto_enum< ::Cmd::CreateRoleError> : ::google::protobuf::internal::true_type {};
 
 }  // namespace protobuf
