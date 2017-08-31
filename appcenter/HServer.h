@@ -9,5 +9,6 @@ public:
     void Start();
 private:
     Poco::Net::HTTPServer*    server_;
+    u16 port_;
 };
 
