@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "HServer.h"
 
-// 출처: http://codezine.jp/article/download/1064
-// 간단 웹 서버
-
 #include "Poco/Net/HTTPServer.h"
 #include "Poco/Net/HTTPRequestHandler.h"
 #include "Poco/Net/HTTPRequestHandlerFactory.h"
@@ -20,7 +17,9 @@
 #include "Poco/CountingStream.h"
 #include "Poco/NullStream.h"
 #include "Poco/StreamCopier.h"
-class MyPartHandler: public Poco::Net::PartHandler
+#include "Poco/URI.h"
+
+class MyPartHandler : public Poco::Net::PartHandler
 {
 public:
     MyPartHandler() :
@@ -210,11 +209,13 @@ public:
     Poco::Net::HTTPRequestHandler*
     createRequestHandler(const Poco::Net::HTTPServerRequest& request)
     {
-        auto uri = request.getURI();
-        if (uri.size() > 2 && uri[0] == '/'&&uri[1] == '?')
-        {
+        auto strUri = request.getURI();
+        URI uri(strUri);
+        auto query = uri.getQuery();
+        auto path = uri.getPath();
+        if (!query.empty())
             return new FormRequestHandler();
-        }
+
         std::string fpass = ".";
         fpass += request.getURI();
 
