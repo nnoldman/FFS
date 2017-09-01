@@ -33,6 +33,18 @@
     <ClInclude Include="test_delegate.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="test_time.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test_bitset.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test_tree.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test_array.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -45,6 +57,18 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="test_delegate.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_time.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_bitset.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_tree.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_array.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
