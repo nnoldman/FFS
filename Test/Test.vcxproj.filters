@@ -45,6 +45,12 @@
     <ClInclude Include="test_array.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="test_any.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="test_move.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -69,6 +75,12 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="test_array.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_any.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="test_move.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

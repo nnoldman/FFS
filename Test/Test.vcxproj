@@ -148,9 +148,11 @@
     <ClInclude Include="Delegate.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="test_any.h" />
     <ClInclude Include="test_array.h" />
     <ClInclude Include="test_bitset.h" />
     <ClInclude Include="test_delegate.h" />
+    <ClInclude Include="test_move.h" />
     <ClInclude Include="test_shared_pointer.h" />
     <ClInclude Include="test_time.h" />
     <ClInclude Include="test_tree.h" />
@@ -163,9 +165,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Test.cpp" />
+    <ClCompile Include="test_any.cpp" />
     <ClCompile Include="test_array.cpp" />
     <ClCompile Include="test_bitset.cpp" />
     <ClCompile Include="test_delegate.cpp" />
+    <ClCompile Include="test_move.cpp" />
     <ClCompile Include="test_shared_pointer.cpp" />
     <ClCompile Include="test_time.cpp" />
     <ClCompile Include="test_tree.cpp" />

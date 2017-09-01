@@ -9,6 +9,7 @@
 #include "test_time.h"
 #include "test_bitset.h"
 #include "test_array.h"
+#include "test_move.h"
 
 
 int main()
@@ -28,6 +29,9 @@ int main()
     }
     {
         test_array test;
+    }
+    {
+        test_move test;
     }
     int* pInt = new int[30];
 

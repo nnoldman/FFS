@@ -4,6 +4,7 @@
 #include "Role.h"
 class GameUser:public DBObject
 {
+    DeclareObjectPool(GameUser);
 public:
     GameUser();
     ~GameUser();

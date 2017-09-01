@@ -18,7 +18,6 @@ test_time::test_time()
     t.tm_min = 22;
     t.tm_sec = 5;
 
-    time_t gtime1 = _mkgmtime(0);
     time_t gtime = _mkgmtime(&t);
     errno_t ret = gmtime_s(&t, &gtime);
 
