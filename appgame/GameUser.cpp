@@ -2,6 +2,7 @@
 #include "GameUser.h"
 #include "GameUserDefine.h"
 
+ImplementObjectPoolN(GameUser, 4096);
 
 GameUser::GameUser()
 {

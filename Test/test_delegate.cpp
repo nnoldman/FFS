@@ -1,30 +1,35 @@
 #include "stdafx.h"
 #include "test_delegate.h"
 #include "Delegate.h"
-class ObjectA {
-  public:
+class ObjectA
+{
+public:
     Delegate<void> onOpenUI;
     Delegate1<void, int> onOpenUI1;
     Delegate2<void, int, int> onOpenUI2;
     Delegate3<void, int, int, int> onOpenUI3;
     int name = 12;
-  public:
-    void OpenUI() {
+public:
+    void OpenUI()
+    {
         onOpenUI.invoke();
     }
 };
 
-inline bool operator== (const ObjectA & lhs, const ObjectA & rhs) {
+inline bool operator== (const ObjectA& lhs, const ObjectA& rhs)
+{
     return lhs.name == rhs.name;
 }
 
 
-class VoidIntDelegate {
-  private:
+class VoidIntDelegate
+{
+private:
     vector<std::function<void(int)>> mCallbackObjects;
-  public:
+public:
     template<typename FX, typename T>
-    void add(FX&& func, T* obj) {
+    void add(FX&& func, T* obj)
+    {
         std::function<void(int)> object = std::bind(func, obj, std::placeholders::_1);
         //for (auto iter = mCallbackObjects.begin(); iter != mCallbackObjects.end(); ++iter) {
         //    if (std::equal_to(*iter, object)) {
@@ -35,15 +40,18 @@ class VoidIntDelegate {
         mCallbackObjects.push_back(object);
     }
 
-    void invoke(int num) {
-        for (auto iter = mCallbackObjects.begin(); iter != mCallbackObjects.end(); ++iter) {
+    void invoke(int num)
+    {
+        for (auto iter = mCallbackObjects.begin(); iter != mCallbackObjects.end(); ++iter)
+        {
             (*iter)(num);
         }
     }
 };
 
 
-test_delegate::test_delegate() {
+test_delegate::test_delegate()
+{
     //base1.onOpenUI.add(this, &test_delegate::onOpenUI);
 
     {
@@ -72,12 +80,13 @@ test_delegate::test_delegate() {
     }
 
     {
-        ObjectA base1;
-        vector<ObjectA> basearray;
-        basearray.push_back(base1);
-        assert(basearray.end() != std::find(basearray.begin(), basearray.end(), base1));
+        //ObjectA base1;
+        //vector<ObjectA> basearray;
+        //basearray.push_back(base1);
+        //assert(basearray.end() != std::find(basearray.begin(), basearray.end(), base1));
     }
 }
 
-test_delegate::~test_delegate() {
+test_delegate::~test_delegate()
+{
 }
